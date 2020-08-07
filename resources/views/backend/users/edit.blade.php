@@ -24,13 +24,13 @@
           @enderror
         </div>
 
-        <div class="form-group">
+        {{-- <div class="form-group">
             <label for="inputPassword" class="col-form-label">Password</label>
           <input id="inputPassword" type="password" name="password" placeholder="Enter password"  value="{{$user->password}}" class="form-control">
           @error('password')
           <span class="text-danger">{{$message}}</span>
           @enderror
-        </div>
+        </div> --}}
 
         <div class="form-group">
         <label for="inputPhoto" class="col-form-label">Photo</label>
@@ -43,7 +43,7 @@
             <input id="thumbnail" class="form-control" type="text" name="photo" value="{{$user->photo}}">
         </div>
         <img id="holder" style="margin-top:15px;max-height:100px;">
-          @error('password')
+          @error('photo')
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
@@ -68,15 +68,14 @@
             <label for="status" class="col-form-label">Status</label>
             <select name="status" class="form-control">
                 <option value="active" {{(($user->status=='active') ? 'selected' : '')}}>Active</option>
-                <option value="inactive" {{(($user->status=='active') ? 'selected' : '')}}>Inactive</option>
+                <option value="inactive" {{(($user->status=='inactive') ? 'selected' : '')}}>Inactive</option>
             </select>
           @error('status')
           <span class="text-danger">{{$message}}</span>
           @enderror
           </div>
         <div class="form-group mb-3">
-          <button type="reset" class="btn btn-warning">Reset</button>
-           <button class="btn btn-success" type="submit">Submit</button>
+           <button class="btn btn-success" type="submit">Update</button>
         </div>
       </form>
     </div>

@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+
+
+
 class HomeController extends Controller
 {
     /**
@@ -21,7 +24,10 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index(Request $request){
-        return redirect()->route($request->user()->role);
+
+
+    public function index(){
+        return view('user.index');
     }
+    
 }

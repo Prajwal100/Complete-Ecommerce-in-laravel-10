@@ -98,14 +98,12 @@ class UsersController extends Controller
         [
             'name'=>'string|required|max:30',
             'email'=>'string|required',
-            'password'=>'string|required',
             'role'=>'required|in:admin,user',
             'status'=>'required|in:active,inactive',
             'photo'=>'nullable|string',
         ]);
         // dd($request->all());
         $data=$request->all();
-        $data['password']=Hash::make($request->password);
         // dd($data);
         
         $status=$user->fill($data)->save();
