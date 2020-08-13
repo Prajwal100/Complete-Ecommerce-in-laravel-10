@@ -315,7 +315,7 @@ Version:1.0
 	background: #fff;
     width: 220px;
     position: absolute;
-    left: 186px;
+    left: 200px;
     top: 0;
     z-index: 999;
    -webkit-box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
@@ -1787,6 +1787,23 @@ Version:1.0
 }
 .single-product .product-img a span.new {
 	background-color: #8493ca;
+	display: inline-block;
+	font-size: 11px;
+	color: #fff;
+	right: 20px;
+	top: 20px;
+	padding: 1px 16px;
+	font-weight: 700;
+	border-radius: 0;
+	text-align: center;
+	position: absolute;
+	text-transform: uppercase;
+	border-radius: 30px;
+	height: 26px;
+	line-height: 24px;
+}
+.single-product .product-img a span.hot {
+	background-color: #2cc95b;
 	display: inline-block;
 	font-size: 11px;
 	color: #fff;
@@ -3321,57 +3338,7 @@ Version:1.0
 	padding: 0px 30px;
 	margin-top:30px;
 }
-.shop.checkout .single-widget .checkbox label {
-	color: #555555;
-	position: relative;
-	font-size: 14px;
-	padding-left: 20px;
-	margin-top: -5px;
-	font-weight: 400;
-	display: block;
-	margin-bottom: 15px;
-}
-.shop.checkout .single-widget .checkbox label:last-child{
-	margin-bottom:0;
-}
-.shop.checkout .single-widget .checkbox label:hover{
-	cursor:pointer;
-}
-.shop.checkout .single-widget .checkbox label input{
-	display:none;
-}
-.shop.checkout .single-widget .checkbox label::before {
-	position: absolute;
-	content: "";
-	left: 0;
-	top: 7px;
-	width: 12px;
-	height: 12px;
-	line-height: 16px;
-	border: 1px solid #666;
-	border-radius: 100%;
-}
-.shop.checkout .single-widget .checkbox label::after {
-	position: absolute;
-	content: "";
-	left: 0;
-	top: 7px;
-	width: 12px;
-	height: 12px;
-	line-height: 16px;
-	border-radius: 100%;
-	display:block;
-	background:#666;
-	transform:scale(0);
-	-webkit-transition:all 0.4s ease;
-	-moz-transition:all 0.4s ease;
-	transition:all 0.4s ease;
-}
-.shop.checkout .single-widget .checkbox label.checked::after{
-	opacity:1;
-	visibility:visible;
-	transform:scale(1);
-}
+
 .shop.checkout .single-widget.payement {
 	padding: 0px 38px;
 	text-align: center;
@@ -3670,7 +3637,7 @@ Version:1.0
 .cown-down .content .heading-block{
 	position:absolute;
 	left:0;
-	top:50%;
+	top:26%;
 	transform:translateY(-50%);
 	padding: 75px;
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Order @if($order)- {{$order->cart_id}} @endif</title>
+  <title>Order @if($order)- {{$order->order_number}} @endif</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
@@ -99,7 +99,7 @@
        </div>
     </div>
     <div class="invoice-right-top float-right" class="text-right">
-      <h3>Invoice #{{$order->cart_id}}</h3>
+      <h3>Invoice #{{$order->order_number}}</h3>
       <p>{{ $order->created_at->format('D d m Y') }}</p>
       {{-- <img class="img-responsive" src="data:image/png;base64, {{ base64_encode(QrCode::format('png')->size(150)->generate(route('admin.product.order.show', $order->id )))}}"> --}}
     </div>
@@ -148,8 +148,11 @@
       @endif --}}
         <tr>
           <th scope="col" class="empty"></th>
+          @php
+            $shipping_charge=DB::table('shippings')->where('id',$order->shipping_id)->pluck('price');
+          @endphp
           <th scope="col" class="text-right ">Shipping:</th>
-          <th><span>${{number_format($order->delivery_charge,2)}}</span></th>
+          <th><span>${{number_format($shipping_charge[0],2)}}</span></th>
         </tr>
         <tr>
           <th scope="col" class="empty"></th>

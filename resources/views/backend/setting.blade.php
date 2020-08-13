@@ -23,6 +23,24 @@
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
+
+        <div class="form-group">
+          <label for="inputPhoto" class="col-form-label">Logo <span class="text-danger">*</span></label>
+          <div class="input-group">
+              <span class="input-group-btn">
+                  <a id="lfm1" data-input="thumbnail1" data-preview="holder1" class="btn btn-primary">
+                  <i class="fa fa-picture-o"></i> Choose
+                  </a>
+              </span>
+          <input id="thumbnail1" class="form-control" type="text" name="logo" value="{{$data->logo}}">
+        </div>
+        <div id="holder1" style="margin-top:15px;max-height:100px;"></div>
+
+          @error('logo')
+          <span class="text-danger">{{$message}}</span>
+          @enderror
+        </div>
+
         <div class="form-group">
           <label for="inputPhoto" class="col-form-label">Photo <span class="text-danger">*</span></label>
           <div class="input-group">
@@ -62,35 +80,6 @@
           @enderror
         </div>
 
-        <div class="form-group">
-          <label for="facebook" class="col-form-label">Facebook</label>
-          <input type="text" class="form-control" name="facebook" required value="{{$data->facebook}}">
-          @error('facebook')
-          <span class="text-danger">{{$message}}</span>
-          @enderror
-        </div>
-
-        <div class="form-group">
-          <label for="instagram" class="col-form-label">Instagram</label>
-          <input type="text" class="form-control" name="instagram" required value="{{$data->instagram}}">
-          @error('instagram')
-          <span class="text-danger">{{$message}}</span>
-          @enderror
-        </div>
-        <div class="form-group">
-          <label for="youtube" class="col-form-label">Youtube</label>
-          <input type="text" class="form-control" name="youtube" required value="{{$data->youtube}}">
-          @error('youtube')
-          <span class="text-danger">{{$message}}</span>
-          @enderror
-        </div>
-        <div class="form-group">
-          <label for="twitter" class="col-form-label">Twitter</label>
-          <input type="text" class="form-control" name="twitter" required value="{{$data->twitter}}">
-          @error('twitter')
-          <span class="text-danger">{{$message}}</span>
-          @enderror
-        </div>
         <div class="form-group mb-3">
            <button class="btn btn-success" type="submit">Update</button>
         </div>
@@ -112,7 +101,7 @@
 
 <script>
     $('#lfm').filemanager('image');
-
+    $('#lfm1').filemanager('image');
     $(document).ready(function() {
     $('#summary').summernote({
       placeholder: "Write short description.....",

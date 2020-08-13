@@ -3,10 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\Models\Cart;
 class Product extends Model
 {
-    protected $fillable=['title','slug','summary','description','cat_id','child_cat_id','price','brand_id','discount','status','photo','size','stock','is_featured'];
+    protected $fillable=['title','slug','summary','description','cat_id','child_cat_id','price','brand_id','discount','status','photo','size','stock','is_featured','condition'];
 
     public function cat_info(){
         return $this->hasOne('App\Models\Category','id','cat_id');
@@ -32,6 +32,14 @@ class Product extends Model
             return $data;
         }
         return 0;
+    }
+
+    public function carts(){
+        return $this->hasMany(Cart::class)->whereNotNull('order_id');
+    }
+
+    public function wishlists(){
+        return $this->hasMany(Wishlist::class)->whereNotNull('cart_id');
     }
 
 }

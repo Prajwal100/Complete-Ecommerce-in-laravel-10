@@ -95,13 +95,21 @@
         </div>
         <div class="form-group">
           <label for="brand_id">Brand</label>
-          {{-- {{$brands}} --}}
-
           <select name="brand_id" class="form-control">
               <option value="">--Select Brand--</option>
              @foreach($brands as $brand)
               <option value="{{$brand->id}}" {{(($product->brand_id==$brand->id)? 'selected':'')}}>{{$brand->title}}</option>
              @endforeach
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="condition">Condition</label>
+          <select name="condition" class="form-control">
+              <option value="">--Select Condition--</option>
+              <option value="default" {{(($product->condition=='default')? 'selected':'')}}>Default</option>
+              <option value="new" {{(($product->condition=='new')? 'selected':'')}}>New</option>
+              <option value="hot" {{(($product->condition=='hot')? 'selected':'')}}>Hot</option>
           </select>
         </div>
 

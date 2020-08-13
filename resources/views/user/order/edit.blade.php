@@ -1,4 +1,4 @@
-@extends('backend.layouts.master')
+@extends('user.layouts.master')
 
 @section('title','Order Detail')
 

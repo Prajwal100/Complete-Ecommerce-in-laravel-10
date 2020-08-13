@@ -1,15 +1,15 @@
-@extends('backend.layouts.master')
+@extends('user.layouts.master')
 
 @section('main-content')
 <div class="container-fluid">
-    @include('backend.layouts.notification')
+    @include('user.layouts.notification')
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
       <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
     </div>
 
     <!-- Content Row -->
-    <div class="row">
+    {{-- <div class="row">
 
       <!-- Category -->
       <div class="col-xl-3 col-md-6 mb-4">
@@ -83,13 +83,13 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> --}}
 
     <!-- Content Row -->
 
     <div class="row">
       @php
-          $orders=DB::table('orders')->paginate(10);
+          $orders=DB::table('orders')->where('user_id',auth()->user()->id)->paginate(10);
       @endphp
       <!-- Order -->
       <div class="col-xl-12 col-lg-12">
@@ -101,7 +101,6 @@
               <th>Name</th>
               <th>Email</th>
               <th>Quantity</th>
-              <th>Charge</th>
               <th>Total Amount</th>
               <th>Status</th>
               <th>Action</th>
@@ -114,21 +113,20 @@
               <th>Name</th>
               <th>Email</th>
               <th>Quantity</th>
-              <th>Charge</th>
               <th>Total Amount</th>
               <th>Status</th>
               <th>Action</th>
               </tr>
           </tfoot>
           <tbody>
-            @foreach($orders as $order)   
+            @if(count($orders)>0)
+              @foreach($orders as $order)   
                 <tr>
                     <td>{{$order->id}}</td>
-                    <td>{{$order->cart_id}}</td>
+                    <td>{{$order->order_number}}</td>
                     <td>{{$order->first_name}} {{$order->last_name}}</td>
                     <td>{{$order->email}}</td>
                     <td>{{$order->quantity}}</td>
-                    <td>${{number_format($order->delivery_charge,2)}}</td>
                     <td>${{number_format($order->total_amount,2)}}</td>
                     <td>
                         @if($order->status=='new')
@@ -151,9 +149,13 @@
                         </form>
                     </td>
                 </tr>  
-            @endforeach
+              @endforeach
+              @else
+                <td colspan="8" class="text-center"><h4 class="my-4">You have no order yet!! Please order some products</h4></td>
+              @endif
           </tbody>
         </table>
+
         {{$orders->links()}}
       </div>
     </div>

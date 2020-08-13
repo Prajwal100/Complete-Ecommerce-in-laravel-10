@@ -15,12 +15,11 @@ class User
      */
     public function handle($request, Closure $next)
     {
-        if($request->user()->role=='user'){
-            return $next($request);
+        if(empty(session('user'))){
+            return redirect()->route('login.form');
         }
         else{
-            request()->session()->flash('error','You do not have any permission to access this page');
-            return redirect()->route($request->user()->role);
+            return $next($request);
         }
     }
 }

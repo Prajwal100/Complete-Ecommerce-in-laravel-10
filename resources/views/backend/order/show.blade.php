@@ -16,7 +16,6 @@
             <th>Name</th>
             <th>Email</th>
             <th>Quantity</th>
-            <th>Charge</th>
             <th>Total Amount</th>
             <th>Status</th>
             <th>Action</th>
@@ -25,11 +24,10 @@
       <tbody>
         <tr>
             <td>{{$order->id}}</td>
-            <td>{{$order->cart_id}}</td>
+            <td>{{$order->order_number}}</td>
             <td>{{$order->first_name}} {{$order->last_name}}</td>
             <td>{{$order->email}}</td>
             <td>{{$order->quantity}}</td>
-            <td>${{number_format($order->delivery_charge,2)}}</td>
             <td>${{number_format($order->total_amount,2)}}</td>
             <td>
                 @if($order->status=='new')
@@ -64,7 +62,7 @@
               <table class="table">
                     <tr class="">
                         <td>Order Number</td>
-                        <td> : {{$order->cart_id}}</td>
+                        <td> : {{$order->order_number}}</td>
                     </tr>
                     <tr>
                         <td>Order Date</td>
@@ -79,8 +77,15 @@
                         <td> : {{$order->status}}</td>
                     </tr>
                     <tr>
+                      @php
+                          $shipping_charge=DB::table('shippings')->where('id',$order->shipping_id)->pluck('price');
+                      @endphp
                         <td>Shipping Charge</td>
-                        <td> : $ {{number_format($order->delivery_charge,2)}}</td>
+                        <td> : $ {{number_format($shipping_charge[0],2)}}</td>
+                    </tr>
+                    <tr>
+                      <td>Coupon</td>
+                      <td> : $ {{number_format($order->coupon,2)}}</td>
                     </tr>
                     <tr>
                         <td>Total Amount</td>
@@ -88,11 +93,11 @@
                     </tr>
                     <tr>
                         <td>Payment Method</td>
-                        <td> : </td>
+                        <td> : @if($order->payment_method=='cod') Cash on Delivery @else Paypal @endif</td>
                     </tr>
                     <tr>
                         <td>Payment Status</td>
-                        <td> : </td>
+                        <td> : {{$order->payment_status}}</td>
                     </tr>
               </table>
             </div>

@@ -36,6 +36,7 @@
                                     <div class="blog-meta">
                                         <span class="author"><a href="javascript:void(0);"><i class="fa fa-user"></i>By {{$post->author_info['name']}}</a><a href="javascript:void(0);"><i class="fa fa-calendar"></i>{{$post->created_at->format('M d, Y')}}</a><a href="javascript:void(0);"><i class="fa fa-comments"></i>Comment ({{$post->allComments->count()}})</a></span>
                                     </div>
+                                    <div class="sharethis-inline-reaction-buttons"></div>
                                     <div class="content">
                                         @if($post->quote)
                                         <blockquote> <i class="fa fa-quote-left"></i> {!! ($post->quote) !!}</blockquote>
@@ -67,7 +68,7 @@
                                     <div class="reply-head comment-form" id="commentFormContainer">
                                         <h2 class="reply-title">Leave a Comment</h2>
                                         <!-- Comment Form -->
-                                        <form class="form comment_form" id="commentForm" action="{{route('comment.store',$post->slug)}}" method="POST">
+                                        <form class="form comment_form" id="commentForm" action="{{route('post-comment.store',$post->slug)}}" method="POST">
                                             @csrf
                                             <div class="row">
                                                 {{-- <div class="col-lg-6 col-md-6 col-12">
@@ -206,7 +207,9 @@
     </section>
     <!--/ End Blog Single -->
 @endsection
-
+@push('styles')
+<script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=5f2e5abf393162001291e431&product=inline-share-buttons' async='async'></script>
+@endpush
 @push('scripts')
 <script>
 $(document).ready(function(){

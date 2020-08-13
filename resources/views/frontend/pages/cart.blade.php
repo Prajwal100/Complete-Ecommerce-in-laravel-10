@@ -35,82 +35,63 @@
 								<th class="text-center"><i class="ti-trash remove-icon"></i></th>
 							</tr>
 						</thead>
-						<tbody>
-							@if(session('cart'))
-								@foreach(session('cart') as $key=>$cart)
-									{{-- <tr>
-										@php 
-										$photo=explode(',',$cart['photo']);
-										@endphp
-										<td class="image" data-title="No"><img src="{{$photo[0]}}" alt="{{$photo[0]}}"></td>
-										<td class="product-des" data-title="Description">
-											<p class="product-name"><a href="{{$cart['link']}}">{{$cart['title']}}</a></p>
-											<p class="product-des">{!!($cart['summary']) !!}</p>
-										</td>
-										<td class="price" data-title="Price"><span>${{number_format($cart['price'],2)}}</span></td>
-										<td class="qty" data-title="Qty"><!-- Input Order -->
-											<div class="input-group">
-												<div class="button minus">
-													<button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
-														<i class="ti-minus"></i>
-													</button>
+						<tbody id="cart_item_list">
+							<form action="{{route('cart.update')}}" method="POST">
+								@csrf
+								@if(Helper::getAllProductFromCart())
+									@foreach(Helper::getAllProductFromCart() as $key=>$cart)
+										<tr>
+											@php 
+											$photo=explode(',',$cart->product['photo']);
+											@endphp
+											<td class="image" data-title="No"><img src="{{$photo[0]}}" alt="{{$photo[0]}}"></td>
+											<td class="product-des" data-title="Description">
+												<p class="product-name"><a href="{{route('product-detail',$cart->product['slug'])}}" target="_blank">{{$cart->product['title']}}</a></p>
+												<p class="product-des">{!!($cart['summary']) !!}</p>
+											</td>
+											<td class="price" data-title="Price"><span>${{number_format($cart['price'],2)}}</span></td>
+											<td class="qty" data-title="Qty"><!-- Input Order -->
+												<div class="input-group">
+													<div class="button minus">
+														<button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="quant[{{$key}}]">
+															<i class="ti-minus"></i>
+														</button>
+													</div>
+													<input type="text" name="quant[{{$key}}]" class="input-number"  data-min="1" data-max="100" value="{{$cart->quantity}}">
+													<input type="hidden" name="qty_id[]" value="{{$cart->id}}">
+													<div class="button plus">
+														<button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[{{$key}}]">
+															<i class="ti-plus"></i>
+														</button>
+													</div>
 												</div>
-											<input type="text" name="quant[]" class="input-number"  data-min="1" data-max="100" value="{{$cart['quantity']}}">
-												<div class="button plus">
-													<button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[1]">
-														<i class="ti-plus"></i>
-													</button>
-												</div>
-											</div>
-											<!--/ End Input Order -->
-										</td>
-										<td class="total-amount cart_single_price" data-title="Total"><span class="money">${{$cart['amount']}}</span></td>
-										<td>
-											<div class="product_count">
-											  <input type="text" name="qty[]" maxlength="12" value="{{$cart['quantity']}}" class="input-text qty"/>
-											  <input type="hidden" name="qty_id[]" value="{{$cart['id']}}">
-											  
-											  <button class="cart_u increase items-count" type="button"><i class="fas fa-angle-up"></i></button>
-											  <button class="cart_u reduced items-count" type="button"><i class="fas fa-angle-down"></i></button>
-											</div>
-										  </td>
-										  <td>
-											<h5 class="cart_single_total"><span class="money">${{$cart['amount']}}</span></h5>
-										  </td>
-										<td class="action" data-title="Remove"><a href="{{route('remove-from-cart',$key)}}"><i class="ti-trash remove-icon"></i></a></td>
-									</tr> --}}
-									<tr class="single_cart_item">
-
-										{{-- <td>
-										  <h5 class="cart_single_price"><span class="money">{{Helper::currency_amount($cart->product->offer_price)}}</span>{{Helper::currency()}}</h5>
-										</td> --}}
-										<td>
-										  <div class="product_count">
-											<input type="text" name="qty[]" maxlength="12" value="{{$cart['quantity']}}" class="input-text qty"/>
-											<input type="hidden" name="qty_id[]" value="{{$cart['id']}}">
+												<!--/ End Input Order -->
+											</td>
+											<td class="total-amount cart_single_price" data-title="Total"><span class="money">${{$cart['amount']}}</span></td>
 											
-											<button class="cart_u increase items-count" type="button"><i class="fas fa-angle-up"></i></button>
-											<button class="cart_u reduced items-count" type="button"><i class="fas fa-angle-down"></i></button>
-										  </div>
+											<td class="action" data-title="Remove"><a href="{{route('cart-delete',$cart->id)}}"><i class="ti-trash remove-icon"></i></a></td>
+										</tr>
+									@endforeach
+									<track>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td class="float-right">
+											<button class="btn float-right" type="submit">Update</button>
 										</td>
-										<td>
-										  <h5 class="cart_single_total"><span class="money">{{$cart['amount']}}</span></h5>
-										</td>
-										{{-- <td>
-										  <a href="{{route('cart.delete', $cart->id)}}" class="btn btn-danger">Delete</a>
-										</td> --}}
-									  </tr>
-								@endforeach
-							@else 
-									<tr>
-										<td class="text-center">
-											There are no any carts available. <a href="{{route('product-grids')}}" style="color:blue;">Continue shopping</a>
+									</track>
+								@else 
+										<tr>
+											<td class="text-center">
+												There are no any carts available. <a href="{{route('product-grids')}}" style="color:blue;">Continue shopping</a>
 
-										</td>
-									</tr>
-							@endif
-
-
+											</td>
+										</tr>
+								@endif
+								
+							</form>
 						</tbody>
 					</table>
 					<!--/ End Shopping Summery -->
@@ -130,41 +111,52 @@
 											<button class="btn">Apply</button>
 										</form>
 									</div>
-									<div class="checkbox">`
+									{{-- <div class="checkbox">`
 										@php 
 											$shipping=DB::table('shippings')->where('status','active')->limit(1)->get();
 										@endphp
-										<label class="checkbox-inline" for="2"><input name="news" id="2" type="checkbox"> Shipping (+@foreach($shipping as $cost) {{$cost->price}} @endforeach$)</label>
-									</div>
+										<label class="checkbox-inline" for="2"><input name="news" id="2" type="checkbox" onchange="showMe('shipping');"> Shipping</label>
+									</div> --}}
 								</div>
 							</div>
 							<div class="col-lg-4 col-md-7 col-12">
 								<div class="right">
-									@php 
-										$total_prod=0;
-										$total_amount=0;
-									@endphp
-									@if(session('cart'))
-											@foreach(session('cart') as $cart_items)
-												@php
-													$total_prod+=$cart_items['quantity'];
-													$total_amount+=$cart_items['amount'];
-												@endphp
-											@endforeach
-									@endif
 									<ul>
-										<li>Cart Subtotal<span>${{number_format($total_amount,2)}}</span></li>
-										<li>Shipping<span>Free</span></li>
+										<li class="order_subtotal" data-price="{{number_format(Helper::totalCartPrice(),2)}}">Cart Subtotal<span>${{number_format(Helper::totalCartPrice(),2)}}</span></li>
+										{{-- <div id="shipping" style="display:none;">
+											<li class="shipping">
+												Shipping {{session('shipping_price')}}
+												@if(count(Helper::shipping())>0 && Helper::cartCount()>0)
+													<div class="form-select">
+														<select name="shipping" class="nice-select">
+															<option value="">Select</option>
+															@foreach(Helper::shipping() as $shipping)
+															<option value="{{$shipping->id}}" class="shippingOption" data-price="{{$shipping->price}}">{{$shipping->type}}: ${{$shipping->price}}</option>
+															@endforeach
+														</select>
+													</div>
+												@else 
+													<div class="form-select">
+														<span>Free</span>
+													</div>
+												@endif
+											</li>
+										</div>
+										 --}}
 										@if(session('coupon'))
-										<li>You Save<span>${{number_format(session('coupon')['value'],2)}}</span></li>
+										<li class="coupon_price" data-price="{{number_format(session('coupon')['value'],2)}}">You Save<span>${{number_format(session('coupon')['value'],2)}}</span></li>
 										@endif
-										@if(session('coupon'))
 										@php
-											$total_amount=$total_amount-session('coupon')['value'];
+											$total_amount=Helper::totalCartPrice();
+											if(session('coupon')){
+												$total_amount=$total_amount-session('coupon')['value'];
+											}
 										@endphp
-										<li class="last">You Pay<span>${{number_format($total_amount,2)}}</span></li>
+										@if(session('coupon'))
+											<li class="last" id="order_total_price">You Pay<span>${{number_format($total_amount,2)}}</span></li>
+										@else
+											<li class="last" id="order_total_price">You Pay<span>${{number_format($total_amount,2)}}</span></li>
 										@endif
-										<li class="last">You Pay<span>${{number_format($total_amount,2)}}</span></li>
 									</ul>
 									<div class="button5">
 										<a href="{{route('checkout')}}" class="btn">Checkout</a>
@@ -346,98 +338,68 @@
         <!-- Modal end -->
 	
 @endsection
+@push('styles')
+	<style>
+		li.shipping{
+			display: inline-flex;
+			width: 100%;
+			font-size: 14px;
+		}
+		li.shipping .input-group-icon {
+			width: 100%;
+			margin-left: 10px;
+		}
+		.input-group-icon .icon {
+			position: absolute;
+			left: 20px;
+			top: 0;
+			line-height: 40px;
+			z-index: 3;
+		}
+		.form-select {
+			height: 30px;
+			width: 100%;
+		}
+		.form-select .nice-select {
+			border: none;
+			border-radius: 0px;
+			height: 40px;
+			background: #f6f6f6 !important;
+			padding-left: 45px;
+			padding-right: 40px;
+			width: 100%;
+		}
+		.list li{
+			margin-bottom:0 !important;
+		}
+		.list li:hover{
+			background:#F7941D !important;
+			color:white !important;
+		}
+		.form-select .nice-select::after {
+			top: 14px;
+		}
+	</style>
+@endpush
 @push('scripts')
-<script>
-	 $(document).ready(function(){
+	<script src="{{asset('frontend/js/nice-select/js/jquery.nice-select.min.js')}}"></script>
+	<script src="{{ asset('frontend/js/select2/js/select2.min.js') }}"></script>
+	<script>
+		$(document).ready(function() { $("select.select2").select2(); });
+  		$('select.nice-select').niceSelect();
+	</script>
+	<script>
+		$(document).ready(function(){
+			$('.shipping select[name=shipping]').change(function(){
+				let cost = parseFloat( $(this).find('option:selected').data('price') ) || 0;
+				let subtotal = parseFloat( $('.order_subtotal').data('price') ); 
+				let coupon = parseFloat( $('.coupon_price').data('price') ) || 0; 
+				// alert(coupon);
+				$('#order_total_price span').text('$'+(subtotal + cost-coupon).toFixed(2));
+			});
 
-	$('.cart_u.increase').click(function(){
-		cart_count_update(this, 'add');
-	});
+		});
 
-	$('.cart_u.reduced').click(function(){
-		cart_count_update(this, '');
-	});
+	</script>
 
-	$('.product_count>.qty').keyup(function(){
-		cart_update_keyup(this);
-	});
-
-	//payment option
-	$('input[name=paymentoption]').click(function(){
-		$(this).parents('.payment_item').removeClass('bKash cash rocket').addClass($(this).val() +' active');
-	});
-	$('.shipping select[name=shipping]').change(function(){
-		let cost = parseFloat( $(this).find('option:selected').data('price') ) || 0;
-		let subtotal = parseFloat( $('.order_sutotal').data('price') ); 
-		let currency = $('.order_sutotal').data('currency'); 
-		$('#order_total_price span').text( (subtotal + cost).toFixed(2) + currency );
-	});
-
-	});
-
-	function cart_count_update(el, opt){
-	let single_cart_item = $(el).parent().parent().parent('.single_cart_item');
-
-	let cart_single_price = $(single_cart_item).find('.cart_single_price>.money');
-	let cart_single_total = $(single_cart_item).find('.cart_single_total>.money');
-
-	let single_price = parseFloat($(cart_single_price).text());
-	let single_total = parseFloat($(cart_single_total).text());
-
-	let qty = $(el).parent('.product_count').children('.qty');
-	let val = parseInt( $(qty).val() );
-	if(isNaN( val )) return false;
-
-	if (opt=='add') {
-		$(qty).val(++val);
-		$(cart_single_total).text( (single_total + single_price).toFixed(2));
-
-	}else{
-		if(val>1) {
-		$(qty).val(--val);
-		$(cart_single_total).text( (single_total - single_price).toFixed(2));
-	} 
-	}
-
-	cart_subtotal();
-
-	}
-
-	function cart_update_keyup(el){
-	let single_cart_item = $(el).parent().parent().parent('.single_cart_item');
-
-	let cart_single_price = $(single_cart_item).find('.cart_single_price>.money');
-	let cart_single_total = $(single_cart_item).find('.cart_single_total>.money');
-
-	let single_price = parseFloat($(cart_single_price).text());
-	let single_total = parseFloat($(cart_single_total).text());
-
-	let val = parseInt( $(el).val() );
-	if(isNaN( val )) return false;
-	$(cart_single_total).text( (single_price * val).toFixed(2));
-
-	cart_subtotal();
-	}
-
-	function cart_subtotal(){
-	let total = 0.0;
-	$('#cart_item_list>.single_cart_item').each(function(){
-		let val = parseFloat($(this).find('.cart_single_total>.money').text());
-		if(isNaN( val ) || val == '') return false;
-		total += val;
-	});
-	$('#subtotal_cart_price>.money').text((total).toFixed(2));
-	if( $('#discount_price').length ) {
-		let discount = parseFloat($('#discount_price>.money').text());
-		if(isNaN( discount ) || discount == '') return false;
-
-		let price = total-discount;
-		if(price<0) price = 0;
-		$('#total_price>.money').text((price).toFixed(2));
-	}
-	}
-	cart_subtotal();
-		
-	})(jQuery);
-</script>
 @endpush

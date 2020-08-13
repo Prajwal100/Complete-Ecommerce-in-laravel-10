@@ -14,7 +14,7 @@
 	<meta property="og:image" content="{{$product_detail->photo}}">
 	<meta property="og:description" content="{{$product_detail->description}}">
 @endsection
-@section('title','E-SHOP || Product Detail')
+@section('title','E-SHOP || PRODUCT DETAIL')
 @section('main-content')
 
 		<!-- Breadcrumbs -->
@@ -100,18 +100,20 @@
 											</div> --}}
 											<!--/ End Color -->
 											<!-- Size -->
-											<div class="size">
-												<h4>Size</h4>
-												<ul>
-                                                    @php 
-                                                        $sizes=explode(',',$product_detail->size);
-                                                        // dd($sizes);
-                                                    @endphp
-                                                    @foreach($sizes as $size)
-													<li><a href="#" class="one">{{$size}}</a></li>
-													@endforeach
-												</ul>
-											</div>
+											@if($product_detail->size)
+												<div class="size">
+													<h4>Size</h4>
+													<ul>
+														@php 
+															$sizes=explode(',',$product_detail->size);
+															// dd($sizes);
+														@endphp
+														@foreach($sizes as $size)
+														<li><a href="#" class="one">{{$size}}</a></li>
+														@endforeach
+													</ul>
+												</div>
+											@endif
 											<!--/ End Size -->
 											<!-- Product Buy -->
 											<div class="product-buy">
@@ -138,23 +140,12 @@
 													</div>
 													<div class="add-to-cart mt-4">
 														<button type="submit" class="btn">Add to cart</button>
-														<a href="#" class="btn min"><i class="ti-heart"></i></a>
-														<a href="#" class="btn min"><i class="fa fa-compress"></i></a>
+														<a href="{{route('add-to-wishlist',$product_detail->slug)}}" class="btn min"><i class="ti-heart"></i></a>
 													</div>
 												</form>
 
 												<p class="cat">Category :<a href="#">{{$product_detail->cat_info['title']}}</a></p>
-												<p class="availability">Stock : 
-													@php
-														$org=$product_detail->stock;
-														// $final=
-													@endphp
-																	@if(session('cart'))
-																		@foreach(session('cart') as $cart){{$org-$cart['quantity']}} @endforeach
-																	@else 
-																		{{$product_detail->stock}}
-																	@endif
-												</p>
+												<p class="availability">Stock : @if($product_detail->stock>0)<span class="badge badge-success">{{$product_detail->stock}}</span>@else <span class="badge badge-danger">{{$product_detail->stock}}</span>  @endif</p>
 											</div>
 											<!--/ End Product Buy -->
 										</div>
@@ -264,9 +255,9 @@
 																	<div class="single-rating">
 																		<div class="rating-author">
 																			@if($data->user_info['photo'])
-																			<img src="images/comments1.jpg" alt="#">
+																			<img src="{{$data->user_info['photo']}}" alt="{{$data->user_info['photo']}}">
 																			@else 
-																			<img src="{{asset('backend/img/avatar.png')}}" alt="#">
+																			<img src="{{asset('backend/img/avatar.png')}}" alt="Profile.jpg">
 																			@endif
 																		</div>
 																		<div class="rating-des">
@@ -487,7 +478,6 @@
 @endsection
 @push('styles')
 	<style>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
 		/* Rating */
 		.rating_box {
 		display: inline-flex;

@@ -97,6 +97,16 @@
         </div>
 
         <div class="form-group">
+          <label for="condition">Condition</label>
+          <select name="condition" class="form-control">
+              <option value="">--Select Condition--</option>
+              <option value="default">Default</option>
+              <option value="new">New</option>
+              <option value="hot">Hot</option>
+          </select>
+        </div>
+
+        <div class="form-group">
           <label for="stock">Quantity <span class="text-danger">*</span></label>
           <input id="quantity" type="number" name="stock" placeholder="Enter quantity"  value="{{old('stock')}}" class="form-control">
           @error('stock')

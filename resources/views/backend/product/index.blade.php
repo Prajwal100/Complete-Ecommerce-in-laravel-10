@@ -25,6 +25,7 @@
               <th>Price</th>
               <th>Discount</th>
               <th>Size</th>
+              <th>Condition</th>
               <th>Brand</th>
               <th>Stock</th>
               <th>Photo</th>
@@ -41,6 +42,7 @@
               <th>Price</th>
               <th>Discount</th>
               <th>Size</th>
+              <th>Condition</th>
               <th>Brand</th>
               <th>Stock</th>
               <th>Photo</th>
@@ -70,9 +72,14 @@
                     <td>Rs. {{$product->price}} /-</td>
                     <td>  {{$product->discount}}% OFF</td>
                     <td>{{$product->size}}</td>
+                    <td>{{$product->condition}}</td>
                     <td>@foreach($brands as $brand) {{$brand->title}} @endforeach</td>
                     <td>
+                      @if($product->stock>0)
                       <span class="badge badge-primary">{{$product->stock}}</span>
+                      @else 
+                      <span class="badge badge-danger">{{$product->stock}}</span>
+                      @endif
                     </td>
                     <td>
                         @if($product->photo)
@@ -165,7 +172,7 @@
             "columnDefs":[
                 {
                     "orderable":false,
-                    "targets":[9,10,11]
+                    "targets":[10,11,12]
                 }
             ]
         } );

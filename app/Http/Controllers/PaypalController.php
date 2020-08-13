@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 use Srmklive\PayPal\Services\ExpressCheckout;
 use Illuminate\Http\Request;
 use NunoMaduro\Collision\Provider;
+use App\Models\Cart;
+use App\Models\Product;
+use DB;
 class PaypalController extends Controller
 {
     public function payment()
     {
-        $cart = session('cart') ? session('cart') : '';
+        $cart = Cart::where('user_id',auth()->user()->id)->where('order_id',null)->get()->toArray();
         // $total=0;
         // foreach($cart as $data){
         //     $total+= $data['amount'];
@@ -51,17 +54,17 @@ class PaypalController extends Controller
         // $data['return_url'] = route('payment.success');
         // $data['cancel_url'] = route('payment.cancel');
         // $data['total'] = 100;
-        // // return $data;
+        // return $cart;
         $data = [];
         
         // return $cart;
         $data['items'] = array_map(function ($item) use($cart) {
+            $name=Product::where('id',$item['product_id'])->pluck('title');
             return [
-                'name' => $item['title'],
+                'name' =>$name ,
                 'price' => $item['price'],
-                'desc'  => 'Description for ItSolutionStuff.com',
+                'desc'  => 'Thank you for using paypal',
                 'qty' => $item['quantity']
-
             ];
         }, $cart);
 
@@ -76,6 +79,9 @@ class PaypalController extends Controller
         }
 
         $data['total'] = $total;
+        if(session('coupon')){
+            $data['shipping_discount'] = session('coupon')['value'];
+        }
         // return $data;
         $provider = new ExpressCheckout;
   
@@ -106,8 +112,9 @@ class PaypalController extends Controller
         // return $response;
   
         if (in_array(strtoupper($response['ACK']), ['SUCCESS', 'SUCCESSWITHWARNING'])) {
-            session()->forget('cart');
             request()->session()->flash('success','You successfully pay from Paypal! Thank You');
+            session()->forget('cart');
+            session()->forget('coupon');
             return redirect()->route('home');
         }
   

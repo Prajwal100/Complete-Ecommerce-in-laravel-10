@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Settings;
 use App\User;
+use Spatie\Activitylog\Models\Activity;
 class AdminController extends Controller
 {
     public function index(){
@@ -42,13 +43,10 @@ class AdminController extends Controller
             'short_des'=>'required|string',
             'description'=>'required|string',
             'photo'=>'required',
+            'logo'=>'required',
             'address'=>'required|string',
             'email'=>'required|email',
             'phone'=>'required|string',
-            'facebook'=>'string',
-            'instagram'=>'string',
-            'twitter'=>'string',
-            'youtube'=>'string',
         ]);
         $data=$request->all();
         // return $data;
@@ -56,11 +54,17 @@ class AdminController extends Controller
         // return $settings;
         $status=$settings->fill($data)->save();
         if($status){
-            request()->session()->flash('success','Successfully updated');
+            request()->session()->flash('success','Setting successfully updated');
         }
         else{
             request()->session()->flash('error','Please try again');
         }
         return redirect()->route('admin');
     }
+
+    // public function activity(){
+    //     return Activity::all();
+    //     $activity= Activity::all();
+    //     return view('backend.layouts.activity')->with('activities',$activity);
+    // }
 }

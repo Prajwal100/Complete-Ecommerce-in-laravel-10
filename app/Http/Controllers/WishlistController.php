@@ -4,79 +4,55 @@ namespace App\Http\Controllers;
 use Auth;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Wishlist;
 class WishlistController extends Controller
 {
     protected $product=null;
     public function __construct(Product $product){
         $this->product=$product;
     }
+
     public function wishlist(Request $request){
         // dd($request->all());
-        if(Auth::check()){
-            $qty=$request->quantity;
-            $this->product=$this->product->find($request->pro_id);
-            if(!$this->product){
-                return response()->json(['status'=>false,'msg'=>'Product not found please try again','data'=>null]);
-            }
-            $current_item=array(
-                'id'=>$this->product->id,
-                'title'=>$this->product->title,
-                'link'=>route('product-detail',$this->product->slug),
-                'price'=>$this->product->price,
-                'summary'=>$this->product->summary,
-                'photo'=>$this->product->photo,
-            );
-            $price=$this->product->price;
-            if($this->product->discount){
-                $price=($price-($price*$this->product->discount)/100);
-            }
-            $current_item['price']=$price;
-
-            $wishlist=session('wishlist') ? session('wishlist') : null;
-
-            if($wishlist){
-                // if already product in wishlist
-                $index=null;
-                foreach($wishlist as $key=>$value){
-                    if($value['id']==$this->product->id){
-                        $index=$key;
-                    break;
-                    }
-                }
-
-                if($index !==null){
-                    $wishlist[$index]['quantity']=$qty;
-                    $wishlist[$index]['amount']=ceil($qty*$price);
-                    if($wishlist[$index]['quantity']<=0){
-                        unset($wishlist[$index]);
-                    }
-                }
-                else{
-                    $current_item['quantity']=$qty;
-                    $current_item['amount']=ceil($price*$qty);
-                    $wishlist[]=$current_item;
-                }
-            }
-            else{
-                $current_item['quantity']=$qty;
-                $current_item['amount']=ceil($price*$qty);
-                $wishlist[]=$current_item;
-            }
-
-            session()->put('wishlist',$wishlist);
-            return response()->json(['status'=>true,'msg'=>'Product successfully placed in wishlist','data'=>$wishlist]);
+        if (empty($request->slug)) {
+            request()->session()->flash('error','Invalid Products');
+            return back();
+        }        
+        $product = Product::where('slug', $request->slug)->first();
+        // return $product;
+        if (empty($product)) {
+            request()->session()->flash('error','Invalid Products');
+            return back();
         }
-        else{
-            return response(['status'=>false,'msg'=>'You need to login first','data'=>null]);
-        }
-    }
 
-    public function removeWishlist(Request $request){
-        $index=$request->index;
-        $wishlist=session('wishlist');
-        unset($wishlist[$index]);
-        session()->put('wishlist',$wishlist);
-        request()->session()->flash('success','Your product successfully removed from wishlist');
-        return redirect()->back();
-    }
+        $already_wishlist = Wishlist::where('user_id', auth()->user()->id)->where('cart_id',null)->where('product_id', $product->id)->first();
+        // return $already_wishlist;
+        if($already_wishlist) {
+            request()->session()->flash('error','You already placed in wishlist');
+            return back();
+        }else{
+            
+            $wishlist = new Wishlist;
+            $wishlist->user_id = auth()->user()->id;
+            $wishlist->product_id = $product->id;
+            $wishlist->price = ($product->price-($product->price*$product->discount)/100);
+            $wishlist->quantity = 1;
+            $wishlist->amount=$wishlist->price*$wishlist->quantity;
+            if ($wishlist->product->stock < $wishlist->quantity || $wishlist->product->stock <= 0) return back()->with('error','Stock not sufficient!.');
+            $wishlist->save();
+        }
+        request()->session()->flash('success','Product successfully added to wishlist');
+        return back();       
+    }  
+    
+    public function wishlistDelete(Request $request){
+        $wishlist = Wishlist::find($request->id);
+        if ($wishlist) {
+            $wishlist->delete();
+            request()->session()->flash('success','Wishlist successfully removed');
+            return back();  
+        }
+        request()->session()->flash('error','Error please try again');
+        return back();       
+    }     
 }

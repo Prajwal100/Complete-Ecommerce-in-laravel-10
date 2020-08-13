@@ -17,14 +17,11 @@ class CreateSettingsTable extends Migration
             $table->id();
             $table->longText('description');
             $table->text('short_des');
+            $table->string('logo');
             $table->string('photo');
             $table->string('address');
             $table->string('phone');
             $table->string('email');
-            $table->string('facebook');
-            $table->string('instagram');
-            $table->string('twitter');
-            $table->string('youtube');
             $table->timestamps();
         });
     }
