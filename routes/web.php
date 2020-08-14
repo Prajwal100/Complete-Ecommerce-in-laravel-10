@@ -44,7 +44,7 @@ Route::get('/product-sub-cat/{slug}/{sub_slug}','FrontendController@productSubCa
 Route::get('/product-brand/{slug}','FrontendController@productBrand')->name('product-brand');
 // Cart section
 Route::get('/add-to-cart/{slug}','CartController@addToCart')->name('add-to-cart')->middleware('user');
-Route::get('/add-to-cart','CartController@singleAddToCart')->name('single-add-to-cart')->middleware('user');
+Route::post('/add-to-cart','CartController@singleAddToCart')->name('single-add-to-cart')->middleware('user');
 Route::get('cart-delete/{id}','CartController@cartDelete')->name('cart-delete');
 Route::post('cart-update','CartController@cartUpdate')->name('cart.update');
 
@@ -159,6 +159,7 @@ Route::group(['prefix'=>'/user','middleware'=>['user']],function(){
      Route::post('/profile/{id}','HomeController@profileUpdate')->name('user-profile-update');
     //  Order
     Route::get('/order',"HomeController@orderIndex")->name('user.order.index');
+    Route::get('/order/show/{id}',"HomeController@orderShow")->name('user.order.show');
     Route::delete('/order/delete/{id}','HomeController@userOrderDelete')->name('user.order.delete');
     // Product Review
     Route::get('/user-review','HomeController@productReviewIndex')->name('user.productreview.index');

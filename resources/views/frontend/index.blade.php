@@ -537,7 +537,7 @@
                                                 </div>
                                             </div>
                                         @endif
-                                        <form action="{{route('single-add-to-cart')}}" method="GET" class="mt-4">
+                                        <form action="{{route('single-add-to-cart')}}" method="POST" class="mt-4">
                                             @csrf 
                                             <div class="quantity">
                                                 <!-- Input Order -->

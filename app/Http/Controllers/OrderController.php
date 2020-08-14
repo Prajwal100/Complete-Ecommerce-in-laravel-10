@@ -126,11 +126,9 @@ class OrderController extends Controller
             $order_data['payment_method']='cod';
             $order_data['payment_status']='Unpaid';
         }
-        return $order_data;
-
         $order->fill($order_data);
         $status=$order->save();
-        Cart::where('user_id', auth()->user()->id)->where('order_id', null)->update(['order_id' => $order->id]);
+        if($order)
         // dd($order->cart);
         if($status){
             foreach($order->cart as $cart){
@@ -154,12 +152,11 @@ class OrderController extends Controller
             session()->forget('cart');
             session()->forget('coupon');
         }
+        Cart::where('user_id', auth()->user()->id)->where('order_id', null)->update(['order_id' => $order->id]);
+
         // dd($users);        
         request()->session()->flash('success','Your product successfully placed in order');
         return redirect()->route('home');
-
-       
-
     }
 
     /**

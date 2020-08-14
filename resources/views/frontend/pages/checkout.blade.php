@@ -225,7 +225,7 @@
                                                 <option value="MM">Myanmar [Burma]</option>
                                                 <option value="NA">Namibia</option>
                                                 <option value="NR">Nauru</option>
-                                                <option value="NP">Nepal</option>
+                                                <option value="NP" selected="selected">Nepal</option>
                                                 <option value="NL">Netherlands</option>
                                                 <option value="AN">Netherlands Antilles</option>
                                                 <option value="NC">New Caledonia</option>
@@ -305,7 +305,7 @@
                                                 <option value="UG">Uganda</option>
                                                 <option value="UA">Ukraine</option>
                                                 <option value="AE">United Arab Emirates</option>
-                                                <option value="US" selected="selected">United Kingdom</option>
+                                                <option value="Uk">United Kingdom</option>
                                                 <option value="UY">Uruguay</option>
                                                 <option value="UM">U.S. Minor Outlying Islands</option>
                                                 <option value="VI">U.S. Virgin Islands</option>

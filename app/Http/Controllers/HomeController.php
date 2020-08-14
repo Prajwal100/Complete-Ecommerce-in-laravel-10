@@ -82,6 +82,13 @@ class HomeController extends Controller
             return redirect()->back();
         }
     }
+
+    public function orderShow($id)
+    {
+        $order=Order::find($id);
+        // return $order;
+        return view('user.order.show')->with('order',$order);
+    }
     // Product Review
     public function productReviewIndex(){
         $reviews=ProductReview::getAllUserReview();

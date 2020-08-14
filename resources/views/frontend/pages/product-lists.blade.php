@@ -115,7 +115,7 @@
                                                 <img src="{{$photo[0]}}" alt="{{$photo[0]}}">
                                             </div>
                                             <div class="content">
-                                                <h5><a href="#">{{$product->title}}</a></h5>
+                                                <h5><a href="{{route('product-detail',$product->slug)}}">{{$product->title}}</a></h5>
                                                 @php
                                                     $org=($product->price-($product->price*$product->discount)/100);
                                                 @endphp
@@ -134,7 +134,7 @@
                                             $brands=DB::table('brands')->orderBy('title','ASC')->where('status','active')->get();
                                         @endphp
                                         @foreach($brands as $brand)
-                                            <li><a href="{{route('product-brand',$brand->id)}}">{{$brand->title}}</a></li>
+                                            <li><a href="{{route('product-brand',$brand->slug)}}">{{$brand->title}}</a></li>
                                         @endforeach
                                     </ul>
                                 </div>
@@ -323,7 +323,7 @@
 														</ul>
 													</div>
 												@endif
-												<form action="{{route('single-add-to-cart')}}" method="GET">
+												<form action="{{route('single-add-to-cart')}}" method="POST">
 													@csrf 
 													<div class="quantity">
 														<!-- Input Order -->

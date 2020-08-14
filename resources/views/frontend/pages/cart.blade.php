@@ -122,7 +122,7 @@
 							<div class="col-lg-4 col-md-7 col-12">
 								<div class="right">
 									<ul>
-										<li class="order_subtotal" data-price="{{number_format(Helper::totalCartPrice(),2)}}">Cart Subtotal<span>${{number_format(Helper::totalCartPrice(),2)}}</span></li>
+										<li class="order_subtotal" data-price="{{Helper::totalCartPrice()}}">Cart Subtotal<span>${{number_format(Helper::totalCartPrice(),2)}}</span></li>
 										{{-- <div id="shipping" style="display:none;">
 											<li class="shipping">
 												Shipping {{session('shipping_price')}}
@@ -143,16 +143,17 @@
 											</li>
 										</div>
 										 --}}
-										@if(session('coupon'))
-										<li class="coupon_price" data-price="{{number_format(session('coupon')['value'],2)}}">You Save<span>${{number_format(session('coupon')['value'],2)}}</span></li>
+										 {{-- {{dd(Session::get('coupon')['value'])}} --}}
+										@if(session()->has('coupon'))
+										<li class="coupon_price" data-price="{{Session::get('coupon')['value']}}">You Save<span>${{number_format(Session::get('coupon')['value'],2)}}</span></li>
 										@endif
 										@php
 											$total_amount=Helper::totalCartPrice();
-											if(session('coupon')){
-												$total_amount=$total_amount-session('coupon')['value'];
+											if(session()->has('coupon')){
+												$total_amount=$total_amount-Session::get('coupon')['value'];
 											}
 										@endphp
-										@if(session('coupon'))
+										@if(session()->has('coupon'))
 											<li class="last" id="order_total_price">You Pay<span>${{number_format($total_amount,2)}}</span></li>
 										@else
 											<li class="last" id="order_total_price">You Pay<span>${{number_format($total_amount,2)}}</span></li>

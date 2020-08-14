@@ -117,7 +117,7 @@
 											<!--/ End Size -->
 											<!-- Product Buy -->
 											<div class="product-buy">
-												<form action="{{route('single-add-to-cart')}}" method="GET">
+												<form action="{{route('single-add-to-cart')}}" method="POST">
 													@csrf 
 													<div class="quantity">
 														<h6>Quantity :</h6>
@@ -144,7 +144,8 @@
 													</div>
 												</form>
 
-												<p class="cat">Category :<a href="#">{{$product_detail->cat_info['title']}}</a></p>
+												<p class="cat">Category :<a href="{{route('product-cat',$product_detail->cat_info['slug'])}}">{{$product_detail->cat_info['title']}}</a></p>
+												<p class="cat">Sub Category :<a href="{{route('product-sub-cat',[$product_detail->cat_info['slug'],$product_detail->sub_cat_info['slug']])}}">{{$product_detail->sub_cat_info['title']}}</a></p>
 												<p class="availability">Stock : @if($product_detail->stock>0)<span class="badge badge-success">{{$product_detail->stock}}</span>@else <span class="badge badge-danger">{{$product_detail->stock}}</span>  @endif</p>
 											</div>
 											<!--/ End Product Buy -->
