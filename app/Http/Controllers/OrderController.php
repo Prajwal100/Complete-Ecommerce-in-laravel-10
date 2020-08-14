@@ -286,13 +286,14 @@ class OrderController extends Controller
             ->groupBy(function($d){
                 return \Carbon\Carbon::parse($d->created_at)->format('m');
             });
-            dd($items);
+            // dd($items);
         $result=[];
         foreach($items as $month=>$item_collections){
             foreach($item_collections as $item){
-                $amount=$item->cart_info->sum('price');
+                $amount=$item->cart_info->sum('amount');
                 // dd($amount);
                 $m=intval($month);
+                // return $m;
                 isset($result[$m]) ? $result[$m] += $amount :$result[$m]=$amount;
             }
         }

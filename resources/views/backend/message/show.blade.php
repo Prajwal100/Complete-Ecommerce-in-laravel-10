@@ -4,7 +4,11 @@
   <h5 class="card-header">Message</h5>
   <div class="card-body">
     @if($message)
+        @if($message->photo)
+        <img src="{{$message->photo}}" class="rounded-circle " style="margin-left:44%;">
+        @else 
         <img src="{{asset('backend/img/avatar.png')}}" class="rounded-circle " style="margin-left:44%;">
+        @endif
         <div class="py-4">From: <br>
            Name :{{$message->name}}<br>
            Email :{{$message->email}}<br>

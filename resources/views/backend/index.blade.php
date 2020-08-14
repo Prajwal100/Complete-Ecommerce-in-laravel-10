@@ -219,8 +219,7 @@
 @push('scripts')
 <script type="text/javascript">
   const url = "{{route('product.order.income')}}";
-
-// Set new default font family and font color to mimic Bootstrap's default styling
+  // Set new default font family and font color to mimic Bootstrap's default styling
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';
 
@@ -261,7 +260,7 @@ axios.get(url)
 var myLineChart = new Chart(ctx, {
   type: 'line',
   data: {
-    labels: data_keys, //["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    labels: data_keys, // ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
     datasets: [{
       label: "Earnings",
       lineTension: 0.3,
@@ -275,7 +274,7 @@ var myLineChart = new Chart(ctx, {
       pointHoverBorderColor: "rgba(78, 115, 223, 1)",
       pointHitRadius: 10,
       pointBorderWidth: 2,
-      data: data_values, //[0, 10000, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 44660],
+      data:data_values,// [0, 10000, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 40000],
     }],
   },
   options: {
@@ -345,24 +344,6 @@ var myLineChart = new Chart(ctx, {
     }
   }
 });
-
-
-
-
-
-
-
-
-
-
-
-            })
-            .catch(function (error) {
-            //   vm.answer = 'Error! Could not reach the API. ' + error
-            console.log(error)
-            });
-
-
 
 
 
