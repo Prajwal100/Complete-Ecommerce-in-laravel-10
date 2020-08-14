@@ -5,7 +5,7 @@
  <div class="card shadow mb-4">
      <div class="row">
          <div class="col-md-12">
-            @include('backend.layouts.notification')
+            @include('user.layouts.notification')
          </div>
      </div>
     <div class="card-header py-3">

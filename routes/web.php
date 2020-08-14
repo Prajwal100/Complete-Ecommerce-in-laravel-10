@@ -72,7 +72,7 @@ Route::get('/blog','FrontendController@blog')->name('blog');
 Route::get('/blog-detail/{slug}','FrontendController@blogDetail')->name('blog.detail');
 Route::get('/blog/search','FrontendController@blogSearch')->name('blog.search');
 Route::post('/blog/filter','FrontendController@blogFilter')->name('blog.filter');
-Route::get('blog-cat/{id}','FrontendController@blogByCategory')->name('blog.category');
+Route::get('blog-cat/{slug}','FrontendController@blogByCategory')->name('blog.category');
 Route::get('blog-tag/{slug}','FrontendController@blogByTag')->name('blog.tag');
 
 // NewsLetter
@@ -140,6 +140,9 @@ Route::group(['prefix'=>'/admin','middleware'=>['auth','admin']],function(){
     Route::get('/notification/{id}','NotificationController@show')->name('admin.notification');
     Route::get('/notifications','NotificationController@index')->name('all.notification');
     Route::delete('/notification/{id}','NotificationController@delete')->name('notification.delete');
+    // Password Change
+    Route::get('change-password', 'AdminController@changePassword')->name('change.password.form');
+    Route::post('change-password', 'AdminController@changPasswordStore')->name('change.password');
 });
 
 
@@ -172,6 +175,10 @@ Route::group(['prefix'=>'/user','middleware'=>['user']],function(){
     Route::delete('user-post/comment/delete/{id}','HomeController@userCommentDelete')->name('user.post-comment.delete');
     Route::get('user-post/comment/edit/{id}','HomeController@userCommentEdit')->name('user.post-comment.edit');
     Route::patch('user-post/comment/udpate/{id}','HomeController@userCommentUpdate')->name('user.post-comment.update');
+    
+    // Password Change
+    Route::get('change-password', 'HomeController@changePassword')->name('user.change.password.form');
+    Route::post('change-password', 'HomeController@changPasswordStore')->name('change.password');
 
 });
 

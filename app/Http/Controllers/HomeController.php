@@ -7,9 +7,8 @@ use App\User;
 use App\Models\Order;
 use App\Models\ProductReview;
 use App\Models\PostComment;
-
-
-
+use App\Rules\MatchOldPassword;
+use Hash;
 
 class HomeController extends Controller
 {
@@ -209,6 +208,22 @@ class HomeController extends Controller
             return redirect()->back();
         }
 
+    }
+
+    public function changePassword(){
+        return view('user.layouts.userPasswordChange');
+    }
+    public function changPasswordStore(Request $request)
+    {
+        $request->validate([
+            'current_password' => ['required', new MatchOldPassword],
+            'new_password' => ['required'],
+            'new_confirm_password' => ['same:new_password'],
+        ]);
+   
+        User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
+   
+        return redirect()->route('user')->with('success','Password successfully changed');
     }
 
     

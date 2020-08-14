@@ -129,15 +129,7 @@ class OrderController extends Controller
         $order->fill($order_data);
         $status=$order->save();
         if($order)
-        // dd($order->cart);
-        if($status){
-            foreach($order->cart as $cart){
-                $product=$cart->product;
-                // return $product;
-                $product->stock -=$cart->quantity;
-                $product->save();
-            }
-        }
+        // dd($order->id);
         $users=User::where('role','admin')->first();
         $details=[
             'title'=>'New order created',
@@ -146,7 +138,7 @@ class OrderController extends Controller
         ];
         Notification::send($users, new StatusNotification($details));
         if(request('payment_method')=='paypal'){
-            return redirect()->route('payment');
+            return redirect()->route('payment')->with(['id'=>$order->id]);
         }
         else{
             session()->forget('cart');
@@ -198,7 +190,15 @@ class OrderController extends Controller
             'status'=>'required|in:new,process,delivered,cancel'
         ]);
         $data=$request->all();
-        // return $data;
+        // return $request->status;
+        if($request->status=='delivered'){
+            foreach($order->cart as $cart){
+                $product=$cart->product;
+                // return $product;
+                $product->stock -=$cart->quantity;
+                $product->save();
+            }
+        }
         $status=$order->fill($data)->save();
         if($status){
             request()->session()->flash('success','Successfully updated order');

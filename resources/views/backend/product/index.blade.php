@@ -169,6 +169,7 @@
   <script>
       
       $('#product-dataTable').DataTable( {
+        "scrollX": false
             "columnDefs":[
                 {
                     "orderable":false,

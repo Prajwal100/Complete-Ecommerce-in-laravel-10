@@ -12,49 +12,7 @@ class PaypalController extends Controller
     public function payment()
     {
         $cart = Cart::where('user_id',auth()->user()->id)->where('order_id',null)->get()->toArray();
-        // $total=0;
-        // foreach($cart as $data){
-        //     $total+= $data['amount'];
-        // }
-        // // return $total;
-        // $data = [];
-        // $data['items'] = array_map(function ($item) use($cart) {
-        //     return [
-        //         'name' => 'hello',
-        //         'price' => $item['price'],
-        //         'desc'  => 'Description for ItSolutionStuff.com',
-        //         'qty' => $item['quantity']
-
-        //     ];
-        // }, $cart);
-        // $data['items'] = [
-        //     [
-        //         'name' => 'ItSolutionStuff.com',
-        //         'price' => 100,
-        //         'desc'  => 'Description for ItSolutionStuff.com',
-        //         'qty' => 1
-        //     ],
-        //     [
-        //         'name' => 'ItSolutionStuff.com',
-        //         'price' => 100,
-        //         'desc'  => 'Description for ItSolutionStuff.com',
-        //         'qty' => 1
-        //     ],
-        //     [
-        //         'name' => 'ItSolutionStuff.com',
-        //         'price' => 100,
-        //         'desc'  => 'Description for ItSolutionStuff.com',
-        //         'qty' => 1
-        //     ],
-           
-        // ];
         
-        // $data['invoice_id'] = 'ORD-'.strtoupper(uniqid());
-        // $data['invoice_description'] = "Order #{$data['invoice_id']} Invoice";
-        // $data['return_url'] = route('payment.success');
-        // $data['cancel_url'] = route('payment.cancel');
-        // $data['total'] = 100;
-        // return $cart;
         $data = [];
         
         // return $cart;
@@ -82,7 +40,9 @@ class PaypalController extends Controller
         if(session('coupon')){
             $data['shipping_discount'] = session('coupon')['value'];
         }
-        // return $data;
+        Cart::where('user_id', auth()->user()->id)->where('order_id', null)->update(['order_id' => session()->get('id')]);
+
+        // return session()->get('id');
         $provider = new ExpressCheckout;
   
         $response = $provider->setExpressCheckout($data);

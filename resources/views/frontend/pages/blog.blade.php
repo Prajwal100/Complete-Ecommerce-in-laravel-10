@@ -87,7 +87,7 @@
                                     {{-- {{count(Helper::postCategoryList())}} --}}
                                     @foreach(Helper::postCategoryList('posts') as $cat)
                                     <li>
-                                        <a href="{{route('blog.category',$cat->id)}}">{{$cat->title}} </a>
+                                        <a href="{{route('blog.category',$cat->slug)}}">{{$cat->title}} </a>
                                     </li>
                                     @endforeach
                                 </form>

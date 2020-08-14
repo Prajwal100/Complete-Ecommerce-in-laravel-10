@@ -36,9 +36,16 @@ class Post extends Model
         return $this->hasMany(PostComment::class)->where('status','active');
     }
 
-    public static function getBlogByCategory($id){
-        return Post::where('post_cat_id',$id)->paginate(8);
-    }
+
+    // public static function getProductByCat($slug){
+    //     // dd($slug);
+    //     return Category::with('products')->where('slug',$slug)->first();
+    //     // return Product::where('cat_id',$id)->where('child_cat_id',null)->paginate(10);
+    // }
+
+    // public static function getBlogByCategory($id){
+    //     return Post::where('post_cat_id',$id)->paginate(8);
+    // }
     public static function getBlogByTag($slug){
         // dd($slug);
         return Post::where('tags',$slug)->paginate(8);

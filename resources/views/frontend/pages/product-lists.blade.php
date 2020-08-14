@@ -314,7 +314,7 @@
 														<h4>Size</h4>
 														<ul>
 															@php 
-																$sizes=explode(',',$product_detail->size);
+																$sizes=explode(',',$product->size);
 																// dd($sizes);
 															@endphp
 															@foreach($sizes as $size)

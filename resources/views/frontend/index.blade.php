@@ -149,6 +149,7 @@
                                                 @elseif($product->condition=='hot')
                                                     <span class="hot">Hot</span>
                                                 @else
+                                                    <span class="price-dec">{{$product->discount}}% Off</span>
                                                 @endif
 
 
@@ -291,6 +292,9 @@
                     </div>
                 </div>
                 <div class="row">
+                    @php
+                        $product_lists=DB::table('products')->where('status','active')->orderBy('id','DESC')->limit(6)->get();
+                    @endphp
                     @foreach($product_lists as $product)
                         <div class="col-md-4">
                             <!-- Start Single List  -->
@@ -319,7 +323,6 @@
                     @endforeach
 
                 </div>
-                
             </div>
         </div>
     </div>

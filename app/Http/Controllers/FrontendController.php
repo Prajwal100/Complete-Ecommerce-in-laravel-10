@@ -29,7 +29,7 @@ class FrontendController extends Controller
         $posts=Post::where('status','active')->orderBy('id','DESC')->limit(3)->get();
         $banners=Banner::where('status','active')->limit(3)->orderBy('id','DESC')->get();
         // return $banner;
-        $products=Product::where('status','active')->orderBy('id','DESC')->get();
+        $products=Product::where('status','active')->orderBy('id','DESC')->limit(8)->get();
         $category=Category::where('status','active')->where('is_parent',1)->orderBy('title','ASC')->get();
         // return $category;
         return view('frontend.index')
@@ -332,10 +332,9 @@ class FrontendController extends Controller
     }
 
     public function blogByCategory(Request $request){
-        $post=Post::getBlogByCategory($request->id);
-        // return $post;
+        $post=PostCategory::getBlogByCategory($request->slug);
         $rcnt_post=Post::where('status','active')->orderBy('id','DESC')->limit(3)->get();
-        return view('frontend.pages.blog')->with('posts',$post)->with('recent_posts',$rcnt_post);
+        return view('frontend.pages.blog')->with('posts',$post->post)->with('recent_posts',$rcnt_post);
     }
 
     public function blogByTag(Request $request){

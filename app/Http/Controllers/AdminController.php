@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Settings;
 use App\User;
+use App\Rules\MatchOldPassword;
+use Hash;
 use Spatie\Activitylog\Models\Activity;
 class AdminController extends Controller
 {
@@ -60,6 +62,22 @@ class AdminController extends Controller
             request()->session()->flash('error','Please try again');
         }
         return redirect()->route('admin');
+    }
+
+    public function changePassword(){
+        return view('backend.layouts.changePassword');
+    }
+    public function changPasswordStore(Request $request)
+    {
+        $request->validate([
+            'current_password' => ['required', new MatchOldPassword],
+            'new_password' => ['required'],
+            'new_confirm_password' => ['same:new_password'],
+        ]);
+   
+        User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
+   
+        return redirect()->route('admin')->with('success','Password successfully changed');
     }
 
     // public function activity(){
