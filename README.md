@@ -1,11 +1,4 @@
-<p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
-
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+# Advance E-commerce website in  Laravel 7
 
 ## Demo video :
 https://youtu.be/c5a_wrvJSJo
@@ -69,25 +62,17 @@ Many more....
 
 ## Set up :
 
-<b>Clone this repository</b>
-$ git clone https://github.com/Prajwal100/complete-ecommerce
+1. Clone the repo and cd into it
+2. composer install
+3. Rename or copy .env.example file to .env
+4. php artisan key:generate
+5. Set your database credentials in your .env file
+6.Set your Braintree credentials in your .env file if you want to use PayPal. Specifically BT_MERCHANT_ID, BT_PUBLIC_KEY, BT_PRIVATE_KEY. See this episode. If you don't, it should still work but won't show the paypal payment at checkout.
+7. Import db file(database/e-shop.sql) into your database (mysql,sql).
+8.npm install
+9.npm run dev
+10.php artisan serve or use virtual host
+11.Visit localhost:8000 in your browser
+12. Visit /admin if you want to access the admin panel. Admin Email/Password: admin@gmail.com/1111. User Email/Password: user@gmail.com/1111
 
-Go into the repository
-$ cd complete-ecommerce
 
-Install dependencies
-$ npm install
-
-
-Start
-$ gulp
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
