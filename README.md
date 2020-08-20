@@ -93,3 +93,5 @@ Many more....
 
 ![screencapture-e-shop-loc-product-track-2020-08-14-18_51_07](https://user-images.githubusercontent.com/29488275/90719682-bbcdeb00-e2d4-11ea-8e4e-7d6bfab1c421.png)
 
+<p style="text-align:center">Thank You so much for your time !!!</p>
+
