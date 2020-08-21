@@ -86,8 +86,8 @@ Many more....
 3. Rename or copy .env.example file to .env
 4. php artisan key:generate
 5. Set your database credentials in your .env file
-6.Set your Braintree credentials in your .env file if you want to use PayPal. Specifically BT_MERCHANT_ID, BT_PUBLIC_KEY, BT_PRIVATE_KEY. See this episode. If you don't, it should still work but won't show the paypal payment at checkout.
-7. Import db file(database/e-shop.sql) into your database (mysql,sql).
+6.  Set your Braintree credentials in your .env file if you want to use PayPal
+7. Import db file(database/e-shop.sql) into your database (mysql,sql)
 8.npm install
 9.npm run dev
 10.php artisan serve or use virtual host
