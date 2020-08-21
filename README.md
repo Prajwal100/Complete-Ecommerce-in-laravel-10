@@ -57,20 +57,6 @@ Many more....
 - Comment Management
 - Profile Settings
 
-## Set up :
-
-1. Clone the repo and cd into it
-2. composer install
-3. Rename or copy .env.example file to .env
-4. php artisan key:generate
-5. Set your database credentials in your .env file
-6.Set your Braintree credentials in your .env file if you want to use PayPal. Specifically BT_MERCHANT_ID, BT_PUBLIC_KEY, BT_PRIVATE_KEY. See this episode. If you don't, it should still work but won't show the paypal payment at checkout.
-7. Import db file(database/e-shop.sql) into your database (mysql,sql).
-8.npm install
-9.npm run dev
-10.php artisan serve or use virtual host
-11.Visit localhost:8000 in your browser
-12. Visit /admin if you want to access the admin panel. Admin Email/Password: admin@gmail.com/1111. User Email/Password: user@gmail.com/1111
 
 ## Screenshots :
 ![screencapture-e-shop-loc-admin-2020-08-15-15_47_37](https://user-images.githubusercontent.com/29488275/90719413-13b82200-e2d4-11ea-8ca0-f0e5551c4c9d.png)
@@ -92,6 +78,21 @@ Many more....
 ![screencapture-e-shop-loc-blog-detail-where-can-i-get-some-2020-08-14-18_43_01](https://user-images.githubusercontent.com/29488275/90719658-ace73880-e2d4-11ea-9cb2-13f2b3b0c4d2.png)
 
 ![screencapture-e-shop-loc-product-track-2020-08-14-18_51_07](https://user-images.githubusercontent.com/29488275/90719682-bbcdeb00-e2d4-11ea-8e4e-7d6bfab1c421.png)
+
+## Set up :
+
+1. Clone the repo and cd into it
+2. composer install
+3. Rename or copy .env.example file to .env
+4. php artisan key:generate
+5. Set your database credentials in your .env file
+6.Set your Braintree credentials in your .env file if you want to use PayPal. Specifically BT_MERCHANT_ID, BT_PUBLIC_KEY, BT_PRIVATE_KEY. See this episode. If you don't, it should still work but won't show the paypal payment at checkout.
+7. Import db file(database/e-shop.sql) into your database (mysql,sql).
+8.npm install
+9.npm run dev
+10.php artisan serve or use virtual host
+11.Visit localhost:8000 in your browser
+12. Visit /admin if you want to access the admin panel. Admin Email/Password: admin@gmail.com/1111. User Email/Password: user@gmail.com/1111
 
 <p style="text-align:center">Thank You so much for your time !!!</p>
 
