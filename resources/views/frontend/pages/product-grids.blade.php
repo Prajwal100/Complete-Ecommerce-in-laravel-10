@@ -32,13 +32,32 @@
                                 <div class="single-widget category">
                                     <h3 class="title">Categories</h3>
                                     <ul class="categor-list">
-                                        @foreach(Helper::productCategoryList('products') as $cat)
+										@php
+											// $category = new Category();
+											$menu=App\Models\Category::getAllParentWithChild();
+										@endphp
+										@if($menu)
+										<li>
+											@foreach($menu as $cat_info)
+													@if($cat_info->child_cat->count()>0)
+														<li><a href="{{route('product-cat',$cat_info->slug)}}">{{$cat_info->title}}</a>
+															<ul>
+																@foreach($cat_info->child_cat as $sub_menu)
+																	<li><a href="{{route('product-sub-cat',[$cat_info->slug,$sub_menu->slug])}}">{{$sub_menu->title}}</a></li>
+																@endforeach
+															</ul>
+														</li>
+													@else
+														<li><a href="{{route('product-cat',$cat_info->slug)}}">{{$cat_info->title}}</a></li>
+													@endif
+											@endforeach
+										</li>
+										@endif
+                                        {{-- @foreach(Helper::productCategoryList('products') as $cat)
                                             @if($cat->is_parent==1)
-                                                <li>
-                                                    <li><a href="{{route('product-cat',$cat->slug)}}">{{$cat->title}}</a></li>
-                                                </li>
-                                            @endif  
-                                        @endforeach
+												<li><a href="{{route('product-cat',$cat->slug)}}">{{$cat->title}}</a></li>
+											@endif
+                                        @endforeach --}}
                                     </ul>
                                 </div>
                                 <!--/ End Single Widget -->

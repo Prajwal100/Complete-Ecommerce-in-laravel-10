@@ -146,7 +146,7 @@
             }
         });
           $('.dltBtn').click(function(e){
-            var form=$(this).closest('form');
+              var form=$(this).closest('form');
               var dataID=$(this).data('id');
               // alert(dataID);
               e.preventDefault();
