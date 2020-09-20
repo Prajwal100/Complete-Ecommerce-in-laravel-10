@@ -68,18 +68,7 @@
                         <span class="text-danger">{{$message}}</span>
                         @enderror
                       </div>
-                      <div class="form-group">
-                          <label for="role" class="col-form-label">Role</label>
-                          <select name="role" class="form-control">
-                              <option value="">-----Select Role-----</option>
-                                  <option value="admin" {{(($profile->role=='admin')? 'selected' : '')}}>Admin</option>
-                                  <option value="user" {{(($profile->role=='user')? 'selected' : '')}}>User</option>
-                          </select>
-                        @error('role')
-                        <span class="text-danger">{{$message}}</span>
-                        @enderror
-                        </div>
-
+                      
                         <button type="submit" class="btn btn-success btn-sm">Update</button>
                 </form>
             </div>
