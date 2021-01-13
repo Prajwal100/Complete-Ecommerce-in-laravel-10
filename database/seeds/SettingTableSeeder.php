@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 
 class SettingTableSeeder extends Seeder
@@ -22,6 +24,6 @@ class SettingTableSeeder extends Seeder
             'email'=>"eshop@gmail.com",
             'phone'=>"+060 (800) 801-582",
         );
-        DB::table('settings')->insert($data);
+        \DB::table('settings')->insert($data);
     }
 }
