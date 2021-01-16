@@ -7,6 +7,8 @@ https://youtu.be/c5a_wrvJSJo
 ## Full tutorial :
 https://www.youtube.com/watch?v=FdAMucaks64&list=PLIFG3IUe1Zxo8Zvju3_kJJvoKSaIP_SC_
 
+https://www.youtube.com/watch?v=FdAMucaks64&list=PLIFG3IUe1Zxo8Zvju3_kJJvoKSaIP_SC_
+
 
 ## Features :
 
