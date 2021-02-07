@@ -1,5 +1,5 @@
 # Advance E-commerce website in  Laravel 7
-
+## Image upload problem fixed. Goto Laravel7 Branch and clone the project.
 ## Demo video :
 https://youtu.be/c5a_wrvJSJo
 
