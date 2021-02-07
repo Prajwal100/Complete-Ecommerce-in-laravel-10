@@ -121,6 +121,7 @@
 	<script src="{{asset('frontend/js/isotope/isotope.pkgd.min.js')}}"></script>
 	<!-- Easing JS -->
 	<script src="{{asset('frontend/js/easing.js')}}"></script>
+
 	<!-- Active JS -->
 	<script src="{{asset('frontend/js/active.js')}}"></script>
 
