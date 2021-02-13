@@ -2,6 +2,8 @@
 
 ## Image upload problem fixed. Goto Laravel7 Branch and clone the project.
 
+## Setup video : https://www.youtube.com/watch?v=URX5D1A5XQ4&t=19s
+
 ## Demo video :
 https://youtu.be/c5a_wrvJSJo
 
