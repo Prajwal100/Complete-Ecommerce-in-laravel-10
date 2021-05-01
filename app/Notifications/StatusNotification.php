@@ -3,14 +3,16 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use Illuminate\Notifications\Messages\BroadcastMessage;
+
 class StatusNotification extends Notification
 {
     use Queueable;
+
     private $details;
+
     /**
      * Create a new notification instance.
      *
@@ -18,7 +20,7 @@ class StatusNotification extends Notification
      */
     public function __construct($details)
     {
-        $this->details=$details;
+        $this->details = $details;
     }
 
     /**
@@ -29,14 +31,14 @@ class StatusNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['database','broadcast'];
+        return ['database', 'broadcast'];
     }
 
     /**
      * Get the mail representation of the notification.
      *
      * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
+     * @return MailMessage
      */
     // public function toMail($notifiable)
     // {
@@ -65,14 +67,13 @@ class StatusNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'title'=>$this->details['title'],
-            'actionURL'=>$this->details['actionURL'],
-            'fas'=>$this->details['fas']
+            'title' => $this->details['title'],
+            'actionURL' => $this->details['actionURL'],
+            'fas' => $this->details['fas']
         ];
     }
 
 
-    
     /**
      * Get the broadcastable representation of the notification.
      *
@@ -91,5 +92,4 @@ class StatusNotification extends Notification
     }
 
 
-    
 }

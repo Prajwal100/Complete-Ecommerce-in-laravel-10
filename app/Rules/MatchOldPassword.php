@@ -2,8 +2,9 @@
 
 namespace App\Rules;
 
-use Illuminate\Contracts\Validation\Rule;
 use Hash;
+use Illuminate\Contracts\Validation\Rule;
+
 class MatchOldPassword implements Rule
 {
     /**
@@ -23,9 +24,9 @@ class MatchOldPassword implements Rule
      * @param  mixed  $value
      * @return bool
      */
-    public function passes($attribute, $value)
+    public function passes($attribute, $value): bool
     {
-        return Hash::check($value,auth()->user()->password);
+        return Hash::check($value, auth()->user()->password);
     }
 
     /**
@@ -33,7 +34,7 @@ class MatchOldPassword implements Rule
      *
      * @return string
      */
-    public function message()
+    public function message(): string
     {
         return 'Current password must match with old password';
     }
