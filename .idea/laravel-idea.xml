@@ -7,5 +7,6 @@
         <entry key="createModel:namespace" value="Models" />
       </map>
     </option>
+    <option name="userClassName" value="App\Models\User" />
   </component>
 </project>

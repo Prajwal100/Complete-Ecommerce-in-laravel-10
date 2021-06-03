@@ -2,18 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Events\MessageSent;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Message\Store;
 use App\Models\Message;
 use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class MessageController extends Controller
 {
@@ -29,47 +25,13 @@ class MessageController extends Controller
     }
 
     /**
-     * @return JsonResponse
-     */
-    public function messageFive(): JsonResponse
-    {
-        $message = Message::whereNull('read_at')->limit(5)->get();
-        return response()->json($message);
-    }
-
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  Store  $request
-     * @return Response
-     */
-    public function store(Store $request): Response
-    {
-        $message = Message::create($request->all());
-        // return $message;
-        $data = array();
-        $data['url'] = route('message.show', $message->id);
-        $data['date'] = $message->created_at->format('F d, Y h:i A');
-        $data['name'] = $message->name;
-        $data['email'] = $message->email;
-        $data['phone'] = $message->phone;
-        $data['message'] = $message->message;
-        $data['subject'] = $message->subject;
-        $data['photo'] = Auth()->user()->photo;
-        // return $data;
-        event(new MessageSent($data));
-        exit();
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  Request  $request
      * @param  Message  $message
-     * @return RedirectResponse
+     * @return Application|Factory|View|RedirectResponse
      */
-    public function show(Request $request, Message $message): RedirectResponse
+    public function show(Request $request, Message $message)
     {
         if ($message) {
             $message->read_at = Carbon::now();

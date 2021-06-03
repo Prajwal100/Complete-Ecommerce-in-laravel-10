@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Http\Requests\Brand;
+    namespace App\Http\Requests\Brand;
 
-use Illuminate\Foundation\Http\FormRequest;
+    use Illuminate\Foundation\Http\FormRequest;
 
-class Store extends FormRequest
-{
-    public function rules(): array
+    class Store extends FormRequest
     {
-        return [
-            'title' => 'string|required',
-        ];
-    }
+        public function rules(): array
+        {
+            return [
+                'title' => 'string|required|unique:brands',
+            ];
+        }
 
-    public function authorize(): bool
-    {
-        return true;
+        public function authorize(): bool
+        {
+            return true;
+        }
     }
-}

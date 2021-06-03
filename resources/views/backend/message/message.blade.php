@@ -20,7 +20,7 @@
         </h6>
         <div id="message-items">
             @foreach(\App\Http\Helper::messageList() as $message)
-                <a class="dropdown-item d-flex align-items-center" href="{{route('message.show',$message->id)}}">
+                <a class="dropdown-item d-flex align-items-center" href="{{route('messages.show',$message->id)}}">
                     <div class="dropdown-list-image mr-3">
                         @if($message->photo)
                             <img class="rounded-circle" src="{{$message->photo}}" alt="profile">
@@ -52,7 +52,7 @@
             </div>
             </a> --}}
         </div>
-        <a class="dropdown-item text-center small text-gray-500" href="{{route('message.index')}}">Read More
+        <a class="dropdown-item text-center small text-gray-500" href="{{route('messages.index')}}">Read More
             Messages</a>
     </div>
 </div>
