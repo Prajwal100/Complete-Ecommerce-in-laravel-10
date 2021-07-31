@@ -45,8 +45,7 @@
         public function profileUpdate(Request $request, $id): RedirectResponse
         {
             $user = User::findOrFail($id);
-            $data = $request->all();
-            $status = $user->fill($data)->save();
+            $status = $user->update($request->all());
             if ($status) {
                 request()->session()->flash('success', 'Successfully updated your profile');
             } else {
@@ -96,7 +95,6 @@
         public function orderShow($id)
         {
             $order = Order::find($id);
-            // return $order;
             return view('user.order.show')->with('order', $order);
         }
 
@@ -116,7 +114,6 @@
         public function productReviewEdit($id)
         {
             $review = ProductReview::find($id);
-            // return $review;
             return view('user.review.edit')->with('review', $review);
         }
 

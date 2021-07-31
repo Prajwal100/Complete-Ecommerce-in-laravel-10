@@ -1,17 +1,21 @@
 <?php
 
+    /**
+     * Created by Zoran Shefot Bogoevski.
+     */
+
     namespace App\Models;
 
+    use Carbon\Carbon;
     use Eloquent;
     use Illuminate\Database\Eloquent\Builder;
     use Illuminate\Database\Eloquent\Collection;
     use Illuminate\Database\Eloquent\Factories\HasFactory;
     use Illuminate\Database\Eloquent\Model;
     use Illuminate\Database\Eloquent\Relations\HasMany;
-    use Illuminate\Support\Carbon;
 
     /**
-     * App\Models\Brand
+     * Class Brand
      *
      * @property int $id
      * @property string $title
@@ -19,7 +23,8 @@
      * @property string $status
      * @property Carbon|null $created_at
      * @property Carbon|null $updated_at
-     * @property-read Collection|Product[] $products
+     * @property Collection|Product[] $products
+     * @package App\Models
      * @property-read int|null $products_count
      * @method static Builder|Brand newModelQuery()
      * @method static Builder|Brand newQuery()
@@ -31,10 +36,13 @@
      * @method static Builder|Brand whereTitle($value)
      * @method static Builder|Brand whereUpdatedAt($value)
      * @mixin Eloquent
+     * @method static \Database\Factories\BrandFactory factory(...$parameters)
      */
     class Brand extends Model
     {
         use HasFactory;
+
+        protected $table = 'brands';
 
         protected $fillable = [
             'title',
@@ -44,11 +52,30 @@
 
         public function products(): HasMany
         {
-            return $this->hasMany(Product::class, 'brand_id', 'id')->where('status', 'active');
+            return $this->hasMany(Product::class);
         }
 
+
+        /**
+         * @param $slug
+         * @return Builder|Model|object|null
+         */
         public static function getProductByBrand($slug)
         {
             return Brand::with('products')->where('slug', $slug)->first();
+        }
+
+        /**
+         * @param $slug
+         * @return mixed|string
+         */
+        public function incrementSlug($slug)
+        {
+            $original = $slug;
+            $count = 2;
+            while (static::whereSlug($slug)->exists()) {
+                $slug = "{$original}-".$count++;
+            }
+            return $slug;
         }
     }

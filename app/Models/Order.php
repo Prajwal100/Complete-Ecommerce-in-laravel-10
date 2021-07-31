@@ -1,7 +1,12 @@
 <?php
 
+    /**
+     * Created by Zoran Shefot Bogoevski.
+     */
+
     namespace App\Models;
 
+    use Carbon\Carbon;
     use Eloquent;
     use Illuminate\Database\Eloquent\Builder;
     use Illuminate\Database\Eloquent\Collection;
@@ -9,13 +14,12 @@
     use Illuminate\Database\Eloquent\Model;
     use Illuminate\Database\Eloquent\Relations\BelongsTo;
     use Illuminate\Database\Eloquent\Relations\HasMany;
-    use Illuminate\Support\Carbon;
 
     /**
-     * App\Models\Order
+     * Class Order
      *
      * @property int $id
-     * @property string $order_number
+     * @property string|null $order_number
      * @property int|null $user_id
      * @property float $sub_total
      * @property int|null $shipping_id
@@ -35,12 +39,13 @@
      * @property string|null $address2
      * @property Carbon|null $created_at
      * @property Carbon|null $updated_at
-     * @property-read Collection|Cart[] $cart
-     * @property-read int|null $cart_count
+     * @property Shipping|null $shipping
+     * @property User|null $user
+     * @property Collection|Cart[] $carts
+     * @package App\Models
      * @property-read Collection|Cart[] $cart_info
      * @property-read int|null $cart_info_count
-     * @property-read Shipping|null $shipping
-     * @property-read User|null $user
+     * @property-read int|null $carts_count
      * @method static Builder|Order newModelQuery()
      * @method static Builder|Order newQuery()
      * @method static Builder|Order query()
@@ -66,17 +71,58 @@
      * @method static Builder|Order whereUpdatedAt($value)
      * @method static Builder|Order whereUserId($value)
      * @mixin Eloquent
+     * @method static \Database\Factories\OrderFactory factory(...$parameters)
      */
     class Order extends Model
     {
         use HasFactory;
 
-        protected $fillable = [
-            'user_id', 'order_number', 'sub_total', 'quantity', 'delivery_charge', 'status', 'total_amount',
-            'first_name',
-            'last_name', 'country', 'post_code', 'address1', 'address2', 'phone', 'email', 'payment_method',
-            'payment_status', 'shipping_id', 'coupon',
+        protected $table = 'orders';
+
+        protected $casts = [
+            'user_id'      => 'int',
+            'sub_total'    => 'float',
+            'shipping_id'  => 'int',
+            'coupon'       => 'float',
+            'total_amount' => 'float',
+            'quantity'     => 'int',
         ];
+
+        protected $fillable = [
+            'order_number',
+            'user_id',
+            'sub_total',
+            'shipping_id',
+            'coupon',
+            'total_amount',
+            'quantity',
+            'payment_method',
+            'payment_status',
+            'status',
+            'first_name',
+            'last_name',
+            'email',
+            'phone',
+            'country',
+            'post_code',
+            'address1',
+            'address2',
+        ];
+
+        public function shipping(): BelongsTo
+        {
+            return $this->belongsTo(Shipping::class);
+        }
+
+        public function user(): BelongsTo
+        {
+            return $this->belongsTo(User::class);
+        }
+
+        public function carts(): HasMany
+        {
+            return $this->hasMany(Cart::class);
+        }
 
         /**
          * @return HasMany
@@ -105,24 +151,6 @@
                 return $data;
             }
             return 0;
-        }
-
-        /**
-         * @return HasMany
-         */
-        public function cart(): HasMany
-        {
-            return $this->hasMany(Cart::class);
-        }
-
-        public function shipping(): BelongsTo
-        {
-            return $this->belongsTo(Shipping::class, 'shipping_id');
-        }
-
-        public function user(): BelongsTo
-        {
-            return $this->belongsTo(User::class, 'user_id');
         }
 
     }

@@ -33,20 +33,16 @@
                                 <div class="shop-single-blog">
                                     <img src="{{$post->photo}}" alt="{{$post->photo}}">
                                     <div class="content">
-                                        @php
-                                            $author_info=DB::table('users')->select('name')->where('id',$post->added_by)->get()
-                                        @endphp
+
                                         <p class="date"><i class="fa fa-calendar"
                                                            aria-hidden="true"></i> {{$post->created_at->format('d M, Y. D')}}
                                             <span class="float-right">
                                                 <i class="fa fa-user" aria-hidden="true"></i>
-                                                @foreach($author_info as $data)
-                                                    @if($data->name)
-                                                        {{$data->name}}
-                                                    @else
-                                                        Anonymous
-                                                    @endif
-                                                @endforeach
+                                                    @if($post->author_info->name)
+                                                    {{$post->author_info->name}}
+                                                @else
+                                                    Anonymous
+                                                @endif
                                             </span>
                                         </p>
                                         <a href="{{route('blog.detail',$post->slug)}}"
@@ -88,7 +84,7 @@
                                 <form action="{{route('blog.filter')}}" method="POST">
                                     @csrf
                                     {{-- {{count(\App\Http\Helper::postCategoryList())}} --}}
-                                    @foreach(\App\Http\Helper::postCategoryList('posts') as $cat)
+                                    @foreach(\App\Http\Helper::postCategoryList() as $cat)
                                         <li>
                                             <a href="{{route('blog.category',$cat->slug)}}">{{$cat->title}} </a>
                                         </li>
@@ -144,7 +140,7 @@
                                 @endif
                                 <form action="{{route('blog.filter')}}" method="POST">
                                     @csrf
-                                    @foreach(\App\Http\Helper::postTagList('posts') as $tag)
+                                    @foreach(\App\Http\Helper::postTagList() as $tag)
                                         <li>
                                         <li>
                                             <a href="{{route('blog.tag',$tag->title)}}">{{$tag->title}} </a>

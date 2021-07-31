@@ -1,5 +1,7 @@
 <?php
 
+    namespace Database\Factories;
+
     use App\Models\Post;
     use App\Models\PostComment;
     use Illuminate\Database\Eloquent\Factories\Factory;
@@ -17,13 +19,12 @@
         public function definition(): array
         {
             return [
-                'user_id' => $this->faker->randomNumber(),
-                'comment' => $this->faker->word,
-                'status' => $this->faker->word,
+                'user_id'         => $this->faker->numberBetween(1, 3),
+                'comment'         => $this->faker->word,
                 'replied_comment' => $this->faker->word,
-                'parent_id' => $this->faker->randomNumber(),
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+                'parent_id'       => $this->faker->randomNumber(),
+                'created_at'      => Carbon::now(),
+                'updated_at'      => Carbon::now(),
 
                 'post_id' => function () {
                     return Post::factory()->create()->id;

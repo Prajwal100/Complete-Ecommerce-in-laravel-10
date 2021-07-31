@@ -1,19 +1,26 @@
 <?php
 
+
+    /**
+     * Created by Zoran Shefot Bogoevski.
+     */
+
     namespace App\Models;
 
+    use Carbon\Carbon;
     use Eloquent;
     use Illuminate\Contracts\Pagination\LengthAwarePaginator;
     use Illuminate\Database\Eloquent\Builder;
     use Illuminate\Database\Eloquent\Collection;
     use Illuminate\Database\Eloquent\Factories\HasFactory;
     use Illuminate\Database\Eloquent\Model;
+    use Illuminate\Database\Eloquent\Relations\BelongsTo;
+    use Illuminate\Database\Eloquent\Relations\BelongsToMany;
     use Illuminate\Database\Eloquent\Relations\HasMany;
     use Illuminate\Database\Eloquent\Relations\HasOne;
-    use Illuminate\Support\Carbon;
 
     /**
-     * App\Models\Post
+     * Class Post
      *
      * @property int $id
      * @property string $title
@@ -29,13 +36,16 @@
      * @property string $status
      * @property Carbon|null $created_at
      * @property Carbon|null $updated_at
+     * @property User|null $user
+     * @property PostCategory|null $post_category
+     * @property Tag|null $post_tag
+     * @property Collection|PostComment[] $post_comments
+     * @package App\Models
      * @property-read Collection|PostComment[] $allComments
      * @property-read int|null $all_comments_count
      * @property-read User|null $author_info
-     * @property-read PostCategory|null $cat_info
-     * @property-read Collection|PostComment[] $comments
-     * @property-read int|null $comments_count
-     * @property-read PostTag|null $tag_info
+     * @property-read Collection|PostComment[] $fpost_comments
+     * @property-read int|null $fpost_comments_count
      * @method static Builder|Post newModelQuery()
      * @method static Builder|Post newQuery()
      * @method static Builder|Post query()
@@ -54,65 +64,61 @@
      * @method static Builder|Post whereTitle($value)
      * @method static Builder|Post whereUpdatedAt($value)
      * @mixin Eloquent
+     * @property-read int|null $post_comments_count
+     * @method static \Database\Factories\PostFactory factory(...$parameters)
      */
     class Post extends Model
     {
         use HasFactory;
 
+        protected $table = 'posts';
+
+        protected $casts = [
+            'post_cat_id' => 'int',
+            'post_tag_id' => 'int',
+            'added_by'    => 'int',
+        ];
+
         protected $fillable = [
-            'title', 'tags', 'summary', 'slug', 'description', 'photo', 'quote', 'post_cat_id', 'post_tag_id',
+            'title',
+            'slug',
+            'summary',
+            'description',
+            'quote',
+            'photo',
+            'tags',
+            'post_cat_id',
+            'post_tag_id',
             'added_by',
             'status',
         ];
 
         /**
-         * @return HasOne
+         * @return BelongsToMany
          */
-        public function cat_info(): HasOne
+        public function categories(): BelongsToMany
         {
-            return $this->hasOne(PostCategory::class, 'id', 'post_cat_id');
+            return $this->belongsToMany(Category::class);
         }
 
-        /**
-         * @return HasOne
-         */
-        public function tag_info(): HasOne
+        public function user(): BelongsTo
         {
-            return $this->hasOne(PostTag::class, 'id', 'post_tag_id');
+            return $this->belongsTo(User::class, 'added_by');
         }
 
-        /**
-         * @return HasOne
-         */
-        public function author_info(): HasOne
+        public function post_category(): BelongsTo
         {
-            return $this->hasOne(User::class, 'id', 'added_by');
+            return $this->belongsTo(PostCategory::class, 'post_cat_id');
         }
 
-        /**
-         * @return LengthAwarePaginator
-         */
-        public static function getAllPost(): LengthAwarePaginator
+        public function post_tag(): BelongsTo
         {
-            return Post::with(['cat_info', 'author_info'])->orderBy('id', 'DESC')->paginate(10);
+            return $this->belongsTo(Tag::class);
         }
 
-        /**
-         * @param $slug
-         * @return Builder|Model|object|null
-         */
-        public static function getPostBySlug($slug)
+        public function post_comments(): HasMany
         {
-            return Post::with(['tag_info', 'author_info'])->where('slug', $slug)->where('status', 'active')->first();
-        }
-
-        /**
-         * @return HasMany
-         */
-        public function comments(): HasMany
-        {
-            return $this->hasMany(PostComment::class)->whereNull('parent_id')->where('status',
-                'active')->with('user_info')->orderBy('id', 'DESC');
+            return $this->hasMany(PostComment::class);
         }
 
         /**
@@ -133,6 +139,23 @@
         }
 
         /**
+         * @return HasMany
+         */
+        public function comments(): HasMany
+        {
+            return $this->hasMany(PostComment::class)->whereNull('parent_id')->orderBy('id', 'DESC');
+        }
+
+        /**
+         * @param $slug
+         * @return Builder|Model
+         */
+        public static function getPostBySlug($slug)
+        {
+            return Post::whereSlug($slug)->with('comments')->firstOrFail();
+        }
+
+        /**
          * @return int
          */
         public static function countActivePost(): int
@@ -143,4 +166,35 @@
             }
             return 0;
         }
+
+        /**
+         * @param $slug
+         * @return mixed|string
+         */
+        public function incrementSlug($slug)
+        {
+            $original = $slug;
+            $count = 2;
+            while (static::whereSlug($slug)->exists()) {
+                $slug = "{$original}-".$count++;
+            }
+            return $slug;
+        }
+
+        /**
+         * @return HasOne
+         */
+        public function author_info(): HasOne
+        {
+            return $this->hasOne(User::class, 'id', 'added_by');
+        }
+
+        /**
+         * @return LengthAwarePaginator
+         */
+        public static function getAllPost(): LengthAwarePaginator
+        {
+            return Post::with(['author_info', 'categories'])->orderBy('id', 'DESC')->paginate(10);
+        }
+
     }

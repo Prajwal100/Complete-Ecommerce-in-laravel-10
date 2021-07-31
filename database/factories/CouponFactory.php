@@ -1,8 +1,9 @@
 <?php
 
+    namespace Database\Factories;
+
     use App\Models\Coupon;
     use Illuminate\Database\Eloquent\Factories\Factory;
-    use Illuminate\Support\Carbon;
 
     class CouponFactory extends Factory
     {
@@ -16,12 +17,8 @@
         public function definition(): array
         {
             return [
-                'code' => $this->faker->word,
-                'type' => $this->faker->word,
-                'value' => $this->faker->word,
-                'status' => $this->faker->word,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+                'code'  => $this->faker->word,
+                'value' => $this->faker->randomFloat(),
             ];
         }
     }

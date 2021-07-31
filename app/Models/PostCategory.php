@@ -1,17 +1,21 @@
 <?php
 
+    /**
+     * Created by Zoran Shefot Bogoevski.
+     */
+
     namespace App\Models;
 
+    use Carbon\Carbon;
     use Eloquent;
     use Illuminate\Database\Eloquent\Builder;
     use Illuminate\Database\Eloquent\Collection;
     use Illuminate\Database\Eloquent\Factories\HasFactory;
     use Illuminate\Database\Eloquent\Model;
     use Illuminate\Database\Eloquent\Relations\HasMany;
-    use Illuminate\Support\Carbon;
 
     /**
-     * App\Models\PostCategory
+     * Class PostCategory
      *
      * @property int $id
      * @property string $title
@@ -19,8 +23,9 @@
      * @property string $status
      * @property Carbon|null $created_at
      * @property Carbon|null $updated_at
-     * @property-read Collection|Post[] $post
-     * @property-read int|null $post_count
+     * @property Collection|Post[] $posts
+     * @package App\Models
+     * @property-read int|null $posts_count
      * @method static Builder|PostCategory newModelQuery()
      * @method static Builder|PostCategory newQuery()
      * @method static Builder|PostCategory query()
@@ -31,19 +36,23 @@
      * @method static Builder|PostCategory whereTitle($value)
      * @method static Builder|PostCategory whereUpdatedAt($value)
      * @mixin Eloquent
+     * @method static \Database\Factories\PostCategoryFactory factory(...$parameters)
      */
     class PostCategory extends Model
     {
         use HasFactory;
 
-        protected $fillable = ['title', 'slug', 'status'];
+        protected $table = 'post_categories';
 
-        /**
-         * @return HasMany
-         */
-        public function post(): HasMany
+        protected $fillable = [
+            'title',
+            'slug',
+            'status',
+        ];
+
+        public function posts(): HasMany
         {
-            return $this->hasMany(Post::class, 'post_cat_id', 'id')->where('status', 'active');
+            return $this->hasMany(Post::class, 'post_cat_id');
         }
 
         /**
@@ -53,5 +62,19 @@
         public static function getBlogByCategory($slug)
         {
             return PostCategory::with('post')->where('slug', $slug)->first();
+        }
+
+        /**
+         * @param $slug
+         * @return mixed|string
+         */
+        public function incrementSlug($slug)
+        {
+            $original = $slug;
+            $count = 2;
+            while (static::whereSlug($slug)->exists()) {
+                $slug = "{$original}-".$count++;
+            }
+            return $slug;
         }
     }

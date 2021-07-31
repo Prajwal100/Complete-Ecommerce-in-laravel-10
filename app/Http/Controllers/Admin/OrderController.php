@@ -3,6 +3,7 @@
     namespace App\Http\Controllers\Admin;
 
     use App\Http\Controllers\Controller;
+    use App\Http\Helper;
     use App\Http\Requests\Order\Store;
     use App\Models\Cart;
     use App\Models\Order;
@@ -27,8 +28,8 @@
          */
         public function index()
         {
-            $orders = Order::orderBy('id', 'DESC')->paginate(10);
-            return view('backend.order.index')->with('orders', $orders);
+            $orders = Order::with('shipping')->orderBy('id', 'DESC')->paginate(10);
+            return view('backend.order.index', compact('orders'));
         }
 
         /**
@@ -50,23 +51,22 @@
             $order_data['user_id'] = $request->user()->id;
             $order_data['shipping_id'] = $request->shipping;
             $shipping = Shipping::where('id', $order_data['shipping_id'])->pluck('price');
-            // return session('coupon')['value'];
-            $order_data['sub_total'] = \App\Http\Helper::totalCartPrice();
-            $order_data['quantity'] = \App\Http\Helper::cartCount();
+            $order_data['sub_total'] = Helper::totalCartPrice();
+            $order_data['quantity'] = Helper::cartCount();
             if (session('coupon')) {
                 $order_data['coupon'] = session('coupon')['value'];
             }
             if ($request->shipping) {
                 if (session('coupon')) {
-                    $order_data['total_amount'] = \App\Http\Helper::totalCartPrice() + $shipping[0] - session('coupon')['value'];
+                    $order_data['total_amount'] = Helper::totalCartPrice() + $shipping[0] - session('coupon')['value'];
                 } else {
-                    $order_data['total_amount'] = \App\Http\Helper::totalCartPrice() + $shipping[0];
+                    $order_data['total_amount'] = Helper::totalCartPrice() + $shipping[0];
                 }
             } else {
                 if (session('coupon')) {
-                    $order_data['total_amount'] = \App\Http\Helper::totalCartPrice() - session('coupon')['value'];
+                    $order_data['total_amount'] = Helper::totalCartPrice() - session('coupon')['value'];
                 } else {
-                    $order_data['total_amount'] = \App\Http\Helper::totalCartPrice();
+                    $order_data['total_amount'] = Helper::totalCartPrice();
                 }
             }
             // return $order_data['total_amount'];
@@ -98,7 +98,6 @@
             }
             Cart::where('user_id', auth()->user()->id)->where('order_id', null)->update(['order_id' => $order->id]);
 
-            // dd($users);
             request()->session()->flash('success', 'Your product successfully placed in order');
             return redirect()->route('home');
         }

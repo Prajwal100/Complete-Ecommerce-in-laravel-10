@@ -1,17 +1,21 @@
 <?php
 
+    /**
+     * Created by Zoran Shefot Bogoevski.
+     */
+
     namespace App\Models;
 
+    use Carbon\Carbon;
     use Eloquent;
     use Illuminate\Contracts\Pagination\LengthAwarePaginator;
     use Illuminate\Database\Eloquent\Builder;
     use Illuminate\Database\Eloquent\Factories\HasFactory;
     use Illuminate\Database\Eloquent\Model;
-    use Illuminate\Database\Eloquent\Relations\HasOne;
-    use Illuminate\Support\Carbon;
+    use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
     /**
-     * App\Models\ProductReview
+     * Class ProductReview
      *
      * @property int $id
      * @property int|null $user_id
@@ -21,6 +25,9 @@
      * @property string $status
      * @property Carbon|null $created_at
      * @property Carbon|null $updated_at
+     * @property Product|null $product
+     * @property User|null $user
+     * @package App\Models
      * @method static Builder|ProductReview newModelQuery()
      * @method static Builder|ProductReview newQuery()
      * @method static Builder|ProductReview query()
@@ -33,20 +40,41 @@
      * @method static Builder|ProductReview whereUpdatedAt($value)
      * @method static Builder|ProductReview whereUserId($value)
      * @mixin Eloquent
-     * @property-read User|null $user_info
      */
     class ProductReview extends Model
     {
         use HasFactory;
 
-        protected $fillable = ['user_id', 'product_id', 'rate', 'review', 'status'];
+        protected $table = 'product_reviews';
+
+        protected $casts = [
+            'user_id'    => 'int',
+            'product_id' => 'int',
+            'rate'       => 'int',
+        ];
+
+        protected $fillable = [
+            'user_id',
+            'product_id',
+            'rate',
+            'review',
+            'status',
+        ];
 
         /**
-         * @return HasOne
+         * @return BelongsTo
          */
-        public function user_info(): HasOne
+        public function product(): BelongsTo
         {
-            return $this->hasOne(User::class, 'id', 'user_id');
+            return $this->belongsTo(Product::class);
+        }
+
+        /**
+         * @return BelongsTo
+         */
+        public function user(): BelongsTo
+        {
+            return $this->belongsTo(User::class);
         }
 
         /**
@@ -54,7 +82,7 @@
          */
         public static function getAllReview(): LengthAwarePaginator
         {
-            return ProductReview::with('user_info')->paginate(10);
+            return ProductReview::with(['user_info', 'product'])->paginate(10);
         }
 
         /**
@@ -64,5 +92,4 @@
         {
             return ProductReview::where('user_id', auth()->user()->id)->with('user_info')->paginate(10);
         }
-
     }

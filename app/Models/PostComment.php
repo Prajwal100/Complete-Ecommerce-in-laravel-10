@@ -1,7 +1,12 @@
 <?php
 
+    /**
+     * Created by Zoran Shefot Bogoevski.
+     */
+
     namespace App\Models;
 
+    use Carbon\Carbon;
     use Eloquent;
     use Illuminate\Contracts\Pagination\LengthAwarePaginator;
     use Illuminate\Database\Eloquent\Builder;
@@ -11,10 +16,9 @@
     use Illuminate\Database\Eloquent\Relations\BelongsTo;
     use Illuminate\Database\Eloquent\Relations\HasMany;
     use Illuminate\Database\Eloquent\Relations\HasOne;
-    use Illuminate\Support\Carbon;
 
     /**
-     * App\Models\PostComment
+     * Class PostComment
      *
      * @property int $id
      * @property int|null $user_id
@@ -25,7 +29,9 @@
      * @property int|null $parent_id
      * @property Carbon|null $created_at
      * @property Carbon|null $updated_at
-     * @property-read Post|null $post
+     * @property Post|null $post
+     * @property User|null $user
+     * @package App\Models
      * @property-read Collection|PostComment[] $replies
      * @property-read int|null $replies_count
      * @method static Builder|PostComment newModelQuery()
@@ -41,13 +47,38 @@
      * @method static Builder|PostComment whereUpdatedAt($value)
      * @method static Builder|PostComment whereUserId($value)
      * @mixin Eloquent
-     * @property-read User|null $user_info
+     * @method static \Database\Factories\PostCommentFactory factory(...$parameters)
      */
     class PostComment extends Model
     {
         use HasFactory;
 
-        protected $fillable = ['user_id', 'post_id', 'comment', 'replied_comment', 'parent_id', 'status'];
+        protected $table = 'post_comments';
+
+        protected $casts = [
+            'user_id'   => 'int',
+            'post_id'   => 'int',
+            'parent_id' => 'int',
+        ];
+
+        protected $fillable = [
+            'user_id',
+            'post_id',
+            'comment',
+            'status',
+            'replied_comment',
+            'parent_id',
+        ];
+
+        public function post(): BelongsTo
+        {
+            return $this->belongsTo(Post::class);
+        }
+
+        public function user(): BelongsTo
+        {
+            return $this->belongsTo(User::class);
+        }
 
         /**
          * @return HasOne
@@ -62,7 +93,7 @@
          */
         public static function getAllComments(): LengthAwarePaginator
         {
-            return PostComment::with('user_info')->paginate(10);
+            return PostComment::with(['user_info', 'post'])->paginate(10);
         }
 
         /**
@@ -71,14 +102,6 @@
         public static function getAllUserComments(): LengthAwarePaginator
         {
             return PostComment::where('user_id', auth()->user()->id)->with('user_info')->paginate(10);
-        }
-
-        /**
-         * @return BelongsTo
-         */
-        public function post(): BelongsTo
-        {
-            return $this->belongsTo(Post::class);
         }
 
         /**

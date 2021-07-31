@@ -71,7 +71,7 @@
                 $order_data['payment_status'] = 'Unpaid';
             }
             $order->fill($order_data);
-            $status = $order->save();
+            $order->save();
             if ($order) // dd($order->id);
             {
                 $users = User::where('role', 'admin')->first();
@@ -154,19 +154,15 @@
         public function incomeChart(Request $request): array
         {
             $year = Carbon::now()->year;
-            // dd($year);
             $items = Order::with(['cart_info'])->whereYear('created_at', $year)->where('status', 'delivered')->get()
                 ->groupBy(function ($d) {
                     return Carbon::parse($d->created_at)->format('m');
                 });
-            // dd($items);
             $result = [];
             foreach ($items as $month => $item_collections) {
                 foreach ($item_collections as $item) {
                     $amount = $item->cart_info->sum('amount');
-                    // dd($amount);
                     $m = intval($month);
-                    // return $m;
                     isset($result[$m]) ? $result[$m] += $amount : $result[$m] = $amount;
                 }
             }

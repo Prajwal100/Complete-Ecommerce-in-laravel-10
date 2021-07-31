@@ -44,7 +44,7 @@
                         <tbody>
                         @foreach($orders as $order)
                             @php
-                                $shipping_charge=DB::table('shippings')->where('id',$order->shipping_id)->pluck('price')
+                                $shipping_charge=DB::table('shipping')->where('id',$order->shipping_id)->pluck('price')
                             @endphp
                             <tr>
                                 <td>{{$order->id}}</td>
@@ -76,7 +76,7 @@
                                         <button class="btn btn-danger btn-sm dltBtn"
                                                 data-id={{$order->id}} style="height:30px; width:30px;border-radius:50%
                                         " data-toggle="tooltip" data-placement="bottom" title="Delete"><i
-                                            class="fas fa-trash-alt"></i></button>
+                                                class="fas fa-trash-alt"></i></button>
                                     </form>
                                 </td>
                             </tr>

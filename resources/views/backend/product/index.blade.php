@@ -54,27 +54,20 @@
                         <tbody>
 
                         @foreach($products as $product)
-                            @php
-                                $sub_cat_info=DB::table('categories')->select('title')->where('id',$product->child_cat_id)->get();
-                                // dd($sub_cat_info);
-                                $brands=DB::table('brands')->select('title')->where('id',$product->brand_id)->get();
-                            @endphp
                             <tr>
                                 <td>{{$product->id}}</td>
                                 <td>{{$product->title}}</td>
-                                <td>{{$product->cat_info['title']}}
-                                    <sub>
-                                        @foreach($sub_cat_info as $data)
-                                            {{$data->title}}
-                                        @endforeach
-                                    </sub>
+                                <td>
+                                    @foreach($product->categories as $category)
+                                        {{$category->title}}
+                                    @endforeach
                                 </td>
                                 <td>{{(($product->is_featured==1)? 'Yes': 'No')}}</td>
                                 <td>Rs. {{$product->price}} /-</td>
                                 <td>  {{$product->discount}}% OFF</td>
                                 <td>{{$product->size}}</td>
                                 <td>{{$product->condition}}</td>
-                                <td>@foreach($brands as $brand) {{$brand->title}} @endforeach</td>
+                                <td>{{ $product->brand->title }}</td>
                                 <td>
                                     @if($product->stock>0)
                                         <span class="badge badge-primary">{{$product->stock}}</span>
@@ -86,7 +79,6 @@
                                     @if($product->photo)
                                         @php
                                             $photo=explode(',',$product->photo);
-                                            // dd($photo);
                                         @endphp
                                         <img src="{{$photo[0]}}" class="img-fluid zoom" style="max-width:80px"
                                              alt="{{$product->photo}}">
@@ -103,11 +95,11 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="{{route('product.edit',$product->id)}}"
+                                    <a href="{{route('products.edit',$product->id)}}"
                                        class="btn btn-primary btn-sm float-left mr-1"
                                        style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip"
                                        title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
-                                    <form method="POST" action="{{route('product.destroy',[$product->id])}}">
+                                    <form method="POST" action="{{route('products.destroy',[$product->id])}}">
                                         @csrf
                                         @method('delete')
                                         <button class="btn btn-danger btn-sm dltBtn"
@@ -117,31 +109,11 @@
                                                 class="fas fa-trash-alt"></i></button>
                                     </form>
                                 </td>
-                                {{-- Delete Modal --}}
-                                {{-- <div class="modal fade" id="delModal{{$user->id}}" tabindex="-1" role="dialog" aria-labelledby="#delModal{{$user->id}}Label" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                      <div class="modal-content">
-                                        <div class="modal-header">
-                                          <h5 class="modal-title" id="#delModal{{$user->id}}Label">Delete user</h5>
-                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                          </button>
-                                        </div>
-                                        <div class="modal-body">
-                                          <form method="post" action="{{ route('categorys.destroy',$user->id) }}">
-                                            @csrf
-                                            @method('delete')
-                                            <button type="submit" class="btn btn-danger" style="margin:auto; text-align:center">Parmanent delete user</button>
-                                          </form>
-                                        </div>
-                                      </div>
-                                    </div>
-                                </div> --}}
                             </tr>
                         @endforeach
                         </tbody>
                     </table>
-                    <span style="float:right">{{$products->links()}}</span>
+                    <span style="float:right">{{$products->links('vendor.pagination.bootstrap-4')}}</span>
                 @else
                     <h6 class="text-center">No Products found!!! Please create Product</h6>
                 @endif
@@ -180,7 +152,7 @@
     <script>
 
         $('#product-dataTable').DataTable({
-            "scrollX": false
+            "scrollX": false,
             "columnDefs": [
                 {
                     "orderable": false,

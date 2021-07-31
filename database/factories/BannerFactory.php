@@ -1,5 +1,7 @@
 <?php
 
+    namespace Database\Factories;
+
     use App\Models\Banner;
     use Illuminate\Database\Eloquent\Factories\Factory;
     use Illuminate\Support\Carbon;
@@ -16,13 +18,11 @@
         public function definition(): array
         {
             return [
-                'title' => $this->faker->word,
-                'slug' => $this->faker->slug,
-                'photo' => $this->faker->word,
+                'title'       => $this->faker->unique()->word,
+                'photo'       => $this->faker->word,
                 'description' => $this->faker->text,
-                'status' => $this->faker->word,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+                'created_at'  => Carbon::now(),
+                'updated_at'  => Carbon::now(),
             ];
         }
     }

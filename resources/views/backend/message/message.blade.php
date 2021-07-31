@@ -37,7 +37,7 @@
                 </a>
                 @if($loop->index+1==5)
                     @php
-                        break;
+                        break
                     @endphp
                 @endif
             @endforeach
@@ -90,7 +90,7 @@
                     } else {
                         $(message_counter_area).text('5+');
                     }
-                    ;
+
 
                     if (message_length >= 5) $(message_container).find('.message-item').last().remove();
 

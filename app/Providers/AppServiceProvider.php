@@ -8,13 +8,17 @@
     use App\Models\Category;
     use App\Models\Post;
     use App\Models\PostCategory;
+    use App\Models\Product;
+    use App\Models\Tag;
     use App\Observers\BannerObserver;
     use App\Observers\BrandObserver;
     use App\Observers\CategoryObserver;
     use App\Observers\PostObserver;
-    use Illuminate\Support\Facades\Schema;
+    use App\Observers\ProductObserver;
+    use App\Observers\TagObserver;
     use Illuminate\Support\Facades\View;
     use Illuminate\Support\ServiceProvider;
+    use Schema;
 
     class AppServiceProvider extends ServiceProvider
     {
@@ -39,8 +43,11 @@
             Banner::observe(BannerObserver::class);
             Brand::observe(BrandObserver::class);
             Category::observe(CategoryObserver::class);
+            Tag::observe(TagObserver::class);
             PostCategory::observe(PostObserver::class);
             Post::observe(PostObserver::class);
-            View::composer(['frontend.layouts.header', 'frontend.layouts.footer'], SettingsComposer::class);
+            Product::observe(ProductObserver::class);
+            View::composer(['frontend.layouts.header', 'frontend.layouts.footer', 'frontend.pages.about-us'],
+                SettingsComposer::class);
         }
     }

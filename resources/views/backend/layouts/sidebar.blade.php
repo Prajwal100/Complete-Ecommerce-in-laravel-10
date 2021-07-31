@@ -158,22 +158,6 @@
         </div>
     </li>
 
-    <!-- Category -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#postCategoryCollapse"
-           aria-expanded="true" aria-controls="postCategoryCollapse">
-            <i class="fas fa-sitemap fa-folder"></i>
-            <span>Category</span>
-        </a>
-        <div id="postCategoryCollapse" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Category Options:</h6>
-                <a class="collapse-item" href="{{route('post-categories.index')}}">Category</a>
-                <a class="collapse-item" href="{{route('post-categories.create')}}">Add Category</a>
-            </div>
-        </div>
-    </li>
-
     <!-- Tags -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#tagCollapse" aria-expanded="true"

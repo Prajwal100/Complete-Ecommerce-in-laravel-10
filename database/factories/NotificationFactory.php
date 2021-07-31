@@ -1,5 +1,7 @@
 <?php
 
+    namespace Database\Factories;
+
     use App\Models\Notification;
     use Illuminate\Database\Eloquent\Factories\Factory;
     use Illuminate\Support\Carbon;
@@ -16,13 +18,13 @@
         public function definition(): array
         {
             return [
-                'type' => $this->faker->word,
+                'type'            => $this->faker->word,
                 'notifiable_type' => $this->faker->word,
-                'notifiable_id' => $this->faker->randomNumber(),
-                'data' => $this->faker->word,
-                'read_at' => $this->faker->word,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+                'notifiable_id'   => $this->faker->randomNumber(),
+                'data'            => $this->faker->word,
+                'read_at'         => $this->faker->word,
+                'created_at'      => Carbon::now(),
+                'updated_at'      => Carbon::now(),
             ];
         }
     }

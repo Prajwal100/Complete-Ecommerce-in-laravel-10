@@ -33,7 +33,7 @@
 
                             @else
                                 <li><i class="ti-power-off"></i><a href="{{route('login')}}">Login /</a> <a
-                                        href="{{route('register')}}">Register</a></li>
+                                            href="{{route('register')}}">Register</a></li>
                             @endauth
                         </ul>
                     </div>
@@ -73,9 +73,9 @@
                         <div class="search-bar">
                             <select>
                                 <option>All Category</option>
-                                @foreach(App\Http\Helper::getAllCategory() as $cat)
-                                    <option>{{$cat->title}}</option>
-                                @endforeach
+                                {{--                                @foreach(App\Http\Helper::getAllCategory() as $cat)--}}
+                                {{--                                    <option>{{$cat->title}}</option>--}}
+                                {{--                                @endforeach--}}
                             </select>
                             <form method="POST" action="{{route('product.search')}}">
                                 @csrf
@@ -102,7 +102,7 @@
                                 @endforeach
                             @endif
                             <a href="{{route('wishlist')}}" class="single-icon"><i class="fa fa-heart-o"></i> <span
-                                    class="total-count">{{App\Http\Helper::wishlistCount()}}</span></a>
+                                        class="total-count">{{App\Http\Helper::wishlistCount()}}</span></a>
                             <!-- Shopping Item -->
                             @auth
                                 <div class="shopping-item">
@@ -124,7 +124,7 @@
                                                 <h4><a href="{{route('product-detail',$data->product['slug'])}}"
                                                        target="_blank">{{$data->product['title']}}</a></h4>
                                                 <p class="quantity">{{$data->quantity}} x - <span
-                                                        class="amount">${{number_format($data->price,2)}}</span></p>
+                                                            class="amount">${{number_format($data->price,2)}}</span></p>
                                             </li>
                                         @endforeach
                                     </ul>
@@ -132,7 +132,7 @@
                                         <div class="total">
                                             <span>Total</span>
                                             <span
-                                                class="total-amount">${{number_format(\App\Http\Helper::totalWishlistPrice(),2)}}</span>
+                                                    class="total-amount">${{number_format(\App\Http\Helper::totalWishlistPrice(),2)}}</span>
                                         </div>
                                         <a href="{{route('cart')}}" class="btn animate">Cart</a>
                                     </div>
@@ -145,7 +145,7 @@
                         </div> --}}
                         <div class="sinlge-bar shopping">
                             <a href="{{route('cart')}}" class="single-icon"><i class="ti-bag"></i> <span
-                                    class="total-count">{{\App\Http\Helper::cartCount()}}</span></a>
+                                        class="total-count">{{\App\Http\Helper::cartCount()}}</span></a>
                             <!-- Shopping Item -->
                             @auth
                                 <div class="shopping-item">
@@ -167,7 +167,7 @@
                                                 <h4><a href="{{route('product-detail',$data->product['slug'])}}"
                                                        target="_blank">{{$data->product['title']}}</a></h4>
                                                 <p class="quantity">{{$data->quantity}} x - <span
-                                                        class="amount">${{number_format($data->price,2)}}</span></p>
+                                                            class="amount">${{number_format($data->price,2)}}</span></p>
                                             </li>
                                         @endforeach
                                     </ul>
@@ -175,7 +175,7 @@
                                         <div class="total">
                                             <span>Total</span>
                                             <span
-                                                class="total-amount">${{number_format(\App\Http\Helper::totalCartPrice(),2)}}</span>
+                                                    class="total-amount">${{number_format(\App\Http\Helper::totalCartPrice(),2)}}</span>
                                         </div>
                                         <a href="{{route('checkout')}}" class="btn animate">Checkout</a>
                                     </div>
@@ -201,18 +201,18 @@
                                     <div class="nav-inner">
                                         <ul class="nav main-menu menu navbar-nav">
                                             <li class="{{Request::path()=='home' ? 'active' : ''}}"><a
-                                                    href="{{route('home')}}">Home</a></li>
+                                                        href="{{route('home')}}">Home</a></li>
                                             <li class="{{Request::path()=='about-us' ? 'active' : ''}}"><a
-                                                    href="{{route('about-us')}}">About Us</a></li>
+                                                        href="{{route('about-us')}}">About Us</a></li>
                                             <li class="@if(Request::path()=='product-grids'||Request::path()=='product-lists')  active  @endif">
                                                 <a href="{{route('product-grids')}}">Products</a><span
-                                                    class="new">New</span></li>
+                                                        class="new">New</span></li>
                                             {{\App\Http\Helper::getHeaderCategory()}}
                                             <li class="{{Request::path()=='blog' ? 'active' : ''}}"><a
-                                                    href="{{route('blog')}}">Blog</a></li>
+                                                        href="{{route('blog')}}">Blog</a></li>
 
                                             <li class="{{Request::path()=='contact' ? 'active' : ''}}"><a
-                                                    href="{{route('contact')}}">Contact Us</a></li>
+                                                        href="{{route('contact')}}">Contact Us</a></li>
                                         </ul>
                                     </div>
                                 </div>

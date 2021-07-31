@@ -35,8 +35,8 @@
                                     <h2 class="blog-title">{{$post->title}}</h2>
                                     <div class="blog-meta">
                                         <span class="author"><a href="javascript:void(0);"><i class="fa fa-user"></i>By {{$post->author_info['name']}}</a><a
-                                                href="javascript:void(0);"><i class="fa fa-calendar"></i>{{$post->created_at->format('M d, Y')}}</a><a
-                                                href="javascript:void(0);"><i class="fa fa-comments"></i>Comment ({{$post->allComments->count()}})</a></span>
+                                                    href="javascript:void(0);"><i class="fa fa-calendar"></i>{{$post->created_at->format('M d, Y')}}</a><a
+                                                    href="javascript:void(0);"><i class="fa fa-comments"></i>Comment ({{$post->allComments->count()}})</a></span>
                                     </div>
                                     <div class="sharethis-inline-reaction-buttons"></div>
                                     <div class="content">
@@ -75,18 +75,20 @@
                                                   action="{{route('post-comment.store',$post->slug)}}" method="POST">
                                                 @csrf
                                                 <div class="row">
-                                                    {{-- <div class="col-lg-6 col-md-6 col-12">
+                                                    <div class="col-lg-6 col-md-6 col-12">
                                                         <div class="form-group">
                                                             <label>Your Name<span>*</span></label>
-                                                            <input type="text" name="name" placeholder="" required="required">
+                                                            <input type="text" name="name" placeholder=""
+                                                                   required="required">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-6 col-md-6 col-12">
                                                         <div class="form-group">
                                                             <label>Your Email<span>*</span></label>
-                                                            <input type="email" name="email" placeholder="" required="required">
+                                                            <input type="email" name="email" placeholder=""
+                                                                   required="required">
                                                         </div>
-                                                    </div> --}}
+                                                    </div>
                                                     <div class="col-12">
                                                         <div class="form-group  comment_form_body">
                                                             <label>Your Message<span>*</span></label>
@@ -101,8 +103,9 @@
                                                     <div class="col-12">
                                                         <div class="form-group button">
                                                             <button type="submit" class="btn"><span
-                                                                    class="comment_btn comment">Post Comment</span><span
-                                                                    class="comment_btn reply" style="display: none;">Reply Comment</span>
+                                                                        class="comment_btn comment">Post Comment</span><span
+                                                                        class="comment_btn reply"
+                                                                        style="display: none;">Reply Comment</span>
                                                             </button>
                                                         </div>
                                                     </div>
@@ -116,7 +119,7 @@
                             @else
                                 <p class="text-center p-5">
                                     You need to <a href="{{route('login')}}" style="color:rgb(54, 54, 204)">Login</a> OR
-                                    <a style="color:blue" href="{{route('register.form')}}">Register</a> for comment.
+                                    {{--                                    <a style="color:blue" href="{{route('register.form')}}">Register</a> for comment.--}}
 
                                 </p>
 
@@ -127,6 +130,7 @@
                                 <div class="comments">
                                     <h3 class="comment-title">Comments ({{$post->allComments->count()}})</h3>
                                     <!-- Single Comment -->
+
                                 @include('frontend.pages.comment', ['comments' => $post->comments, 'post_id' => $post->id, 'depth' => 3])
                                 <!-- End Single Comment -->
                                 </div>
@@ -145,16 +149,16 @@
                         </div>
                         <!--/ End Single Widget -->
                         <!-- Single Widget -->
-                        <div class="single-widget category">
-                            <h3 class="title">Blog Categories</h3>
-                            <ul class="categor-list">
-                                {{-- {{count(\App\Http\Helper::postCategoryList())}} --}}
-                                @foreach(\App\Http\Helper::postCategoryList('posts') as $cat)
-                                    <li><a href="#">{{$cat->title}} </a></li>
-                                @endforeach
-                            </ul>
-                        </div>
-                        <!--/ End Single Widget -->
+                    {{--                        <div class="single-widget category">--}}
+                    {{--                            <h3 class="title">Blog Categories</h3>--}}
+                    {{--                            <ul class="categor-list">--}}
+                    {{--                                --}}{{-- {{count(\App\Http\Helper::postCategoryList())}} --}}
+                    {{--                                @foreach(\App\Http\Helper::postCategoryList() as $cat)--}}
+                    {{--                                    <li><a href="#">{{$cat->title}} </a></li>--}}
+                    {{--                                @endforeach--}}
+                    {{--                            </ul>--}}
+                    {{--                        </div>--}}
+                    <!--/ End Single Widget -->
                         <!-- Single Widget -->
                         <div class="single-widget recent-post">
                             <h3 class="title">Recent post</h3>
@@ -194,7 +198,7 @@
                         <div class="single-widget side-tags">
                             <h3 class="title">Tags</h3>
                             <ul class="tag">
-                                @foreach(\App\Http\Helper::postTagList('posts') as $tag)
+                                @foreach(\App\Http\Helper::postTagList() as $tag)
                                     <li><a href="">{{$tag->title}}</a></li>
                                 @endforeach
                             </ul>

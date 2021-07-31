@@ -14,7 +14,11 @@
          */
         public function creating(PostCategory $postCategory)
         {
-            $postCategory->slug = Str::slug($postCategory->title);
+            $slug = Str::slug($postCategory->title);
+            if (PostCategory::whereSlug($slug)->count() > 0) {
+                $postCategory->slug = $slug;
+            }
+            $postCategory->slug = $postCategory->incrementSlug($slug);
         }
 
         /**
@@ -24,7 +28,6 @@
          */
         public function updating(PostCategory $postCategory)
         {
-            $postCategory->slug = Str::slug($postCategory->title);
         }
 
         /**

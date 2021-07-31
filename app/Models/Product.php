@@ -1,19 +1,23 @@
 <?php
 
+    /**
+     * Created by Zoran Shefot Bogoevski.
+     */
+
     namespace App\Models;
 
+    use Carbon\Carbon;
     use Eloquent;
-    use Illuminate\Contracts\Pagination\LengthAwarePaginator;
     use Illuminate\Database\Eloquent\Builder;
     use Illuminate\Database\Eloquent\Collection;
     use Illuminate\Database\Eloquent\Factories\HasFactory;
     use Illuminate\Database\Eloquent\Model;
+    use Illuminate\Database\Eloquent\Relations\BelongsTo;
+    use Illuminate\Database\Eloquent\Relations\BelongsToMany;
     use Illuminate\Database\Eloquent\Relations\HasMany;
-    use Illuminate\Database\Eloquent\Relations\HasOne;
-    use Illuminate\Support\Carbon;
 
     /**
-     * App\Models\Product
+     * Class Product
      *
      * @property int $id
      * @property string $title
@@ -27,26 +31,22 @@
      * @property string $status
      * @property float $price
      * @property float $discount
-     * @property int $is_featured
-     * @property int|null $cat_id
-     * @property int|null $child_cat_id
+     * @property bool $is_featured
      * @property int|null $brand_id
      * @property Carbon|null $created_at
      * @property Carbon|null $updated_at
-     * @property-read Collection|Cart[] $carts
+     * @property Brand|null $brand
+     * @property Collection|Cart[] $carts
+     * @property Collection|ProductReview[] $product_reviews
+     * @property Collection|Wishlist[] $wishlists
+     * @package App\Models
      * @property-read int|null $carts_count
-     * @property-read Category|null $cat_info
-     * @property-read Collection|Product[] $rel_prods
-     * @property-read int|null $rel_prods_count
-     * @property-read Category|null $sub_cat_info
-     * @property-read Collection|Wishlist[] $wishlists
+     * @property-read int|null $product_reviews_count
      * @property-read int|null $wishlists_count
      * @method static Builder|Product newModelQuery()
      * @method static Builder|Product newQuery()
      * @method static Builder|Product query()
      * @method static Builder|Product whereBrandId($value)
-     * @method static Builder|Product whereCatId($value)
-     * @method static Builder|Product whereChildCatId($value)
      * @method static Builder|Product whereCondition($value)
      * @method static Builder|Product whereCreatedAt($value)
      * @method static Builder|Product whereDescription($value)
@@ -63,48 +63,63 @@
      * @method static Builder|Product whereTitle($value)
      * @method static Builder|Product whereUpdatedAt($value)
      * @mixin Eloquent
+     * @property-read \Kalnoy\Nestedset\Collection|\App\Models\Category[] $categories
+     * @property-read int|null $categories_count
+     * @method static \Database\Factories\ProductFactory factory(...$parameters)
      */
     class Product extends Model
     {
         use HasFactory;
 
-        protected $fillable = [
-            'title', 'slug', 'summary', 'description', 'cat_id', 'child_cat_id', 'price', 'brand_id', 'discount',
-            'status',
-            'photo', 'size', 'stock', 'is_featured', 'condition',
+        protected $table = 'products';
+
+        protected $casts = [
+            'stock'       => 'int',
+            'price'       => 'float',
+            'discount'    => 'float',
+            'is_featured' => 'bool',
+            'brand_id'    => 'int',
         ];
 
-        /**
-         * @return HasOne
-         */
-        public function cat_info(): HasOne
+        protected $fillable = [
+            'title',
+            'slug',
+            'summary',
+            'description',
+            'photo',
+            'stock',
+            'size',
+            'condition',
+            'status',
+            'price',
+            'discount',
+            'is_featured',
+            'brand_id',
+        ];
+
+        public function brand(): BelongsTo
         {
-            return $this->hasOne(Category::class, 'id', 'cat_id');
+            return $this->belongsTo(Brand::class);
         }
 
-        /**
-         * @return HasOne
-         */
-        public function sub_cat_info(): HasOne
+        public function carts(): HasMany
         {
-            return $this->hasOne(Category::class, 'id', 'child_cat_id');
+            return $this->hasMany(Cart::class);
         }
 
-        /**
-         * @return LengthAwarePaginator
-         */
-        public static function getAllProduct(): LengthAwarePaginator
+        public function product_reviews(): HasMany
         {
-            return Product::with(['cat_info', 'sub_cat_info'])->orderBy('id', 'desc')->paginate(10);
+            return $this->hasMany(ProductReview::class);
         }
 
-        /**
-         * @return HasMany
-         */
-        public function rel_prods(): HasMany
+        public function wishlists(): HasMany
         {
-            return $this->hasMany(Product::class, 'cat_id', 'cat_id')->where('status', 'active')->orderBy('id',
-                'DESC')->limit(8);
+            return $this->hasMany(Wishlist::class);
+        }
+
+        public function categories(): belongsToMany
+        {
+            return $this->belongsToMany(Category::class);
         }
 
         /**
@@ -122,7 +137,7 @@
          */
         public static function getProductBySlug($slug)
         {
-            return Product::with(['cat_info', 'rel_prods', 'getReview'])->where('slug', $slug)->first();
+            return Product::with(['getReview'])->where('slug', $slug)->first();
         }
 
         /**
@@ -138,19 +153,17 @@
         }
 
         /**
-         * @return HasMany
+         * @param $slug
+         * @return mixed|string
          */
-        public function carts(): HasMany
+        public function incrementSlug($slug)
         {
-            return $this->hasMany(Cart::class)->whereNotNull('order_id');
-        }
-
-        /**
-         * @return HasMany
-         */
-        public function wishlists(): HasMany
-        {
-            return $this->hasMany(Wishlist::class)->whereNotNull('cart_id');
+            $original = $slug;
+            $count = 2;
+            while (static::whereSlug($slug)->exists()) {
+                $slug = "{$original}-".$count++;
+            }
+            return $slug;
         }
 
     }

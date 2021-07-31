@@ -6,7 +6,7 @@
     use App\Http\Requests\Password\Store;
     use App\Http\Requests\Settings\Update;
     use App\Models\Message;
-    use App\Models\Settings;
+    use App\Models\Setting;
     use App\Models\User;
     use Carbon\Carbon;
     use DB;
@@ -25,8 +25,8 @@
          */
         public function index()
         {
-            $data = User::select(DB::raw("COUNT(*) as count"), DB::raw("DAYNAME(created_at) as day_name"),
-                DB::raw("DAY(created_at) as day"))
+            $data = User::select(\DB::raw("COUNT(*) as count"), \DB::raw("DAYNAME(created_at) as day_name"),
+                \DB::raw("DAY(created_at) as day"))
                 ->where('created_at', '>', Carbon::today()->subDay(6))
                 ->groupBy('day_name', 'day')
                 ->orderBy('day')
@@ -35,9 +35,13 @@
             foreach ($data as $key => $value) {
                 $array[++$key] = [$value->day_name, $value->count];
             }
+            //  return $data;
             return view('backend.index')->with('users', json_encode($array));
         }
 
+        /**
+         * @return Application|Factory|View
+         */
         public function profile()
         {
             $profile = Auth()->user();
@@ -46,15 +50,12 @@
 
         /**
          * @param  Request  $request
-         * @param $id
+         * @param  User  $user
          * @return RedirectResponse
          */
-        public function profileUpdate(Request $request, $id): RedirectResponse
+        public function profileUpdate(Request $request, User $user): RedirectResponse
         {
-            // return $request->all();
-            $user = User::findOrFail($id);
-            $data = $request->all();
-            $status = $user->fill($data)->save();
+            $status = $user->fill($request->all())->save();
             if ($status) {
                 request()->session()->flash('success', 'Successfully updated your profile');
             } else {
@@ -68,8 +69,8 @@
          */
         public function settings()
         {
-            $data = Settings::first();
-            return view('backend.setting')->with('data', $data);
+            $data = Setting::first();
+            return view('backend.setting', compact('data'));
         }
 
         /**
@@ -78,7 +79,7 @@
          */
         public function settingsUpdate(Update $request): RedirectResponse
         {
-            $settings = Settings::first();
+            $settings = Setting::first();
             $status = $settings->update($request->all());
             if ($status) {
                 request()->session()->flash('success', 'Setting successfully updated');
@@ -96,6 +97,10 @@
             return view('backend.layouts.changePassword');
         }
 
+        /**
+         * @param  Store  $request
+         * @return RedirectResponse
+         */
         public function changPasswordStore(Store $request): RedirectResponse
         {
             User::find(auth()->user()->id)->update(['password' => Hash::make($request->new_password)]);

@@ -12,8 +12,8 @@
     use App\Models\Message;
     use App\Models\Post;
     use App\Models\PostCategory;
-    use App\Models\PostTag;
     use App\Models\Product;
+    use App\Models\Tag;
     use Illuminate\Contracts\Foundation\Application;
     use Illuminate\Contracts\View\Factory;
     use Illuminate\Contracts\View\View;
@@ -31,15 +31,15 @@
          */
         public function index()
         {
-            $featured = Product::whereStatus('active')->where('is_featured', 1)->orderBy('price',
-                'DESC')->limit(2)->get();
+            $featured_products = Product::with('categories')->orderBy('price', 'DESC')->limit(2)->get();
             $posts = Post::whereStatus('active')->orderBy('id', 'DESC')->limit(3)->get();
             $banners = Banner::whereStatus('active')->limit(3)->orderBy('id', 'DESC')->get();
-            // return $banner;
             $product_lists = Product::whereStatus('active')->orderBy('id', 'DESC')->limit(8)->get();
-            $category_lists = Category::whereStatus('active')->where('is_parent', 1)->orderBy('title', 'ASC')->get();
+            $category_lists = Category::whereStatus('active')->orderBy('title', 'ASC')->get();
+            $categories = Category::whereStatus('active')->get();
             // return $category;
-            return view('frontend.index', compact('featured', 'posts', 'banners', 'product_lists', 'category_lists'));
+            return view('frontend.index',
+                compact('featured_products', 'posts', 'banners', 'product_lists', 'category_lists', 'categories'));
         }
 
         /**
@@ -268,24 +268,6 @@
             }
         }
 
-        /**
-         * @param  Request  $request
-         * @return Application|Factory|View
-         */
-        public function productSubCat(Request $request)
-        {
-            $products = Category::getProductBySubCat($request->sub_slug);
-            // return $products;
-            $recent_products = Product::where('status', 'active')->orderBy('id', 'DESC')->limit(3)->get();
-
-            if (request()->is('e-shop.loc/product-grids')) {
-                return view('frontend.pages.product-grids')->with('products',
-                    $products->sub_products)->with('recent_products', $recent_products);
-            } else {
-                return view('frontend.pages.product-lists')->with('products',
-                    $products->sub_products)->with('recent_products', $recent_products);
-            }
-        }
 
         /**
          * @return array|Application|Factory|View
@@ -302,20 +284,20 @@
             if (!empty($_GET['tag'])) {
                 $slug = explode(',', $_GET['tag']);
                 // dd($slug);
-                $tag_ids = PostTag::select('id')->whereIn('slug', $slug)->pluck('id')->toArray();
+                $tag_ids = Tag::select('id')->whereIn('slug', $slug)->pluck('id')->toArray();
                 // return $tag_ids;
-                $post->where('post_tag_id', $tag_ids);
+                $posts->where('post_tag_id', $tag_ids);
                 // return $post;
             }
 
             if (!empty($_GET['show'])) {
-                $post = $post->where('status', 'active')->orderBy('id', 'DESC')->paginate($_GET['show']);
+                $posts = $post->where('status', 'active')->orderBy('id', 'DESC')->paginate($_GET['show']);
             } else {
-                $post = $post->where('status', 'active')->orderBy('id', 'DESC')->paginate(9);
+                $posts = $post->with('author_info')->where('status', 'active')->orderBy('id', 'DESC')->paginate(9);
             }
             // $post=Post::where('status','active')->paginate(8);
-            $rcnt_post = Post::where('status', 'active')->orderBy('id', 'DESC')->limit(3)->get();
-            return view('frontend.pages.blog')->with('posts', $post)->with('recent_posts', $rcnt_post);
+            $recent_posts = Post::where('status', 'active')->orderBy('id', 'DESC')->limit(3)->get();
+            return view('frontend.pages.blog', compact('posts', 'recent_posts'));
         }
 
         /**
@@ -325,9 +307,8 @@
         public function blogDetail($slug)
         {
             $post = Post::getPostBySlug($slug);
-            $rcnt_post = Post::where('status', 'active')->orderBy('id', 'DESC')->limit(3)->get();
-            // return $post;
-            return view('frontend.pages.blog-detail')->with('post', $post)->with('recent_posts', $rcnt_post);
+            $recant_post = Post::where('status', 'active')->orderBy('id', 'DESC')->limit(3)->get();
+            return view('frontend.pages.blog-detail')->with('post', $post)->with('recent_posts', $recant_post);
         }
 
         /**
@@ -352,7 +333,7 @@
          * @param  Request  $request
          * @return RedirectResponse
          */
-        public function blogFilter(Request $request)
+        public function blogFilter(Request $request): RedirectResponse
         {
             $data = $request->all();
             // return $data;
@@ -423,8 +404,8 @@
             $total_price = Cart::where('user_id', auth()->user()->id)->where('order_id', null)->sum('price');
             // dd($total_price);
             session()->put('coupon', [
-                'id' => $coupon->id,
-                'code' => $coupon->code,
+                'id'    => $coupon->id,
+                'code'  => $coupon->code,
                 'value' => $coupon->discount($total_price),
             ]);
             request()->session()->flash('success', 'Coupon successfully applied');

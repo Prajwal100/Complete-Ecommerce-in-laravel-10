@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="{{ asset('vendor/laravel-filemanager/css/cropper.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/laravel-filemanager/css/dropzone.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/laravel-filemanager/css/mime-icons.min.css') }}">
-    <style>{!! \File::get(base_path('vendor/unisharp/laravel-filemanager/public/css/lfm.css')) !!}</style>
+    <style>{!! File::get(base_path('vendor/unisharp/laravel-filemanager/public/css/lfm.css')) !!}</style>
     {{-- Use the line below instead of the above if you need to cache the css. --}}
     {{-- <link rel="stylesheet" href="{{ asset('/vendor/laravel-filemanager/css/lfm.css') }}"> --}}
 </head>
@@ -71,11 +71,11 @@
 
 <nav class="bg-light fixed-bottom border-top d-none" id="actions">
     <a data-action="open" data-multiple="false"><i
-            class="fas fa-folder-open"></i>{{ trans('laravel-filemanager::lfm.btn-open') }}</a>
+                class="fas fa-folder-open"></i>{{ trans('laravel-filemanager::lfm.btn-open') }}</a>
     <a data-action="preview" data-multiple="true"><i
-            class="fas fa-images"></i>{{ trans('laravel-filemanager::lfm.menu-view') }}</a>
+                class="fas fa-images"></i>{{ trans('laravel-filemanager::lfm.menu-view') }}</a>
     <a data-action="use" data-multiple="true"><i
-            class="fas fa-check"></i>{{ trans('laravel-filemanager::lfm.btn-confirm') }}</a>
+                class="fas fa-check"></i>{{ trans('laravel-filemanager::lfm.btn-confirm') }}</a>
 </nav>
 
 <div class="d-flex flex-row">
@@ -272,7 +272,7 @@
         }
     ];
 </script>
-<script>{!! \File::get(base_path('vendor/unisharp/laravel-filemanager/public/js/script.js')) !!}</script>
+<script>{!! File::get(base_path('vendor/unisharp/laravel-filemanager/public/js/script.js')) !!}</script>
 {{-- Use the line below instead of the above if you need to cache the script. --}}
 {{-- <script src="{{ asset('vendor/laravel-filemanager/js/script.js') }}"></script> --}}
 <script>

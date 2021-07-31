@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Handlers;
+    namespace App\Handlers;
 
-class LfmConfigHandler extends \UniSharp\LaravelFilemanager\Handlers\ConfigHandler
-{
-    public function userField()
+    use UniSharp\LaravelFilemanager\Handlers\ConfigHandler;
+
+    class LfmConfigHandler extends ConfigHandler
     {
-        return parent::userField();
+        public function userField()
+        {
+            return parent::userField();
+        }
     }
-}

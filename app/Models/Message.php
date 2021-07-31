@@ -1,15 +1,19 @@
 <?php
 
+    /**
+     * Created by Zoran Shefot Bogoevski.
+     */
+
     namespace App\Models;
 
+    use Carbon\Carbon;
     use Eloquent;
     use Illuminate\Database\Eloquent\Builder;
     use Illuminate\Database\Eloquent\Factories\HasFactory;
     use Illuminate\Database\Eloquent\Model;
-    use Illuminate\Support\Carbon;
 
     /**
-     * App\Models\Message
+     * Class Message
      *
      * @property int $id
      * @property string $name
@@ -18,9 +22,10 @@
      * @property string|null $photo
      * @property string|null $phone
      * @property string $message
-     * @property string|null $read_at
+     * @property Carbon|null $read_at
      * @property Carbon|null $created_at
      * @property Carbon|null $updated_at
+     * @package App\Models
      * @method static Builder|Message newModelQuery()
      * @method static Builder|Message newQuery()
      * @method static Builder|Message query()
@@ -35,18 +40,25 @@
      * @method static Builder|Message whereSubject($value)
      * @method static Builder|Message whereUpdatedAt($value)
      * @mixin Eloquent
+     * @method static \Database\Factories\MessageFactory factory(...$parameters)
      */
     class Message extends Model
     {
         use HasFactory;
 
-        public $fillable = [
-            'name',
-            'message',
-            'email',
-            'phone',
+        protected $table = 'messages';
+
+        protected $dates = [
             'read_at',
-            'photo',
+        ];
+
+        protected $fillable = [
+            'name',
             'subject',
+            'email',
+            'photo',
+            'phone',
+            'message',
+            'read_at',
         ];
     }

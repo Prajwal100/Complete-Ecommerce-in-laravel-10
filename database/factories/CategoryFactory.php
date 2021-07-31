@@ -1,5 +1,7 @@
 <?php
 
+    namespace Database\Factories;
+
     use App\Models\Category;
     use Illuminate\Database\Eloquent\Factories\Factory;
     use Illuminate\Support\Carbon;
@@ -16,14 +18,10 @@
         public function definition(): array
         {
             return [
-                'title' => $this->faker->word,
-                'slug' => $this->faker->slug,
-                'summary' => $this->faker->text,
-                'photo' => $this->faker->word,
-                'is_parent' => $this->faker->randomNumber(),
-                'parent_id' => $this->faker->randomNumber(),
-                'added_by' => $this->faker->randomNumber(),
-                'status' => $this->faker->word,
+                'title'      => $this->faker->word,
+                'slug'       => $this->faker->slug,
+                '_lft'       => $this->faker->randomNumber(),
+                '_rgt'       => $this->faker->randomNumber(),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ];

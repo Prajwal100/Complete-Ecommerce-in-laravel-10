@@ -7,7 +7,7 @@
     use App\Http\Requests\Post\Update;
     use App\Models\Post;
     use App\Models\PostCategory;
-    use App\Models\PostTag;
+    use App\Models\Tag;
     use App\Models\User;
     use Illuminate\Contracts\Foundation\Application;
     use Illuminate\Contracts\View\Factory;
@@ -43,7 +43,7 @@
         public function create()
         {
             $categories = PostCategory::get();
-            $tags = PostTag::get();
+            $tags = Tag::get();
             $users = User::get();
             return view('backend.post.create', compact('users', 'categories', 'tags'));
         }
@@ -82,7 +82,7 @@
         public function edit(Post $post)
         {
             $categories = PostCategory::get();
-            $tags = PostTag::get();
+            $tags = Tag::get();
             $users = User::get();
             return view('backend.post.edit', compact('post', 'categories', 'tags', 'users'));
         }

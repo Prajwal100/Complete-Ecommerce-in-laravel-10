@@ -4,13 +4,12 @@
 
     use App\Http\Controllers\Controller;
     use App\Http\Requests\Tag\Store;
-    use App\Models\PostTag;
+    use App\Models\Tag;
     use Illuminate\Contracts\Foundation\Application;
     use Illuminate\Contracts\View\Factory;
     use Illuminate\Contracts\View\View;
     use Illuminate\Http\RedirectResponse;
     use Illuminate\Http\Request;
-    use Illuminate\Support\Str;
 
     class PostTagController extends Controller
     {
@@ -29,7 +28,7 @@
          */
         public function index()
         {
-            $postTags = PostTag::orderBy('id', 'DESC')->paginate(10);
+            $postTags = Tag::orderBy('id', 'DESC')->paginate(10);
             return view('backend.postTag.index', compact('postTags'));
         }
 
@@ -51,14 +50,7 @@
          */
         public function store(Request $request): RedirectResponse
         {
-            $data = $request->all();
-            $slug = Str::slug($request->title);
-            $count = PostTag::where('slug', $slug)->count();
-            if ($count > 0) {
-                $slug = $slug.'-'.date('midis').'-'.rand(0, 999);
-            }
-            $data['slug'] = $slug;
-            $status = PostTag::create($data);
+            $status = Tag::create($request->all());
             if ($status) {
                 request()->session()->flash('success', 'Post Tag Successfully added');
             } else {
@@ -71,10 +63,10 @@
         /**
          * Show the form for editing the specified resource.
          *
-         * @param  PostTag  $postTag
+         * @param  Tag  $postTag
          * @return Application|Factory|View
          */
-        public function edit(PostTag $postTag)
+        public function edit(Tag $postTag)
         {
             return view('backend.postTag.edit', compact('postTag'));
         }
@@ -83,10 +75,10 @@
          * Update the specified resource in storage.
          *
          * @param  Store  $request
-         * @param  PostTag  $postTag
+         * @param  Tag  $postTag
          * @return RedirectResponse
          */
-        public function update(Store $request, PostTag $postTag): RedirectResponse
+        public function update(Store $request, Tag $postTag): RedirectResponse
         {
             $status = $postTag->update($request->all());
             if ($status) {
@@ -100,10 +92,10 @@
         /**
          * Remove the specified resource from storage.
          *
-         * @param  PostTag  $postTag
+         * @param  Tag  $postTag
          * @return RedirectResponse
          */
-        public function destroy(PostTag $postTag): RedirectResponse
+        public function destroy(Tag $postTag): RedirectResponse
         {
             $status = $postTag->delete();
 
@@ -112,6 +104,6 @@
             } else {
                 request()->session()->flash('error', 'Error while deleting post tag');
             }
-            return redirect()->route('post-tag.index');
+            return redirect()->route('tags.index');
         }
     }

@@ -3,13 +3,13 @@
     namespace App\Http\Controllers\Admin;
 
     use App\Http\Controllers\Controller;
+    use App\Http\Requests\Coupon\Store;
     use App\Http\Requests\Coupon\Update;
     use App\Models\Coupon;
     use Illuminate\Contracts\Foundation\Application;
     use Illuminate\Contracts\View\Factory;
     use Illuminate\Contracts\View\View;
     use Illuminate\Http\RedirectResponse;
-    use Illuminate\Http\Request;
 
     class CouponController extends Controller
     {
@@ -28,8 +28,8 @@
          */
         public function index()
         {
-            $coupon = Coupon::orderBy('id', 'DESC')->paginate('10');
-            return view('backend.coupon.index', compact('coupon'));
+            $coupons = Coupon::orderBy('id', 'DESC')->paginate('10');
+            return view('backend.coupon.index', compact('coupons'));
         }
 
         /**
@@ -45,10 +45,10 @@
         /**
          * Store a newly created resource in storage.
          *
-         * @param  Request  $request
+         * @param  Store  $request
          * @return RedirectResponse
          */
-        public function store(Request $request): RedirectResponse
+        public function store(Store $request): RedirectResponse
         {
             $coupon = Coupon::create($request->all());
             if ($coupon) {

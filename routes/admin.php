@@ -7,14 +7,13 @@
     use App\Http\Controllers\Admin\CouponController;
     use App\Http\Controllers\Admin\MessageController;
     use App\Http\Controllers\Admin\NotificationController;
-    use App\Http\Controllers\Admin\PostCategoryController;
+    use App\Http\Controllers\Admin\OrderController;
     use App\Http\Controllers\Admin\PostController;
     use App\Http\Controllers\Admin\PostTagController;
     use App\Http\Controllers\Admin\ProductController;
     use App\Http\Controllers\Admin\RoleController;
     use App\Http\Controllers\Admin\ShippingController;
     use App\Http\Controllers\Admin\UsersController;
-    use App\Http\Controllers\OrderFrontController;
     use Illuminate\Support\Facades\Route;
 
 // Backend section start
@@ -35,8 +34,6 @@
     Route::resource('/categories', CategoryController::class);
 // Product
     Route::resource('/products', ProductController::class);
-// POST category
-    Route::resource('/post-categories', PostCategoryController::class);
 // Post tag
     Route::resource('/tags', PostTagController::class);
 // Post
@@ -51,7 +48,7 @@
     Route::resource('/shipping', ShippingController::class);
 // Coupon
     Route::resource('/coupons', CouponController::class);
-    Route::resource('orders', OrderFrontController::class);
+    Route::resource('orders', OrderController::class);
 
 // Settings
     Route::get('settings', [AdminController::class, 'settings'])->name('settings');

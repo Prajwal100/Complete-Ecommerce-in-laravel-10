@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\ViewComposers;
+    namespace App\Http\ViewComposers;
 
-use App\Models\Settings;
-use Illuminate\View\View;
+    use App\Models\Setting;
+    use Illuminate\View\View;
 
-class SettingsComposer
-{
-    public function compose(View $view)
+    class SettingsComposer
     {
-        $view->with('settings', Settings::get());
+        public function compose(View $view)
+        {
+            $view->with('settings', Setting::get());
+        }
     }
-}

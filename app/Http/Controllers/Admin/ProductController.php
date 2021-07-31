@@ -30,7 +30,7 @@
          */
         public function index()
         {
-            $products = Product::getAllProduct();
+            $products = Product::with(['brand', 'categories'])->orderBy('id', 'desc')->paginate(10);
             return view('backend.product.index', compact('products'));
         }
 
@@ -63,12 +63,11 @@
                 $data['size'] = '';
             }
 
-            $status = Product::create($data);
-            if ($status) {
-                request()->session()->flash('success', 'Product Successfully added');
-            } else {
-                request()->session()->flash('error', 'Please try again!!');
-            }
+            $product = Product::create($data);
+            $product->categories()->attach($request->category);
+
+            request()->session()->flash('success', 'Product Successfully added');
+
             return redirect()->route('product.index');
         }
 
@@ -108,6 +107,8 @@
             }
             // return $data;
             $status = $product->update($data);
+            $product->categories()->sync($request->category, true);
+
             if ($status) {
                 request()->session()->flash('success', 'Product Successfully updated');
             } else {

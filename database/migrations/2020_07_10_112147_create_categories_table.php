@@ -17,7 +17,7 @@
                 $table->id();
                 $table->string('title')->index();
                 $table->string('slug')->index();
-                $table->tinyInteger('status')->nullable();
+                $table->enum('status', ['active', 'inactive'])->default('active');
                 $table->unsignedBigInteger('parent_id')->nullable();
                 $table->foreign('parent_id')->references('id')->on('categories');
                 $table->integer('_lft')->nullable();

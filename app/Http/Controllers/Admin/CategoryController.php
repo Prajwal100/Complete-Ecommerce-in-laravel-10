@@ -30,7 +30,7 @@
          */
         public function index()
         {
-            $categories = Category::getTree();
+            $categories = Category::all();
             if (is_null($categories)) {
                 return redirect()->route('categories.create');
             }

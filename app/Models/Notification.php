@@ -1,24 +1,28 @@
 <?php
 
+    /**
+     * Created by Zoran Shefot Bogoevski.
+     */
+
     namespace App\Models;
 
+    use Carbon\Carbon;
     use Eloquent;
     use Illuminate\Database\Eloquent\Builder;
-    use Illuminate\Database\Eloquent\Factories\HasFactory;
     use Illuminate\Database\Eloquent\Model;
-    use Illuminate\Support\Carbon;
 
     /**
-     * App\Models\Notification
+     * Class Notification
      *
-     * @property int $id
+     * @property string $id
      * @property string $type
      * @property string $notifiable_type
      * @property int $notifiable_id
      * @property string $data
-     * @property string|null $read_at
+     * @property Carbon|null $read_at
      * @property Carbon|null $created_at
      * @property Carbon|null $updated_at
+     * @package App\Models
      * @method static Builder|Notification newModelQuery()
      * @method static Builder|Notification newQuery()
      * @method static Builder|Notification query()
@@ -34,7 +38,23 @@
      */
     class Notification extends Model
     {
-        use HasFactory;
 
-        protected $fillable = ['data', 'type', 'notifiable', 'read_at'];
+        protected $table = 'notifications';
+        public $incrementing = false;
+
+        protected $casts = [
+            'notifiable_id' => 'int',
+        ];
+
+        protected $dates = [
+            'read_at',
+        ];
+
+        protected $fillable = [
+            'type',
+            'notifiable_type',
+            'notifiable_id',
+            'data',
+            'read_at',
+        ];
     }

@@ -22,9 +22,6 @@
                             <th>S.N.</th>
                             <th>Title</th>
                             <th>Slug</th>
-                            <th>Is Parent</th>
-                            <th>Parent Category</th>
-                            <th>Photo</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -34,9 +31,6 @@
                             <th>S.N.</th>
                             <th>Title</th>
                             <th>Slug</th>
-                            <th>Is Parent</th>
-                            <th>Parent Category</th>
-                            <th>Photo</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -46,15 +40,15 @@
                             <tr>
                                 <td>{{$category['id']}}</td>
                                 <td>{{$category['title']}}</td>
-                                {{--                                <td>{{$category['slug']}}</td>--}}
+                                <td>{{$category['slug']}}</td>
 
-                                {{--                                <td>--}}
-                                {{--                                    @if($category['status']=='active')--}}
-                                {{--                                        <span class="badge badge-success">{{$category['status']}}</span>--}}
-                                {{--                                    @else--}}
-                                {{--                                        <span class="badge badge-warning">{{$category['status']}}</span>--}}
-                                {{--                                    @endif--}}
-                                {{--                                </td>--}}
+                                <td>
+                                    @if($category['status']=='active')
+                                        <span class="badge badge-success">Active</span>
+                                    @else
+                                        <span class="badge badge-warning">Inactive</span>
+                                    @endif
+                                </td>
                                 <td>
                                     <a href="{{route('categories.edit',$category['id'])}}"
                                        class="btn btn-primary btn-sm float-left mr-1"
@@ -64,10 +58,9 @@
                                         @csrf
                                         @method('delete')
                                         <button class="btn btn-danger btn-sm dltBtn"
-                                                data-id={{$category['id']}} style="height:30px;
-                                                width:30px;border-radius:50%
-                                        " data-toggle="tooltip" data-placement="bottom" title="Delete"><i
-                                            class="fas fa-trash-alt"></i></button>
+                                                data-id={{$category['id']}} data-placement="bottom" title="Delete">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
                                     </form>
                                 </td>
 
