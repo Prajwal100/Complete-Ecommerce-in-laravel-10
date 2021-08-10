@@ -68,23 +68,6 @@
                     <!--/ End Search Form -->
                     <div class="mobile-nav"></div>
                 </div>
-                <div class="col-lg-8 col-md-7 col-12">
-                    <div class="search-bar-top">
-                        <div class="search-bar">
-                            <select>
-                                <option>All Category</option>
-                                {{--                                @foreach(App\Http\Helper::getAllCategory() as $cat)--}}
-                                {{--                                    <option>{{$cat->title}}</option>--}}
-                                {{--                                @endforeach--}}
-                            </select>
-                            <form method="POST" action="{{route('product.search')}}">
-                                @csrf
-                                <input name="search" placeholder="Search Products Here....." type="search">
-                                <button class="btnn" type="submit"><i class="ti-search"></i></button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
                 <div class="col-lg-2 col-md-3 col-12">
                     <div class="right-bar">
                         <!-- Search Form -->
@@ -207,10 +190,8 @@
                                             <li class="@if(Request::path()=='product-grids'||Request::path()=='product-lists')  active  @endif">
                                                 <a href="{{route('product-grids')}}">Products</a><span
                                                         class="new">New</span></li>
-                                            {{\App\Http\Helper::getHeaderCategory()}}
                                             <li class="{{Request::path()=='blog' ? 'active' : ''}}"><a
                                                         href="{{route('blog')}}">Blog</a></li>
-
                                             <li class="{{Request::path()=='contact' ? 'active' : ''}}"><a
                                                         href="{{route('contact')}}">Contact Us</a></li>
                                         </ul>

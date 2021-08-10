@@ -10,8 +10,8 @@
                 <div class="col-12">
                     <div class="bread-inner">
                         <ul class="bread-list">
-                            <li><a href="index1.html">Home<i class="ti-arrow-right"></i></a></li>
-                            <li class="active"><a href="blog-single.html">Shop Grid</a></li>
+                            <li><a href="/">Home<i class="ti-arrow-right"></i></a></li>
+                            <li class="active"><a href="/">Shop Grid</a></li>
                         </ul>
                     </div>
                 </div>
@@ -32,37 +32,14 @@
                             <div class="single-widget category">
                                 <h3 class="title">Categories</h3>
                                 <ul class="categor-list">
-                                    @php
-                                        // $category = new Category();
-                                        $menu=App\Models\Category::getAllParentWithChild();
-                                    @endphp
-                                    @if($menu)
-                                        <li>
-                                        @foreach($menu as $cat_info)
-                                            @if($cat_info->child_cat->count()>0)
-                                                <li>
-                                                    <a href="{{route('product-cat',$cat_info->slug)}}">{{$cat_info->title}}</a>
-                                                    <ul>
-                                                        @foreach($cat_info->child_cat as $sub_menu)
-                                                            <li>
-                                                                <a href="{{route('product-sub-cat',[$cat_info->slug,$sub_menu->slug])}}">{{$sub_menu->title}}</a>
-                                                            </li>
-                                                        @endforeach
-                                                    </ul>
-                                                </li>
-                                            @else
-                                                <li>
-                                                    <a href="{{route('product-cat',$cat_info->slug)}}">{{$cat_info->title}}</a>
-                                                </li>
-                                                @endif
-                                                @endforeach
-                                                </li>
-                                            @endif
-                                            {{-- @foreach(\App\Http\Helper::productCategoryList('products') as $cat)
-                                                @if($cat->is_parent==1)
-                                                    <li><a href="{{route('product-cat',$cat->slug)}}">{{$cat->title}}</a></li>
-                                                @endif
-                                            @endforeach --}}
+                                    @foreach ($categories as $category)
+                                        <li>{{ $category->title }}</li>
+                                        <ul>
+                                            @foreach ($category->childrenCategories as $childCategory)
+                                                @include('frontend.layouts.child_category', ['child_category' => $childCategory])
+                                            @endforeach
+                                        </ul>
+                                    @endforeach
                                 </ul>
                             </div>
                             <!--/ End Single Widget -->
@@ -71,10 +48,6 @@
                                 <h3 class="title">Shop by Price</h3>
                                 <div class="price-filter">
                                     <div class="price-filter-inner">
-                                        @php
-                                            $max=DB::table('products')->max('price');
-                                            // dd($max);
-                                        @endphp
                                         <div id="slider-range" data-min="0" data-max="{{$max}}"></div>
                                         <div class="product_filter">
                                             <button type="submit" class="filter_button">Filter</button>
@@ -87,31 +60,33 @@
                                         </div>
                                     </div>
                                 </div>
-                                {{-- <ul class="check-box-list">
+                                <ul class="check-box-list">
                                     <li>
-                                        <label class="checkbox-inline" for="1"><input name="news" id="1" type="checkbox">$20 - $50<span class="count">(3)</span></label>
+                                        <label class="checkbox-inline" for="1"><input name="news" id="1"
+                                                                                      type="checkbox">$20 - $50<span
+                                                    class="count">(3)</span></label>
                                     </li>
                                     <li>
-                                        <label class="checkbox-inline" for="2"><input name="news" id="2" type="checkbox">$50 - $100<span class="count">(5)</span></label>
+                                        <label class="checkbox-inline" for="2"><input name="news" id="2"
+                                                                                      type="checkbox">$50 - $100<span
+                                                    class="count">(5)</span></label>
                                     </li>
                                     <li>
-                                        <label class="checkbox-inline" for="3"><input name="news" id="3" type="checkbox">$100 - $250<span class="count">(8)</span></label>
+                                        <label class="checkbox-inline" for="3"><input name="news" id="3"
+                                                                                      type="checkbox">$100 - $250<span
+                                                    class="count">(8)</span></label>
                                     </li>
-                                </ul> --}}
+                                </ul>
                             </div>
                             <!--/ End Shop By Price -->
                             <!-- Single Widget -->
                             <div class="single-widget recent-post">
                                 <h3 class="title">Recent post</h3>
-                            {{-- {{dd($recent_products)}} --}}
-                            @foreach($recent_products as $product)
-                                <!-- Single Post -->
-                                    @php
-                                        $photo=explode(',',$product->photo);
-                                    @endphp
+                                {{-- {{dd($recent_products)}} --}}
+                                @foreach($recent_products as $product)
                                     <div class="single-post first">
                                         <div class="image">
-                                            <img src="{{$photo[0]}}" alt="{{$photo[0]}}">
+                                            <img src="{{$product->imageUrl}}" alt="{{$product->imageUrl}}">
                                         </div>
                                         <div class="content">
                                             <h5>
@@ -134,9 +109,6 @@
                             <div class="single-widget category">
                                 <h3 class="title">Brands</h3>
                                 <ul class="categor-list">
-                                    @php
-                                        $brands=DB::table('brands')->orderBy('title','ASC')->where('status','active')->get();
-                                    @endphp
                                     @foreach($brands as $brand)
                                         <li><a href="{{route('product-brand',$brand->slug)}}">{{$brand->title}}</a></li>
                                     @endforeach
@@ -198,7 +170,7 @@
                                     </div>
                                     <ul class="view-mode">
                                         <li class="active"><a href="javascript:void(0)"><i
-                                                    class="fa fa-th-large"></i></a></li>
+                                                        class="fa fa-th-large"></i></a></li>
                                         <li><a href="{{route('product-lists')}}"><i class="fa fa-th-list"></i></a></li>
                                     </ul>
                                 </div>
@@ -213,11 +185,10 @@
                                         <div class="single-product">
                                             <div class="product-img">
                                                 <a href="{{route('product-detail',$product->slug)}}">
-                                                    @php
-                                                        $photo=explode(',',$product->photo);
-                                                    @endphp
-                                                    <img class="default-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
-                                                    <img class="hover-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
+                                                    <img class="default-img" src="{{$product->imageUrl}}"
+                                                         alt="{{$product->imageUrl}}">
+                                                    <img class="hover-img" src="{{$product->imageUrl}}"
+                                                         alt="{{$product->imageUrl}}">
                                                     @if($product->discount)
                                                         <span class="price-dec">{{$product->discount}} % Off</span>
                                                     @endif
@@ -229,7 +200,7 @@
                                                         <a title="Wishlist"
                                                            href="{{route('add-to-wishlist',$product->slug)}}"
                                                            class="wishlist" data-id="{{$product->id}}"><i
-                                                                class=" ti-heart "></i><span>Add to Wishlist</span></a>
+                                                                    class=" ti-heart "></i><span>Add to Wishlist</span></a>
                                                     </div>
                                                     <div class="product-action-2">
                                                         <a title="Add to cart"
@@ -260,7 +231,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12 justify-content-center d-flex">
-                                {{$products->appends($_GET)->links()}}
+                                {{$products->appends($_GET)->links('vendor.pagination.bootstrap-4')}}
                             </div>
                         </div>
 
@@ -282,7 +253,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                    class="ti-close" aria-hidden="true"></span></button>
+                                        class="ti-close" aria-hidden="true"></span></button>
                         </div>
                         <div class="modal-body">
                             <div class="row no-gutters">
@@ -309,11 +280,11 @@
                                         <div class="quickview-ratting-review">
                                             <div class="quickview-ratting-wrap">
                                                 <div class="quickview-ratting">
-                                                    {{-- <i class="yellow fa fa-star"></i>
                                                     <i class="yellow fa fa-star"></i>
                                                     <i class="yellow fa fa-star"></i>
                                                     <i class="yellow fa fa-star"></i>
-                                                    <i class="fa fa-star"></i> --}}
+                                                    <i class="yellow fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
                                                     @php
                                                         $rate=DB::table('product_reviews')->where('product_id',$product->id)->avg('rate');
                                                         $rate_count=DB::table('product_reviews')->where('product_id',$product->id)->count();
@@ -373,7 +344,7 @@
                                                         @endforeach
                                                     </select>
                                                 </div>
-                                                {{-- <div class="col-lg-6 col-12">
+                                                <div class="col-lg-6 col-12">
                                                     <h5 class="title">Color</h5>
                                                     <select>
                                                         <option selected="selected">orange</option>
@@ -381,7 +352,7 @@
                                                         <option>black</option>
                                                         <option>pink</option>
                                                     </select>
-                                                </div> --}}
+                                                </div>
                                             </div>
                                         </div>
                                         <form action="{{route('single-add-to-cart')}}" method="POST">
@@ -411,7 +382,7 @@
                                             <div class="add-to-cart">
                                                 <button type="submit" class="btn">Add to cart</button>
                                                 <a href="{{route('add-to-wishlist',$product->slug)}}" class="btn min"><i
-                                                        class="ti-heart"></i></a>
+                                                            class="ti-heart"></i></a>
                                             </div>
                                         </form>
                                         <div class="default-social">

@@ -4,7 +4,6 @@
     <!-- Slider Area -->
     <section class="hero-slider">
         <!-- Single Slider -->
-
         <div class="single-slider">
             <div class="container">
                 <div class="row no-gutters">
@@ -60,40 +59,7 @@
             </a>
         </section>
     @endif
-
     <!--/ End Slider Area -->
-
-    <!-- Start Small Banner  -->
-    <section class="small-banner section">
-        <div class="container-fluid">
-            <div class="row">
-            @if($category_lists)
-                @foreach($category_lists as $cat)
-                    @if($cat->is_parent==1)
-                        <!-- Single Banner  -->
-                            <div class="col-lg-4 col-md-6 col-12">
-                                <div class="single-banner">
-                                    @if($cat->photo)
-                                        <img src="{{$cat->photo}}" alt="{{$cat->photo}}">
-                                    @else
-                                        <img src="https://via.placeholder.com/600x370" alt="#">
-                                    @endif
-                                    <div class="content">
-                                        <h3>{{$cat->title}}</h3>
-                                        <a href="{{route('product-cat',$cat->slug)}}">Discover Now</a>
-                                    </div>
-                                </div>
-                            </div>
-                    @endif
-                    <!-- /End Single Banner  -->
-                    @endforeach
-                @endif
-            </div>
-        </div>
-    </section>
-    <!-- End Small Banner -->
-
-    <!-- Start Product Area -->
     <div class="product-area section">
         <div class="container">
             <div class="row">
@@ -103,98 +69,8 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="product-info">
-                        <div class="nav-main">
-                            <!-- Tab Nav -->
-                            <ul class="nav nav-tabs filter-tope-group" id="myTab" role="tablist">
-
-                                @if($categories)
-                                    <button class="btn" style="background:black" data-filter="*">
-                                        All Products
-                                    </button>
-                                    @foreach($categories as $key=>$cat)
-
-                                        <button class="btn" style="background:none;color:black;"
-                                                data-filter=".{{$cat->id}}">
-                                            {{$cat->title}}
-                                        </button>
-                                    @endforeach
-                                @endif
-                            </ul>
-                            <!--/ End Tab Nav -->
-                        </div>
-                        <div class="tab-content isotope-grid" id="myTabContent">
-                            <!-- Start Single Tab -->
-                            @if($product_lists)
-                                @foreach($product_lists as $key=>$product)
-                                    <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item {{$product->cat_id}}">
-                                        <div class="single-product">
-                                            <div class="product-img">
-                                                <a href="{{route('product-detail',$product->slug)}}">
-                                                    @php
-                                                        $photo=explode(',',$product->photo);
-                                                    // dd($photo);
-                                                    @endphp
-                                                    <img class="default-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
-                                                    <img class="hover-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
-                                                    @if($product->stock<=0)
-                                                        <span class="out-of-stock">Sale out</span>
-                                                    @elseif($product->condition=='new')
-                                                        <span class="new">New</span
-                                                    @elseif($product->condition=='hot')
-                                                        <span class="hot">Hot</span>
-                                                    @else
-                                                        <span class="price-dec">{{$product->discount}}% Off</span>
-                                                    @endif
-
-
-                                                </a>
-                                                <div class="button-head">
-                                                    <div class="product-action">
-                                                        <a data-toggle="modal" data-target="#{{$product->id}}"
-                                                           title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
-                                                        <a title="Wishlist"
-                                                           href="{{route('add-to-wishlist',$product->slug)}}"><i
-                                                                    class=" ti-heart "></i><span>Add to Wishlist</span></a>
-                                                    </div>
-                                                    <div class="product-action-2">
-                                                        <a title="Add to cart"
-                                                           href="{{route('add-to-cart',$product->slug)}}">Add to
-                                                            cart</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="product-content">
-                                                <h3>
-                                                    <a href="{{route('product-detail',$product->slug)}}">{{$product->title}}</a>
-                                                </h3>
-                                                <div class="product-price">
-                                                    @php
-                                                        $after_discount=($product->price-($product->price*$product->discount)/100);
-                                                    @endphp
-                                                    <span>${{number_format($after_discount,2)}}</span>
-                                                    <del style="padding-left:4%;">
-                                                        ${{number_format($product->price,2)}}</del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                            @endforeach
-
-                            <!--/ End Single Tab -->
-                        @endif
-
-                        <!--/ End Single Tab -->
-
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
-
     <section class="midium-banner">
         <div class="container">
             <div class="row">
@@ -203,10 +79,8 @@
                     <!-- Single Banner  -->
                         <div class="col-lg-6 col-md-6 col-12">
                             <div class="single-banner">
-                                @php
-                                    $photo=explode(',',$featured_product->photo);
-                                @endphp
-                                <img src="{{$photo[0]}}" alt="{{$photo[0]}}">
+
+                                <img src="{{ $featured_product->imageUrl }}" alt="{{$featured_product->imageUrl}}">
                                 <div class="content">
                                     <p> @foreach($featured_product->categories as $category)
                                             {{$category->title}}
@@ -239,47 +113,43 @@
                 <div class="col-12">
                     <div class="owl-carousel popular-slider">
                     @foreach($product_lists as $product)
-                        @if($product->condition=='hot')
-                            <!-- Start Single Product -->
-                                <div class="single-product">
-                                    <div class="product-img">
-                                        <a href="{{route('product-detail',$product->slug)}}">
-                                            @php
-                                                $photo=explode(',',$product->photo);
-                                            // dd($photo);
-                                            @endphp
-                                            <img class="default-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
-                                            <img class="hover-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
-                                            {{-- <span class="out-of-stock">Hot</span> --}}
-                                        </a>
-                                        <div class="button-head">
-                                            <div class="product-action">
-                                                <a data-toggle="modal" data-target="#{{$product->id}}"
-                                                   title="Quick View" href="#"><i
-                                                            class=" ti-eye"></i><span>Quick Shop</span></a>
-                                                <a title="Wishlist"
-                                                   href="{{route('add-to-wishlist',$product->slug)}}"><i
-                                                            class=" ti-heart "></i><span>Add to Wishlist</span></a>
-                                            </div>
-                                            <div class="product-action-2">
-                                                <a href="{{route('add-to-cart',$product->slug)}}">Add to cart</a>
-                                            </div>
+                        <!-- Start Single Product -->
+                            <div class="single-product">
+                                <div class="product-img">
+                                    <a href="{{route('product-detail',$product->slug)}}">
+                                        <img class="default-img" src="{{ $product->imageUrl }}"
+                                             alt="{{$product->imageUrl}}">
+                                        <img class="hover-img" src="{{$product->imageUrl}}"
+                                             alt="{{$product->imageUrl}}">
+                                        {{-- <span class="out-of-stock">Hot</span> --}}
+                                    </a>
+                                    <div class="button-head">
+                                        <div class="product-action">
+                                            <a data-toggle="modal" data-target="#{{$product->id}}"
+                                               title="Quick View" href="#"><i
+                                                        class=" ti-eye"></i><span>Quick Shop</span></a>
+                                            <a title="Wishlist"
+                                               href="{{route('add-to-wishlist',$product->slug)}}"><i
+                                                        class=" ti-heart "></i><span>Add to Wishlist</span></a>
                                         </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <h3><a href="{{route('product-detail',$product->slug)}}">{{$product->title}}</a>
-                                        </h3>
-                                        <div class="product-price">
-                                            <span class="old">${{number_format($product->price,2)}}</span>
-                                            @php
-                                                $after_discount=($product->price-($product->price*$product->discount)/100)
-                                            @endphp
-                                            <span>${{number_format($after_discount,2)}}</span>
+                                        <div class="product-action-2">
+                                            <a href="{{route('add-to-cart',$product->slug)}}">Add to cart</a>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- End Single Product -->
-                            @endif
+                                <div class="product-content">
+                                    <h3><a href="{{route('product-detail',$product->slug)}}">{{$product->title}}</a>
+                                    </h3>
+                                    <div class="product-price">
+                                        <span class="old">${{number_format($product->price,2)}}</span>
+                                        @php
+                                            $after_discount=($product->price-($product->price*$product->discount)/100)
+                                        @endphp
+                                        <span>${{number_format($after_discount,2)}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Product -->
                         @endforeach
                     </div>
                 </div>
@@ -309,11 +179,7 @@
                                     <div class="row">
                                         <div class="col-lg-6 col-md-6 col-12">
                                             <div class="list-image overlay">
-                                                @php
-                                                    $photo=explode(',',$product->photo);
-                                                    // dd($photo);
-                                                @endphp
-                                                <img src="{{$photo[0]}}" alt="{{$photo[0]}}">
+                                                <img src="{{$product->imageUrl}}" alt="{{$product->imageUrl}}">
                                                 <a href="{{route('add-to-cart',$product->slug)}}" class="buy"><i
                                                             class="fa fa-shopping-bag"></i></a>
                                             </div>
@@ -471,15 +337,9 @@
                                     <!-- Product Slider -->
                                     <div class="product-gallery">
                                         <div class="quickview-slider-active">
-                                            @php
-                                                $photo=explode(',',$product->photo);
-                                            // dd($photo);
-                                            @endphp
-                                            @foreach($photo as $data)
-                                                <div class="single-slider">
-                                                    <img src="{{$data}}" alt="{{$data}}">
-                                                </div>
-                                            @endforeach
+                                            <div class="single-slider">
+                                                <img src="{{$product->imageUrl}}" alt="{{$product->imageUrl}}">
+                                            </div>
                                         </div>
                                     </div>
                                     <!-- End Product slider -->
@@ -712,13 +572,13 @@
 
         /*==================================================================
         [ Isotope ]*/
-        var $topeContainer = $('.isotope-grid');
-        var $filter = $('.filter-tope-group');
+        const $topeContainer = $('.isotope-grid');
+        const $filter = $('.filter-tope-group');
 
         // filter items on button click
         $filter.each(function () {
             $filter.on('click', 'button', function () {
-                var filterValue = $(this).attr('data-filter');
+                const filterValue = $(this).attr('data-filter');
                 $topeContainer.isotope({filter: filterValue});
             });
 
@@ -726,7 +586,7 @@
 
         // init Isotope
         $(window).on('load', function () {
-            var $grid = $topeContainer.each(function () {
+            const $grid = $topeContainer.each(function () {
                 $(this).isotope({
                     itemSelector: '.isotope-item',
                     layoutMode: 'fitRows',
@@ -739,11 +599,11 @@
             });
         });
 
-        var isotopeButton = $('.filter-tope-group button');
+        const isotopeButton = $('.filter-tope-group button');
 
         $(isotopeButton).each(function () {
             $(this).on('click', function () {
-                for (var i = 0; i < isotopeButton.length; i++) {
+                for (let i = 0; i < isotopeButton.length; i++) {
                     $(isotopeButton[i]).removeClass('how-active1');
                 }
 
@@ -753,11 +613,11 @@
     </script>
     <script>
         function cancelFullScreen(el) {
-            var requestMethod = el.cancelFullScreen || el.webkitCancelFullScreen || el.mozCancelFullScreen || el.exitFullscreen;
+            const requestMethod = el.cancelFullScreen || el.webkitCancelFullScreen || el.mozCancelFullScreen || el.exitFullscreen;
             if (requestMethod) { // cancel full screen.
                 requestMethod.call(el);
             } else if (typeof window.ActiveXObject !== "undefined") { // Older IE.
-                var wscript = new ActiveXObject("WScript.Shell");
+                const wscript = new ActiveXObject("WScript.Shell");
                 if (wscript !== null) {
                     wscript.SendKeys("{F11}");
                 }
@@ -766,12 +626,12 @@
 
         function requestFullScreen(el) {
             // Supports most browsers and their versions.
-            var requestMethod = el.requestFullScreen || el.webkitRequestFullScreen || el.mozRequestFullScreen || el.msRequestFullscreen;
+            const requestMethod = el.requestFullScreen || el.webkitRequestFullScreen || el.mozRequestFullScreen || el.msRequestFullscreen;
 
             if (requestMethod) { // Native full screen.
                 requestMethod.call(el);
             } else if (typeof window.ActiveXObject !== "undefined") { // Older IE.
-                var wscript = new ActiveXObject("WScript.Shell");
+                const wscript = new ActiveXObject("WScript.Shell");
                 if (wscript !== null) {
                     wscript.SendKeys("{F11}");
                 }

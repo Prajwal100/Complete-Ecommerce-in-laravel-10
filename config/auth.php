@@ -1,6 +1,8 @@
 <?php
 
-return [
+  use App\Models\User;
+
+  return [
 
     /*
     |--------------------------------------------------------------------------
@@ -13,10 +15,10 @@ return [
     |
     */
 
-    'defaults' => [
-        'guard' => 'web',
-        'passwords' => 'users',
-    ],
+      'defaults' => [
+          'guard'     => 'web',
+          'passwords' => 'users',
+      ],
 
     /*
     |--------------------------------------------------------------------------
@@ -35,18 +37,18 @@ return [
     |
     */
 
-    'guards' => [
-        'web' => [
-            'driver' => 'session',
-            'provider' => 'users',
-        ],
+      'guards' => [
+          'web' => [
+              'driver'   => 'session',
+              'provider' => 'users',
+          ],
 
-        'api' => [
-            'driver' => 'token',
-            'provider' => 'users',
-            'hash' => false,
-        ],
-    ],
+          'api' => [
+              'driver'   => 'token',
+              'provider' => 'users',
+              'hash'     => false,
+          ],
+      ],
 
     /*
     |--------------------------------------------------------------------------
@@ -65,17 +67,17 @@ return [
     |
     */
 
-    'providers' => [
-        'users' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\User::class,
-        ],
+      'providers' => [
+          'users' => [
+              'driver' => 'eloquent',
+              'model'  => User::class,
+          ],
 
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
-    ],
+      ],
 
     /*
     |--------------------------------------------------------------------------
@@ -92,14 +94,14 @@ return [
     |
     */
 
-    'passwords' => [
-        'users' => [
-            'provider' => 'users',
-            'table' => 'password_resets',
-            'expire' => 60,
-            'throttle' => 60,
-        ],
-    ],
+      'passwords' => [
+          'users' => [
+              'provider' => 'users',
+              'table'    => 'password_resets',
+              'expire'   => 60,
+              'throttle' => 60,
+          ],
+      ],
 
     /*
     |--------------------------------------------------------------------------
@@ -112,6 +114,6 @@ return [
     |
     */
 
-    'password_timeout' => 10800,
+      'password_timeout' => 10800,
 
-];
+  ];

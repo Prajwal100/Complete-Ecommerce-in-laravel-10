@@ -11,7 +11,7 @@
     <meta property="og:url" content="{{route('product-detail',$product_detail->slug)}}">
     <meta property="og:type" content="article">
     <meta property="og:title" content="{{$product_detail->title}}">
-    <meta property="og:image" content="{{$product_detail->photo}}">
+    <meta property="og:image" content="{{$product_detail->imageUrl}}">
     <meta property="og:description" content="{{$product_detail->description}}">
 @endsection
 @section('title','E-SHOP || PRODUCT DETAIL')
@@ -150,17 +150,15 @@
                                         </div>
                                     </form>
 
-                                    <p class="cat">Category :<a
-                                            href="{{route('product-cat',$product_detail->cat_info['slug'])}}">{{$product_detail->cat_info['title']}}</a>
+                                    <p class="cat">Category :
+                                        @foreach($product_detail->categories as $category)
+                                            <a href="{{route('product-cat',$category->slug)}}">{{$category->title}}</a>
+                                        @endforeach
                                     </p>
-                                    @if($product_detail->sub_cat_info)
-                                        <p class="cat mt-1">Sub Category :<a
-                                                href="{{route('product-sub-cat',[$product_detail->cat_info['slug'],$product_detail->sub_cat_info['slug']])}}">{{$product_detail->sub_cat_info['title']}}</a>
-                                        </p>
-                                    @endif
+
                                     <p class="availability">Stock : @if($product_detail->stock>0)<span
-                                            class="badge badge-success">{{$product_detail->stock}}</span>@else <span
-                                            class="badge badge-danger">{{$product_detail->stock}}</span>  @endif</p>
+                                                class="badge badge-success">{{$product_detail->stock}}</span>@else <span
+                                                class="badge badge-danger">{{$product_detail->stock}}</span>  @endif</p>
                                 </div>
                                 <!--/ End Product Buy -->
                             </div>
@@ -211,7 +209,7 @@
                                                             <!-- Form -->
                                                             @auth
                                                                 <form class="form" method="post"
-                                                                      action="{{route('review.add',$product_detail->slug)}}">
+                                                                      action="{{route('product.review.store',$product_detail->slug)}}">
                                                                     @csrf
                                                                     <div class="row">
                                                                         <div class="col-lg-12 col-12">
@@ -219,53 +217,53 @@
                                                                                 <div class="star-rating">
                                                                                     <div class="star-rating__wrap">
                                                                                         <input
-                                                                                            class="star-rating__input"
-                                                                                            id="star-rating-5"
-                                                                                            type="radio" name="rate"
-                                                                                            value="5">
+                                                                                                class="star-rating__input"
+                                                                                                id="star-rating-5"
+                                                                                                type="radio" name="rate"
+                                                                                                value="5">
                                                                                         <label
-                                                                                            class="star-rating__ico fa fa-star-o"
-                                                                                            for="star-rating-5"
-                                                                                            title="5 out of 5 stars"></label>
+                                                                                                class="star-rating__ico fa fa-star-o"
+                                                                                                for="star-rating-5"
+                                                                                                title="5 out of 5 stars"></label>
                                                                                         <input
-                                                                                            class="star-rating__input"
-                                                                                            id="star-rating-4"
-                                                                                            type="radio" name="rate"
-                                                                                            value="4">
+                                                                                                class="star-rating__input"
+                                                                                                id="star-rating-4"
+                                                                                                type="radio" name="rate"
+                                                                                                value="4">
                                                                                         <label
-                                                                                            class="star-rating__ico fa fa-star-o"
-                                                                                            for="star-rating-4"
-                                                                                            title="4 out of 5 stars"></label>
+                                                                                                class="star-rating__ico fa fa-star-o"
+                                                                                                for="star-rating-4"
+                                                                                                title="4 out of 5 stars"></label>
                                                                                         <input
-                                                                                            class="star-rating__input"
-                                                                                            id="star-rating-3"
-                                                                                            type="radio" name="rate"
-                                                                                            value="3">
+                                                                                                class="star-rating__input"
+                                                                                                id="star-rating-3"
+                                                                                                type="radio" name="rate"
+                                                                                                value="3">
                                                                                         <label
-                                                                                            class="star-rating__ico fa fa-star-o"
-                                                                                            for="star-rating-3"
-                                                                                            title="3 out of 5 stars"></label>
+                                                                                                class="star-rating__ico fa fa-star-o"
+                                                                                                for="star-rating-3"
+                                                                                                title="3 out of 5 stars"></label>
                                                                                         <input
-                                                                                            class="star-rating__input"
-                                                                                            id="star-rating-2"
-                                                                                            type="radio" name="rate"
-                                                                                            value="2">
+                                                                                                class="star-rating__input"
+                                                                                                id="star-rating-2"
+                                                                                                type="radio" name="rate"
+                                                                                                value="2">
                                                                                         <label
-                                                                                            class="star-rating__ico fa fa-star-o"
-                                                                                            for="star-rating-2"
-                                                                                            title="2 out of 5 stars"></label>
+                                                                                                class="star-rating__ico fa fa-star-o"
+                                                                                                for="star-rating-2"
+                                                                                                title="2 out of 5 stars"></label>
                                                                                         <input
-                                                                                            class="star-rating__input"
-                                                                                            id="star-rating-1"
-                                                                                            type="radio" name="rate"
-                                                                                            value="1">
+                                                                                                class="star-rating__input"
+                                                                                                id="star-rating-1"
+                                                                                                type="radio" name="rate"
+                                                                                                value="1">
                                                                                         <label
-                                                                                            class="star-rating__ico fa fa-star-o"
-                                                                                            for="star-rating-1"
-                                                                                            title="1 out of 5 stars"></label>
+                                                                                                class="star-rating__ico fa fa-star-o"
+                                                                                                for="star-rating-1"
+                                                                                                title="1 out of 5 stars"></label>
                                                                                         @error('rate')
                                                                                         <span
-                                                                                            class="text-danger">{{$message}}</span>
+                                                                                                class="text-danger">{{$message}}</span>
                                                                                         @enderror
                                                                                     </div>
                                                                                 </div>
@@ -292,7 +290,7 @@
                                                                     You need to <a href="{{route('login')}}"
                                                                                    style="color:rgb(54, 54, 204)">Login</a>
                                                                     OR <a style="color:blue"
-                                                                          href="{{route('register.form')}}">Register</a>
+                                                                          href="{{route('register')}}">Register</a>
 
                                                                 </p>
                                                                 <!--/ End Form -->
@@ -316,16 +314,16 @@
                                                         <!-- Single Rating -->
                                                             <div class="single-rating">
                                                                 <div class="rating-author">
-                                                                    @if($data->user_info['photo'])
-                                                                        <img src="{{$data->user_info['photo']}}"
-                                                                             alt="{{$data->user_info['photo']}}">
+                                                                    @if($data->user['photo'])
+                                                                        <img src="{{$data->user['photo']}}"
+                                                                             alt="{{$data->user['photo']}}">
                                                                     @else
                                                                         <img src="{{asset('backend/img/avatar.png')}}"
                                                                              alt="Profile.jpg">
                                                                     @endif
                                                                 </div>
                                                                 <div class="rating-des">
-                                                                    <h6>{{$data->user_info['name']}}</h6>
+                                                                    <h6>{{$data->user['name']}}</h6>
                                                                     <div class="ratings">
 
                                                                         <ul class="rating">
@@ -380,17 +378,15 @@
                 {{-- {{$product_detail->rel_prods}} --}}
                 <div class="col-12">
                     <div class="owl-carousel popular-slider">
-                    @foreach($product_detail->rel_prods as $data)
+                    @foreach($related as $data)
                         @if($data->id !==$product_detail->id)
                             <!-- Start Single Product -->
                                 <div class="single-product">
                                     <div class="product-img">
                                         <a href="{{route('product-detail',$data->slug)}}">
-                                            @php
-                                                $photo=explode(',',$data->photo);
-                                            @endphp
-                                            <img class="default-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
-                                            <img class="hover-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
+                                            <img class="default-img" src="{{$data->imageUrl}}"
+                                                 alt="{{$data->imageUrl}}">
+                                            <img class="hover-img" src="{{$data->imageUrl}}" alt="{{$data->imageUrl}}">
                                             <span class="price-dec">{{$data->discount}} % Off</span>
                                             {{-- <span class="out-of-stock">Hot</span> --}}
                                         </a>

@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Exceptions;
+  namespace App\Exceptions;
 
-use Exception;
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Throwable;
+  use Exception;
+  use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+  use Illuminate\Http\Request;
+  use Symfony\Component\HttpFoundation\Response;
+  use Throwable;
 
-class Handler extends ExceptionHandler
-{
+  class Handler extends ExceptionHandler
+  {
     /**
      * A list of the exception types that are not reported.
      *
      * @var array
      */
     protected $dontReport = [
-        //
+      //
     ];
 
     /**
@@ -36,10 +36,11 @@ class Handler extends ExceptionHandler
      * @return void
      *
      * @throws Exception
+     * @throws Throwable
      */
     public function report(Throwable $exception)
     {
-        parent::report($exception);
+      parent::report($exception);
     }
 
     /**
@@ -51,8 +52,8 @@ class Handler extends ExceptionHandler
      *
      * @throws Throwable
      */
-    public function render($request, Throwable $exception)
+    public function render($request, Throwable $exception): Response
     {
-        return parent::render($request, $exception);
+      return parent::render($request, $exception);
     }
-}
+  }
