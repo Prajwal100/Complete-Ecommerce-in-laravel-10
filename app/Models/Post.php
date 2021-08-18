@@ -66,6 +66,11 @@
    * @mixin Eloquent
    * @property-read int|null $post_comments_count
    * @method static \Database\Factories\PostFactory factory(...$parameters)
+   * @property-read \Kalnoy\Nestedset\Collection|\App\Models\Category[] $categories
+   * @property-read int|null $categories_count
+   * @property-read Collection|\App\Models\PostComment[] $comments
+   * @property-read int|null $comments_count
+   * @property-read string $image_url
    */
   class Post extends Model
   {

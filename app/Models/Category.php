@@ -96,6 +96,11 @@
    * @method static QueryBuilder|Category whereNotDescendantOf($id)
    * @method static QueryBuilder|Category withDepth(string $as = 'depth')
    * @method static QueryBuilder|Category withoutRoot()
+   * @property-read \Kalnoy\Nestedset\Collection|Category[] $child_cat
+   * @property-read int|null $child_cat_count
+   * @property-read \Kalnoy\Nestedset\Collection|Category[] $childrenCategories
+   * @property-read int|null $children_categories_count
+   * @property-read Category|null $parent_info
    */
   class Category extends Model
   {

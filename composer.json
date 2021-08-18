@@ -23,6 +23,7 @@
     "laravel/tinker": "^2.0",
     "laravel/ui": "^3.0",
     "laravelcollective/html": "^6.2",
+    "pragmarx/google2fa-laravel": "^2.0",
     "pusher/pusher-php-server": "^4.1",
     "reliese/laravel": "^1.1",
     "spatie/laravel-feed": "^3.2",

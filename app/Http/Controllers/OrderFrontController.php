@@ -31,7 +31,7 @@
      */
     public function store(Store $request): RedirectResponse
     {
-      if (empty(Cart::where('user_id', auth()->user()->id)->where('order_id', null)->first())) {
+      if (empty(Cart::whereUserId(auth()->user()->id)->where('order_id', null)->first())) {
         request()->session()->flash('error', 'Cart is Empty !');
         return back();
       }

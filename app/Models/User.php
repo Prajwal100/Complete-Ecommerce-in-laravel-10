@@ -7,12 +7,16 @@
   namespace App\Models;
 
   use Carbon\Carbon;
+  use Database\Factories\UserFactory;
   use Eloquent;
   use Illuminate\Database\Eloquent\Builder;
   use Illuminate\Database\Eloquent\Collection;
   use Illuminate\Database\Eloquent\Factories\HasFactory;
   use Illuminate\Database\Eloquent\Relations\HasMany;
+  use Illuminate\Database\Eloquent\Relations\HasOne;
   use Illuminate\Foundation\Auth\User as Authenticatable;
+  use Illuminate\Notifications\DatabaseNotification;
+  use Illuminate\Notifications\DatabaseNotificationCollection;
   use Illuminate\Notifications\Notifiable;
   use Spatie\Permission\Traits\HasRoles;
 
@@ -64,9 +68,12 @@
    * @property-read int|null $permissions_count
    * @property-read Collection|\Spatie\Permission\Models\Role[] $roles
    * @property-read int|null $roles_count
-   * @method static \Database\Factories\UserFactory factory(...$parameters)
+   * @method static UserFactory factory(...$parameters)
    * @method static Builder|User permission($permissions)
    * @method static Builder|User role($roles, $guard = null)
+   * @property-read LoginSecurity|null $loginSecurity
+   * @property-read DatabaseNotificationCollection|DatabaseNotification[] $notifications
+   * @property-read int|null $notifications_count
    */
   class User extends Authenticatable
   {
@@ -97,33 +104,77 @@
         'remember_token',
     ];
 
+    /**
+     * @return HasMany
+     */
     public function carts(): HasMany
     {
       return $this->hasMany(Cart::class);
     }
 
+    /**
+     * @return HasMany
+     */
     public function orders(): HasMany
     {
       return $this->hasMany(Order::class);
     }
 
+    /**
+     * @return HasMany
+     */
     public function post_comments(): HasMany
     {
       return $this->hasMany(PostComment::class);
     }
 
+    /**
+     * @return HasMany
+     */
     public function posts(): HasMany
     {
       return $this->hasMany(Post::class, 'added_by');
     }
 
+    /**
+     * @return HasMany
+     */
     public function product_reviews(): HasMany
     {
       return $this->hasMany(ProductReview::class);
     }
 
+    /**
+     * @return HasMany
+     */
     public function wishlists(): HasMany
     {
       return $this->hasMany(Wishlist::class);
     }
+
+    /**
+     * @return HasOne
+     */
+    public function loginSecurity(): HasOne
+    {
+      return $this->hasOne(LoginSecurity::class);
+    }
+
+//    /**
+//     * @return HigherOrderBuilderProxy|int|mixed|string
+//     */
+//    public function loginKye()
+//    {
+//      return LoginSecurity::whereUserId($this->id)->select('google2fa_secret')->first()->google2fa_secret ?? 0;
+//    }
+//
+//    /**
+//     * @return HigherOrderBuilderProxy|int|mixed
+//     */
+//    public function loginEnable()
+//    {
+//      return LoginSecurity::whereUserId($this->id)->select('google2fa_enable')->first()->google2fa_enable;
+//    }
+
+
   }

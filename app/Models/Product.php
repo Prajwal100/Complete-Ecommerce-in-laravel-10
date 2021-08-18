@@ -69,6 +69,7 @@
    * @property-read \Kalnoy\Nestedset\Collection|Category[] $categories
    * @property-read int|null $categories_count
    * @method static ProductFactory factory(...$parameters)
+   * @property-read string $image_url
    */
   class Product extends Model implements Feedable
   {
