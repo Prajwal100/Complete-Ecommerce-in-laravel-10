@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Providers;
+  namespace App\Providers;
 
-use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Route;
+  use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+  use Illuminate\Support\Facades\Route;
 
-class RouteServiceProvider extends ServiceProvider
-{
+  class RouteServiceProvider extends ServiceProvider
+  {
     /**
      * This namespace is applied to your controller routes.
      *
@@ -21,7 +21,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/home';
+    public const HOME = '/admin';
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -30,9 +30,9 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+      //
 
-        parent::boot();
+      parent::boot();
     }
 
     /**
@@ -42,11 +42,11 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map()
     {
-        $this->mapApiRoutes();
-
-        $this->mapWebRoutes();
-
-        //
+      $this->mapApiRoutes();
+      $this->mapWebRoutes();
+      $this->mapUserRoutes();
+      $this->mapAdminRoutes();
+      $this->map2faRoutes();
     }
 
     /**
@@ -58,9 +58,8 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapWebRoutes()
     {
-        Route::middleware('web')
-            ->namespace($this->namespace)
-            ->group(base_path('routes/web.php'));
+      Route::middleware('web')
+          ->group(base_path('routes/web.php'));
     }
 
     /**
@@ -72,9 +71,46 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapApiRoutes()
     {
-        Route::prefix('api')
-            ->middleware('api')
-            ->namespace($this->namespace)
-            ->group(base_path('routes/api.php'));
+      Route::prefix('api')
+          ->middleware('api')
+          ->group(base_path('routes/api.php'));
     }
-}
+
+    /**
+     * Define the "user" routes for the application.
+     *
+     * These routes are typically stateless.
+     *
+     * @return void
+     */
+    protected function mapUserRoutes()
+    {
+      Route::prefix('user')
+          ->middleware(['web', 'auth'])
+          ->group(base_path('routes/user.php'));
+    }
+
+    /**
+     * Define the "admin" routes for the application.
+     *
+     * These routes are typically stateless.
+     *
+     * @return void
+     */
+    protected function mapAdminRoutes()
+    {
+      Route::prefix('admin')
+          ->middleware(['web', 'auth'])
+          ->group(base_path('routes/admin.php'));
+    }
+
+    /**
+     * Define 2fa routes protected with auth middleware admin namespace used
+     */
+    public function map2faRoutes()
+    {
+      Route::middleware(['web', 'auth', '2fa'])
+          ->prefix('2fa')
+          ->group(base_path('routes/2fa.php'));
+    }
+  }

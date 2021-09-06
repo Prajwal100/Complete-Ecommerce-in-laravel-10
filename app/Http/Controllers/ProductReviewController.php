@@ -1,153 +1,115 @@
 <?php
 
-namespace App\Http\Controllers;
+  namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Product;
-use Notification;
-use App\Notifications\StatusNotification;
-use App\User;
-use App\Models\ProductReview;
-class ProductReviewController extends Controller
-{
+  use App\Http\Requests\Review\Store;
+  use App\Models\Product;
+  use App\Models\ProductReview;
+  use App\Models\User;
+  use App\Notifications\StatusNotification;
+  use Illuminate\Contracts\Foundation\Application;
+  use Illuminate\Contracts\View\Factory;
+  use Illuminate\Contracts\View\View;
+  use Illuminate\Http\RedirectResponse;
+  use Illuminate\Http\Request;
+  use Notification;
+
+  class ProductReviewController extends Controller
+  {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
     public function index()
     {
-        $reviews=ProductReview::getAllReview();
-        
-        return view('backend.review.index')->with('reviews',$reviews);
-    }
+      $reviews = ProductReview::getAllReview();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        
+      return view('backend.review.index', compact('reviews'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  Store  $request
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Store $request): RedirectResponse
     {
-        $this->validate($request,[
-            'rate'=>'required|numeric|min:1'
-        ]);
-        $product_info=Product::getProductBySlug($request->slug);
-        //  return $product_info;
-        // return $request->all();
-        $data=$request->all();
-        $data['product_id']=$product_info->id;
-        $data['user_id']=$request->user()->id;
-        $data['status']='active';
-        // dd($data);
-        $status=ProductReview::create($data);
-
-        $user=User::where('role','admin')->get();
-        $details=[
-            'title'=>'New Product Rating!',
-            'actionURL'=>route('product-detail',$product_info->slug),
-            'fas'=>'fa-star'
-        ];
-        Notification::send($user,new StatusNotification($details));
-        if($status){
-            request()->session()->flash('success','Thank you for your feedback');
-        }
-        else{
-            request()->session()->flash('error','Something went wrong! Please try again!!');
-        }
-        return redirect()->back();
+      $product_info = Product::getProductBySlug($request['slug']);
+      $data = $request->all();
+      $data['product_id'] = $product_info->id;
+      $data['user_id'] = $request->user()->id;
+      $data['status'] = 'active';
+      // dd($data)q;
+      $status = ProductReview::create($data);
+      $user = User::role('super-admin')->get();
+      $details = [
+          'title'     => 'New Product Rating!',
+          'actionURL' => route('product-detail', $product_info->slug),
+          'fas'       => 'fa-star',
+      ];
+      Notification::send($user, new StatusNotification($details));
+      if ($status) {
+        request()->session()->flash('success', 'Thank you for your feedback');
+      } else {
+        request()->session()->flash('error', 'Something went wrong! Please try again!!');
+      }
+      return redirect()->back();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  ProductReview  $productReview
+     * @return Application|Factory|View
      */
-    public function edit($id)
+    public function edit(ProductReview $productReview)
     {
-        $review=ProductReview::find($id);
-        // return $review;
-        return view('backend.review.edit')->with('review',$review);
+      // return $review;
+      return view('backend.review.edit', compact('productReview'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id): RedirectResponse
     {
-        $review=ProductReview::find($id);
-        if($review){
-            // $product_info=Product::getProductBySlug($request->slug);
-            //  return $product_info;
-            // return $request->all();
-            $data=$request->all();
-            $status=$review->fill($data)->update();
-
-            // $user=User::where('role','admin')->get();
-            // return $user;
-            // $details=[
-            //     'title'=>'Update Product Rating!',
-            //     'actionURL'=>route('product-detail',$product_info->id),
-            //     'fas'=>'fa-star'
-            // ];
-            // Notification::send($user,new StatusNotification($details));
-            if($status){
-                request()->session()->flash('success','Review Successfully updated');
-            }
-            else{
-                request()->session()->flash('error','Something went wrong! Please try again!!');
-            }
+      $review = ProductReview::findOrFail($id);
+      if ($review) {
+        $status = $review->update($request->all());
+        if ($status) {
+          request()->session()->flash('success', 'Review Successfully updated');
+        } else {
+          request()->session()->flash('error', 'Something went wrong! Please try again!!');
         }
-        else{
-            request()->session()->flash('error','Review not found!!');
-        }
+      } else {
+        request()->session()->flash('error', 'Review not found!!');
+      }
 
-        return redirect()->route('review.index');
+      return redirect()->route('review.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(int $id): RedirectResponse
     {
-        $review=ProductReview::find($id);
-        $status=$review->delete();
-        if($status){
-            request()->session()->flash('success','Successfully deleted review');
-        }
-        else{
-            request()->session()->flash('error','Something went wrong! Try again');
-        }
-        return redirect()->route('review.index');
+      $review = ProductReview::find($id);
+      $status = $review->delete();
+      if ($status) {
+        request()->session()->flash('success', 'Successfully deleted review');
+      } else {
+        request()->session()->flash('error', 'Something went wrong! Try again');
+      }
+      return redirect()->route('review.index');
     }
-}
+  }
