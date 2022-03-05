@@ -12,7 +12,7 @@ https://www.youtube.com/watch?v=FdAMucaks64&list=PLIFG3IUe1Zxo8Zvju3_kJJvoKSaIP_
 
 
 ### Features :
-
+- ##### PWA (progressive web app)
 ====== FRONT-END =======
 
 - Responsive Layout
