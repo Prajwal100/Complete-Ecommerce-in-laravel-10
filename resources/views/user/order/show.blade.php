@@ -24,15 +24,12 @@
       </thead>
       <tbody>
         <tr>
-            @php
-                $shipping_charge=DB::table('shippings')->where('id',$order->shipping_id)->pluck('price');
-            @endphp 
             <td>{{$order->id}}</td>
             <td>{{$order->order_number}}</td>
             <td>{{$order->first_name}} {{$order->last_name}}</td>
             <td>{{$order->email}}</td>
             <td>{{$order->quantity}}</td>
-            <td>@foreach($shipping_charge as $data) $ {{number_format($data,2)}} @endforeach</td>
+            <td>${{$order->shipping->price}}</td>
             <td>${{number_format($order->total_amount,2)}}</td>
             <td>
                 @if($order->status=='new')
@@ -47,12 +44,12 @@
             </td>
             <td>
                 <form method="POST" action="{{route('order.destroy',[$order->id])}}">
-                  @csrf 
+                  @csrf
                   @method('delete')
                       <button class="btn btn-danger btn-sm dltBtn" data-id={{$order->id}} style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-trash-alt"></i></button>
                 </form>
             </td>
-          
+
         </tr>
       </tbody>
     </table>
@@ -85,7 +82,7 @@
                           $shipping_charge=DB::table('shippings')->where('id',$order->shipping_id)->pluck('price');
                       @endphp
                         <td>Shipping Charge</td>
-                        <td> : $ {{number_format($shipping_charge[0],2)}}</td>
+                        <td> :${{$order->shipping->price}}</td>
                     </tr>
                     <tr>
                         <td>Total Amount</td>
