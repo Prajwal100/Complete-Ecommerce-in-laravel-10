@@ -1,4 +1,4 @@
-first: Step 1 - Setting up Laravel
+name: Setting up Laravel
 
 on:
   push:
@@ -30,14 +30,6 @@ jobs:
       run: |
         mkdir -p database
         touch database/database.sqlite
-
-second: step 2 - Post set up
-
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
 
 jobs:
   post-setup:
