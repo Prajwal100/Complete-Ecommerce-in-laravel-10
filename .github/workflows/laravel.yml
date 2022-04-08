@@ -30,3 +30,5 @@ jobs:
       run: |
         mkdir -p database
         touch database/database.sqlite
+    - name: Laravel Test Action
+      uses: hdev14/laravel-test-action@v1
