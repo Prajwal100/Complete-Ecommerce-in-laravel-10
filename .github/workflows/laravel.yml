@@ -1,4 +1,4 @@
-name: Laravel
+name: Step 1 - Setting up Laravel
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  laravel-tests:
+  laravel-setup:
 
     runs-on: ubuntu-latest
 
@@ -31,3 +31,18 @@ jobs:
         mkdir -p database
         touch database/database.sqlite
 
+name: step 2 - Post set up
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+jobs:
+  post-setup:
+
+    runs-on: ubuntu-latest
+
+    steps:
+  - name: Laravel Test Action
+    uses: hdev14/laravel-test-action@v1
