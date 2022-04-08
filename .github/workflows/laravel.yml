@@ -1,4 +1,4 @@
-name: Setting up Laravel
+name: Laravel
 
 on:
   push:
@@ -7,19 +7,14 @@ on:
     branches: [ master ]
 
 jobs:
-  laravel-setup-on-ubuntu:
+  laravel-tests:
 
     runs-on: ubuntu-latest
 
     steps:
-    - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
-      with:
-        php-version: '7.2'
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v2
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
-    - name : Running Update
-      run : composer update
     - name: Install Dependencies
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
     - name: Generate key
@@ -30,15 +25,40 @@ jobs:
       run: |
         mkdir -p database
         touch database/database.sqlite
-    - uses: actions/checkout@v3
+    - name: Execute tests (Unit and Feature tests) via PHPUnit
+      env:
+        DB_CONNECTION: sqlite
+        DB_DATABASE: database/database.sqlite
+      run: vendor/bin/phpunit
 
-  laravel-setup-on-windows:
 
-    runs-on: windows-latest
+  build:
+
+    runs-on: ubuntu-latest
 
     steps:
-    - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
-      with:
-        php-version: '7.2'
-    - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v2-beta
+        with:
+          node-version: '12'
+          check-latest: true
+      - name: Install NPM dependencies
+        run: npm install
+      - name: Compile assets for production
+        run: npm run production
 
+  deploy:
+    runs-on: ubuntu-latest
+  
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Deployment
+        uses: appleboy/ssh-action@master
+        with:
+          script: |
+            cd /var/www/html/
+            git checkout -f 
+            git pull origin master
