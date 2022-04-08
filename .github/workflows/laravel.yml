@@ -58,13 +58,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: ls -a via ssh
+      - name: ls -a via OPEN SSH Private Key
         uses: fifsky/ssh-action@master
         with:
           command: |
-            cd /tmp && ls -a
+            cd /tmp
+            ls -a
+            echo "env_var:$FIRST_NAME"
+            exit 1
           host: ${{ secrets.HOST }}
           user: root
           key: ${{ secrets.PRIVATE_KEY}}
+#          pass: ${{ secrets.PASS }}
+          args: "-tt -vvv"
