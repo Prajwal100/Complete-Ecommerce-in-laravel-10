@@ -64,6 +64,5 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           script: |
-            cd /var/www/html/
-            git checkout -f
-            git pull origin master
+            whoami
+            ls -lah
