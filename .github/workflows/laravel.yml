@@ -30,3 +30,4 @@ jobs:
       run: |
         mkdir -p database
         touch database/database.sqlite
+
