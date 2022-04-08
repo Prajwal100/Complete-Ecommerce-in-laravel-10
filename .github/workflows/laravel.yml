@@ -30,13 +30,13 @@ jobs:
       run: |
         mkdir -p database
         touch database/database.sqlite
+    - uses: actions/checkout@v3
 
-jobs:
   secondjob:
 
     runs-on: windows-latest
 
-    step:
+    steps:
     - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
       with:
         php-version: '7.2'
