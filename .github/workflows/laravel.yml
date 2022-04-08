@@ -55,19 +55,34 @@ jobs:
         run: npm run production
 
   deploy:
+    name: "Deploy to staging"
     runs-on: ubuntu-latest
-
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    # needs: test
     steps:
-      - name: ls -a via OPEN SSH Private Key
-        uses: fifsky/ssh-action@master
-        with:
-          command: |
-            cd /tmp
-            ls -a
-            echo "env_var:$FIRST_NAME"
-            exit 1
-          host: ${{ secrets.HOST }}
-          user: root
-          key: ${{ secrets.PRIVATE_KEY}}
-#          pass: ${{ secrets.PASS }}
-          args: "-tt -vvv"
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_KEY" > ~/.ssh/staging.key
+          chmod 600 ~/.ssh/staging.key
+          cat >>~/.ssh/config <<END
+          Host staging
+            HostName $SSH_HOST
+            User $SSH_USER
+            IdentityFile ~/.ssh/staging.key
+            StrictHostKeyChecking no
+          END
+        env:
+          SSH_USER: ${{ secrets.STAGING_SSH_USER }}
+          SSH_KEY: ${{ secrets.STAGING_SSH_KEY }}
+          SSH_HOST: ${{ secrets.STAGING_SSH_HOST }}
+
+      - name: Stop the server
+        run: ssh staging 'sudo systemctl stop my-application'
+
+      - name: Check out the source
+        run: ssh staging 'cd my-application && git fetch && git reset --hard origin/master'
+
+      - name: Start the server
+        if: ${{ always() }}
+        run: ssh staging 'sudo systemctl start my-application'
