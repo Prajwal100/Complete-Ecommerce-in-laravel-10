@@ -77,12 +77,3 @@ jobs:
           SSH_KEY: ${{ secrets.STAGING_SSH_KEY }}
           SSH_HOST: ${{ secrets.STAGING_SSH_HOST }}
 
-      - name: Stop the server
-        run: ssh staging 'sudo systemctl stop my-application'
-
-      - name: Check out the source
-        run: ssh staging 'cd my-application && git fetch && git reset --hard origin/master'
-
-      - name: Start the server
-        if: ${{ always() }}
-        run: ssh staging 'sudo systemctl start my-application'
