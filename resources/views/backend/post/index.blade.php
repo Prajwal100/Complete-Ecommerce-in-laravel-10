@@ -41,9 +41,9 @@
             </tr>
           </tfoot>
           <tbody>
-           
-            @foreach($posts as $post)   
-              @php 
+
+            @foreach($posts as $post)
+              @php
               $author_info=DB::table('users')->select('name')->where('id',$post->added_by)->get();
               // dd($sub_cat_info);
               // dd($author_info);
@@ -66,7 +66,7 @@
                         @else
                             <img src="{{asset('backend/img/thumbnail-default.jpg')}}" class="img-fluid" style="max-width:80px" alt="avatar.png">
                         @endif
-                    </td>                   
+                    </td>
                     <td>
                         @if($post->status=='active')
                             <span class="badge badge-success">{{$post->status}}</span>
@@ -77,12 +77,12 @@
                     <td>
                         <a href="{{route('post.edit',$post->id)}}" class="btn btn-primary btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
                     <form method="POST" action="{{route('post.destroy',[$post->id])}}">
-                      @csrf 
+                      @csrf
                       @method('delete')
                           <button class="btn btn-danger btn-sm dltBtn" data-id={{$post->id}} style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-trash-alt"></i></button>
                         </form>
                     </td>
-                </tr>  
+                </tr>
             @endforeach
           </tbody>
         </table>
@@ -122,7 +122,7 @@
   <!-- Page level custom scripts -->
   <script src="{{asset('backend/js/demo/datatables-demo.js')}}"></script>
   <script>
-      
+
       $('#product-dataTable').DataTable( {
             "columnDefs":[
                 {
@@ -135,7 +135,7 @@
         // Sweet alert
 
         function deleteData(id){
-            
+
         }
   </script>
   <script>

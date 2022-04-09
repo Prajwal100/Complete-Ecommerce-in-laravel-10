@@ -115,9 +115,9 @@ class PostTagController extends Controller
     public function destroy($id)
     {
         $postTag=PostTag::findOrFail($id);
-       
+
         $status=$postTag->delete();
-        
+
         if($status){
             request()->session()->flash('success','Post Tag successfully deleted');
         }

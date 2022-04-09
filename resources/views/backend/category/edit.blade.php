@@ -6,7 +6,7 @@
     <h5 class="card-header">Edit Category</h5>
     <div class="card-body">
       <form method="post" action="{{route('category.update',$category->id)}}">
-        @csrf 
+        @csrf
         @method('PATCH')
         <div class="form-group">
           <label for="inputTitle" class="col-form-label">Title <span class="text-danger">*</span></label>
@@ -26,7 +26,7 @@
 
         <div class="form-group">
           <label for="is_parent">Is Parent</label><br>
-          <input type="checkbox" name='is_parent' id='is_parent' value='{{$category->is_parent}}' {{(($category->is_parent==1)? 'checked' : '')}}> Yes                        
+          <input type="checkbox" name='is_parent' id='is_parent' value='{{$category->is_parent}}' {{(($category->is_parent==1)? 'checked' : '')}}> Yes
         </div>
         {{-- {{$parent_cats}} --}}
         {{-- {{$category}} --}}
@@ -36,7 +36,7 @@
           <select name="parent_id" class="form-control">
               <option value="">--Select any category--</option>
               @foreach($parent_cats as $key=>$parent_cat)
-              
+
                   <option value='{{$parent_cat->id}}' {{(($parent_cat->id==$category->parent_id) ? 'selected' : '')}}>{{$parent_cat->title}}</option>
               @endforeach
           </select>
@@ -57,7 +57,7 @@
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
-        
+
         <div class="form-group">
           <label for="status" class="col-form-label">Status <span class="text-danger">*</span></label>
           <select name="status" class="form-control">

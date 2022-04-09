@@ -12,9 +12,9 @@ class PaypalController extends Controller
     public function payment()
     {
         $cart = Cart::where('user_id',auth()->user()->id)->where('order_id',null)->get()->toArray();
-        
+
         $data = [];
-        
+
         // return $cart;
         $data['items'] = array_map(function ($item) use($cart) {
             $name=Product::where('id',$item['product_id'])->pluck('title');
@@ -44,12 +44,12 @@ class PaypalController extends Controller
 
         // return session()->get('id');
         $provider = new ExpressCheckout;
-  
+
         $response = $provider->setExpressCheckout($data);
-    
+
         return redirect($response['paypal_link']);
     }
-   
+
     /**
      * Responds with a welcome message with instructions
      *
@@ -59,7 +59,7 @@ class PaypalController extends Controller
     {
         dd('Your payment is canceled. You can create cancel page here.');
     }
-  
+
     /**
      * Responds with a welcome message with instructions
      *
@@ -70,14 +70,14 @@ class PaypalController extends Controller
         $provider = new ExpressCheckout;
         $response = $provider->getExpressCheckoutDetails($request->token);
         // return $response;
-  
+
         if (in_array(strtoupper($response['ACK']), ['SUCCESS', 'SUCCESSWITHWARNING'])) {
             request()->session()->flash('success','You successfully pay from Paypal! Thank You');
             session()->forget('cart');
             session()->forget('coupon');
             return redirect()->route('home');
         }
-  
+
         request()->session()->flash('error','Something went wrong please try again!!!');
         return redirect()->back();
     }

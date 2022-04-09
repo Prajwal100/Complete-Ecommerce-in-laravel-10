@@ -9,7 +9,7 @@
 			source_image_height: 1200,	// 放大图片的高
 			zoom_area_width: 600, 		// 放大图片的展示区域的宽
 			zoom_area_height: "justify",// 放大图片的展示区域的高
-			zoom_area_distance: 10,     // 
+			zoom_area_distance: 10,     //
 			zoom_easing: true,          // 是否淡入淡出
 			click_to_zoom: false,
 			zoom_element: "auto",
@@ -18,12 +18,12 @@
 			description_opacity: 0.7,
 			small_thumbs: 3,			// 小图片展示的数量
 			smallthumb_inactive_opacity: 0.4, 	// 小图片处于非激活状态时的遮罩透明度
-			smallthumb_hide_single: true,    	// 
+			smallthumb_hide_single: true,    	//
 			smallthumb_select_on_hover: false,
 			smallthumbs_position: "bottom",		// 小图片的位置
 			show_icon: true,
 			hide_cursor: false,			// 鼠标放到图片时，是否隐藏指针
-			speed: 600,     			// 
+			speed: 600,     			//
 			autoplay: true,				// 是否自动播放
 			autoplay_interval: 6000, 	// 自动播放时每张图片的停留时间
 			keyboard: true,
@@ -65,7 +65,7 @@
                 $bzoom_magnifier_img.attr('src', $ul.find('.bzoom_thumb_active .bzoom_thumb_image').attr('src')).css({width: _option.thumb_image_width, height: _option.thumb_image_height});
                 $bzoom_magnifier.find('div').css({width:_option.thumb_image_width*scalex, height:_option.thumb_image_height*scaley});
 			}
-			
+
 			// 大图
 			if(!$('.bzoom_zoom_area').length){
                 $bzoom_zoom_area = $('<li class="bzoom_zoom_area"><div><img class="bzoom_zoom_img" /></div></li>');
@@ -115,7 +115,7 @@
 					width = _option.thumb_image_width,
 					smwidth = (_option.thumb_image_width / _option.small_thumbs) - 10,
 					smheight = smwidth / scxy,
-					ulwidth = 
+					ulwidth =
 					smurl = '',
 					html = '';
 
@@ -152,8 +152,8 @@
                 $bzoom_magnifier_img.attr("src", $li.eq(index).find('.bzoom_thumb_image').attr("src"));
 			}
 
-			
-			
+
+
 
 			_option.zoom_area_height = _option.zoom_area_width / scxy;
 			$bzoom_zoom_area.find('div').css({width:_option.zoom_area_width, height:_option.zoom_area_height});
@@ -181,7 +181,7 @@
 
 				bigposx = magx / scalex;
 				bigposy = magy / scaley;
-				
+
 				$bzoom_magnifier.css({'left':magx, 'top':magy});
 				$bzoom_magnifier_img.css({'left':-magx, 'top': -magy});
 

@@ -319,7 +319,7 @@ big {
 	color:#F7941D;
 }
 /*=============================
-	Start Demos CSS 
+	Start Demos CSS
 ===============================*/
 .demo-section{
 	width: 100%;
@@ -458,7 +458,7 @@ big {
 	color:#755ce4;
 }
 /*=============================
-	/End Demos CSS 
+	/End Demos CSS
 ===============================*/
 
 /* Preloader Animaion */
@@ -493,7 +493,7 @@ big {
 	--uiPreloaderSize: var(--cpPreloaderSize, 80px);
 	font-size: 70px;
 }
-.cp-preloader-inner::after, 
+.cp-preloader-inner::after,
 .cp-preloader-inner::before {
 	content: "";
 	width: 7.5%;
@@ -1664,7 +1664,7 @@ object {
 }
 .modal .owl-carousel .owl-controls .owl-nav .owl-prev{
 	left:0;
-	
+
 }
 .modal .owl-carousel .owl-controls .owl-nav .owl-next{
 	right:0;
@@ -1791,7 +1791,7 @@ object {
 	/* display: block; */
 }
 .default-social ul li a i {
-  
+
 }
 .default-social ul li a:hover {
   color: #F7941D;

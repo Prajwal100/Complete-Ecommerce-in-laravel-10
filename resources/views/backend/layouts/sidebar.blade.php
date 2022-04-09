@@ -127,7 +127,7 @@
             <i class="fas fa-comments"></i>
             <span>Reviews</span></a>
     </li>
-    
+
 
     <!-- Divider -->
     <hr class="sidebar-divider">

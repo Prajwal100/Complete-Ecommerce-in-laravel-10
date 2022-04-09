@@ -3,7 +3,7 @@
 @section('title','E-SHOP || PRODUCT PAGE')
 
 @section('main-content')
-	
+
 		<!-- Breadcrumbs -->
 		<div class="breadcrumbs">
 			<div class="container">
@@ -107,7 +107,7 @@
                                     {{-- {{dd($recent_products)}} --}}
                                     @foreach($recent_products as $product)
                                         <!-- Single Post -->
-                                        @php 
+                                        @php
                                             $photo=explode(',',$product->photo);
                                         @endphp
                                         <div class="single-post first">
@@ -119,7 +119,7 @@
                                                 @php
                                                     $org=($product->price-($product->price*$product->discount)/100);
                                                 @endphp
-                                                <p class="price"><del class="text-muted">${{number_format($product->price,2)}}</del>   ${{number_format($org,2)}}  </p>                                                
+                                                <p class="price"><del class="text-muted">${{number_format($product->price,2)}}</del>   ${{number_format($org,2)}}  </p>
                                             </div>
                                         </div>
                                         <!-- End Single Post -->
@@ -187,7 +187,7 @@
 													<div class="single-product">
 														<div class="product-img">
 															<a href="{{route('product-detail',$product->slug)}}">
-															@php 
+															@php
 																$photo=explode(',',$product->photo);
 															@endphp
 															<img class="default-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
@@ -239,7 +239,7 @@
 					</div>
 				</div>
 			</section>
-			<!--/ End Product Style 1  -->	
+			<!--/ End Product Style 1  -->
 		</form>
 		<!-- Modal -->
 		@if($products)
@@ -256,7 +256,7 @@
 											<!-- Product Slider -->
 												<div class="product-gallery">
 													<div class="quickview-slider-active">
-														@php 
+														@php
 															$photo=explode(',',$product->photo);
 														// dd($photo);
 														@endphp
@@ -287,7 +287,7 @@
 															@for($i=1; $i<=5; $i++)
 																@if($rate>=$i)
 																	<i class="yellow fa fa-star"></i>
-																@else 
+																@else
 																<i class="fa fa-star"></i>
 																@endif
 															@endfor
@@ -297,7 +297,7 @@
 													<div class="quickview-stock">
 														@if($product->stock >0)
 														<span><i class="fa fa-check-circle-o"></i> {{$product->stock}} in stock</span>
-														@else 
+														@else
 														<span><i class="fa fa-times-circle-o text-danger"></i> {{$product->stock}} out stock</span>
 														@endif
 													</div>
@@ -313,7 +313,7 @@
 													<div class="size">
 														<h4>Size</h4>
 														<ul>
-															@php 
+															@php
 																$sizes=explode(',',$product->size);
 																// dd($sizes);
 															@endphp
@@ -324,7 +324,7 @@
 													</div>
 												@endif
 												<form action="{{route('single-add-to-cart')}}" method="POST">
-													@csrf 
+													@csrf
 													<div class="quantity">
 														<!-- Input Order -->
 														<div class="input-group">
@@ -405,7 +405,7 @@
 					else{
                         swal('error',response.msg,'error').then(function(){
 							// document.location.href=document.location.href;
-						}); 
+						});
                     }
                 }
             })
@@ -424,7 +424,7 @@
             if($("#price_range").length > 0 && $("#price_range").val()){
                 price_range = $("#price_range").val().trim();
             }
-            
+
             let price = price_range.split('-');
             $("#slider-range").slider({
                 range: true,

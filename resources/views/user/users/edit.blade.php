@@ -6,7 +6,7 @@
     <h5 class="card-header">Edit User</h5>
     <div class="card-body">
       <form method="post" action="{{route('users.update',$user->id)}}">
-        @csrf 
+        @csrf
         @method('PATCH')
         <div class="form-group">
           <label for="inputTitle" class="col-form-label">Name</label>
@@ -47,7 +47,7 @@
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
-        @php 
+        @php
         $roles=DB::table('users')->select('role')->where('id',$user->id)->get();
         // dd($roles);
         @endphp

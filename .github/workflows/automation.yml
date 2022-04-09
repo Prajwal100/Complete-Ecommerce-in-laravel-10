@@ -22,4 +22,3 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: Crushoverride007/laraveldevops
           tags: latest, ${{ github.run_number }}
-

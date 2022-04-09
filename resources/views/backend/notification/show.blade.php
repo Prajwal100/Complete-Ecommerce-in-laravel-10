@@ -4,7 +4,7 @@
         <!-- Counter - Alerts -->
         <span class="badge badge-danger badge-counter">
             @if(count(Auth::user()->unreadNotifications) >5 )<span data-count="5" class="count">5+</span>
-            @else 
+            @else
                 <span class="count" data-count="{{count(Auth::user()->unreadNotifications)}}">{{count(Auth::user()->unreadNotifications)}}</span>
             @endif
         </span>
@@ -27,7 +27,7 @@
                 </div>
             </a>
             @if($loop->index+1==5)
-                @php 
+                @php
                     break;
                 @endphp
             @endif

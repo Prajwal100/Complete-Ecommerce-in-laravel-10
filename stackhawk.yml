@@ -9,7 +9,7 @@ app:
 
 
 # -- Customized Configuration for GraphQL/SOAP/OpenAPI, add here --
-  graphqlConf: 
+  graphqlConf:
     enabled: true
     schemaPath: /graphql # OR...
 #     filePath: introspectionSchema.json
