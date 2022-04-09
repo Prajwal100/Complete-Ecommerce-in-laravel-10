@@ -11,3 +11,6 @@
 
 ## [![Repography logo](https://images.repography.com/logo.svg)](https://repography.com) / Top contributors
 [![Top contributors](https://images.repography.com/0/bwy13wa_SGqg5-G6OCHO_g/top-contributors/680143c2c4f6e16d64a7823e3ea7f6ef_table.svg)](https://github.com/_/Laravel-DevOps/graphs/contributors)
+
+
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Crushoverride007_Laravel-DevOps&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Crushoverride007_Laravel-DevOps)
