@@ -62,6 +62,8 @@ jobs:
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-composer-
+      - name: Composer Update
+        run: composer update
 
       - name: Run composer install if composer.json exists
         if: steps.check_files.outputs.files_exists == 'true'
