@@ -40,7 +40,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@7c0b4c8c8ebed23eca9ec2802474895d105b11bc
         with:
-          php-version: ${{ env.PHP_VERSION }}
+          php-version: 7.4
 
       - name: Check if composer.json exists
         id: check_files
