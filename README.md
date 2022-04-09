@@ -9,3 +9,5 @@
 [![Trending topics](https://images.repography.com/0/bwy13wa_SGqg5-G6OCHO_g/recent-activity/680143c2c4f6e16d64a7823e3ea7f6ef_words.svg)](https://github.com/_/Laravel-DevOps/commits)
 [![Top contributors](https://images.repography.com/0/bwy13wa_SGqg5-G6OCHO_g/recent-activity/680143c2c4f6e16d64a7823e3ea7f6ef_users.svg)](https://github.com/_/Laravel-DevOps/graphs/contributors)
 
+## [![Repography logo](https://images.repography.com/logo.svg)](https://repography.com) / Top contributors
+[![Top contributors](https://images.repography.com/0/bwy13wa_SGqg5-G6OCHO_g/top-contributors/680143c2c4f6e16d64a7823e3ea7f6ef_table.svg)](https://github.com/_/Laravel-DevOps/graphs/contributors)
