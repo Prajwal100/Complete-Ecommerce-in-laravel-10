@@ -4,7 +4,7 @@ jobs:
   build-container:
     name: Build Docker container image
     runs-on: ubuntu-latest
-    step:
+    steps:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Publish to github Packages
