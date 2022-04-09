@@ -1,0 +1,28 @@
+# -- stackhawk configuration for Laravel-DevOps --
+app:
+  # -- An applicationId obtained from the StackHawk platform. --
+  applicationId: 22a600b8-6056-4d79-bad5-378ae52cb283 # (required)
+  # -- The environment for the applicationId defined in the StackHawk platform. --
+  env: Pre-Production # (required)
+  # -- The url of your application to scan --
+  host: http://localhost:8000 # (required)
+
+
+# -- Customized Configuration for GraphQL/SOAP/OpenAPI, add here --
+  graphqlConf: 
+    enabled: true
+    schemaPath: /graphql # OR...
+#     filePath: introspectionSchema.json
+    operation: ALL # Types: ALL, QUERY, MUTATION
+    requestMethod: POST # Types: POST, GET
+  autoPolicy: true
+  autoInputVectors: true
+  # Configuration Docs: https://docs.stackhawk.com/hawkscan/configuration/
+
+# -- If Authenticated Scanning is needed, add here --
+  # Authenticated Scanning Docs: https://docs.stackhawk.com/hawkscan/authenticated-scanning.html
+  # Authenticated Scanning Repo: https://github.com/kaakaww/scan-configuration/tree/main/Authentication
+
+# -- Help Section --
+  # Docs: https://docs.stackhawk.com/
+  # Contact Support: support@stackhawk.com
