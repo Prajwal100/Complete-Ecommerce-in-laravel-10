@@ -17,7 +17,7 @@ class WishlistController extends Controller
         if (empty($request->slug)) {
             request()->session()->flash('error','Invalid Products');
             return back();
-        }        
+        }
         $product = Product::where('slug', $request->slug)->first();
         // return $product;
         if (empty($product)) {
@@ -31,7 +31,7 @@ class WishlistController extends Controller
             request()->session()->flash('error','You already placed in wishlist');
             return back();
         }else{
-            
+
             $wishlist = new Wishlist;
             $wishlist->user_id = auth()->user()->id;
             $wishlist->product_id = $product->id;
@@ -42,17 +42,17 @@ class WishlistController extends Controller
             $wishlist->save();
         }
         request()->session()->flash('success','Product successfully added to wishlist');
-        return back();       
-    }  
-    
+        return back();
+    }
+
     public function wishlistDelete(Request $request){
         $wishlist = Wishlist::find($request->id);
         if ($wishlist) {
             $wishlist->delete();
             request()->session()->flash('success','Wishlist successfully removed');
-            return back();  
+            return back();
         }
         request()->session()->flash('error','Error please try again');
-        return back();       
-    }     
+        return back();
+    }
 }

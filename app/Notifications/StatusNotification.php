@@ -72,7 +72,7 @@ class StatusNotification extends Notification
     }
 
 
-    
+
     /**
      * Get the broadcastable representation of the notification.
      *
@@ -91,5 +91,5 @@ class StatusNotification extends Notification
     }
 
 
-    
+
 }

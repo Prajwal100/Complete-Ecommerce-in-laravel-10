@@ -9,7 +9,7 @@
  * Contributing author: Tyler Smith (@mbmufffin)
  */
 
- 
+
 /* Browser Resets */
 .flex-container a:active,
 .flexslider a:active,
@@ -22,10 +22,10 @@
 .flexslider-thumbnails:focus, .flexslider-photo a:focus  {outline: none;}
 .slides,
 .flex-control-nav,
-.flex-direction-nav {margin: 0; padding: 0; list-style: none;} 
+.flex-direction-nav {margin: 0; padding: 0; list-style: none;}
 
 /* FlexSlider Necessary Styles
-*********************************/ 
+*********************************/
 .flexslider, .flexslider-thumbnails, .flexslider-photo, .img-slider, .flexslider-app  {margin: 0; padding: 0;}
 .img-slider {position:relative;}
 .flexslider .slides > li, .flexslider-thumbnails > li, .flexslider-photo .slides > li, .img-slider .slides > li, .flexslider-app .slides > li  {display: none; -webkit-backface-visibility: hidden;margin:0 0 -5px 0; padding: 0; list-style:none;} /* Hide the slides before the JS is loaded. Avoids image jumping */
@@ -33,8 +33,8 @@
 .flex-pauseplay span {text-transform: capitalize;}
 
 /* Clearfix for the .slides element */
-.slides:after {content: "."; display: block; clear: both; visibility: hidden; line-height: 0; height: 0;} 
-html[xmlns] .slides {display: block;} 
+.slides:after {content: "."; display: block; clear: both; visibility: hidden; line-height: 0; height: 0;}
+html[xmlns] .slides {display: block;}
 * html .slides {height: 1%;}
 
 /* No JavaScript Fallback */

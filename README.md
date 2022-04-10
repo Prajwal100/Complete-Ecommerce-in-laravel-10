@@ -11,3 +11,10 @@
 
 ## [![Repography logo](https://images.repography.com/logo.svg)](https://repography.com) / Top contributors
 [![Top contributors](https://images.repography.com/0/bwy13wa_SGqg5-G6OCHO_g/top-contributors/680143c2c4f6e16d64a7823e3ea7f6ef_table.svg)](https://github.com/_/Laravel-DevOps/graphs/contributors)
+
+
+
+[![Quality gate](ttps://sonarcloud.io/api/project_badges/quality_gate?project=Crushoverride007_Laravel-DevOps)](https://sonarcloud.io/summary/new_code?id=Crushoverride007_Laravel-DevOps)
+
+
+Have fun while learning

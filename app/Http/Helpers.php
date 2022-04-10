@@ -12,13 +12,13 @@ class Helper{
     public static function messageList()
     {
         return Message::whereNull('read_at')->orderBy('created_at', 'desc')->get();
-    } 
+    }
     public static function getAllCategory(){
         $category=new Category();
         $menu=$category->getAllParentWithChild();
         return $menu;
-    } 
-    
+    }
+
     public static function getHeaderCategory(){
         $category = new Category();
         // dd($category);
@@ -26,7 +26,7 @@ class Helper{
 
         if($menu){
             ?>
-            
+
             <li>
             <a href="javascript:void(0);">Category<i class="ti-angle-down"></i></a>
                 <ul class="dropdown border-0 shadow">
@@ -82,7 +82,7 @@ class Helper{
     }
     // Cart Count
     public static function cartCount($user_id=''){
-       
+
         if(Auth::check()){
             if($user_id=="") $user_id=auth()->user()->id;
             return Cart::where('user_id',$user_id)->where('order_id',null)->sum('quantity');
@@ -117,7 +117,7 @@ class Helper{
     }
     // Wishlist Count
     public static function wishlistCount($user_id=''){
-       
+
         if(Auth::check()){
             if($user_id=="") $user_id=auth()->user()->id;
             return Wishlist::where('user_id',$user_id)->where('cart_id',null)->sum('quantity');

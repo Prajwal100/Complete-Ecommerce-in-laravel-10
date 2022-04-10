@@ -6,7 +6,7 @@
     <h5 class="card-header">Edit Post Tag</h5>
     <div class="card-body">
       <form method="post" action="{{route('post-tag.update',$postTag->id)}}">
-        @csrf 
+        @csrf
         @method('PATCH')
         <div class="form-group">
           <label for="inputTitle" class="col-form-label">Title</label>

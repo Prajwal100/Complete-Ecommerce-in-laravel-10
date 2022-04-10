@@ -26,7 +26,7 @@
     text-decoration: none; }
 .owl-theme .owl-nav .disabled {
     opacity: 0.5;
-    cursor: default; 
+    cursor: default;
 }
 .owl-theme .owl-nav.disabled + .owl-dots {
 	margin-top: 10px; }
@@ -48,10 +48,10 @@
     transition: opacity 200ms ease;
     border-radius: 30px; }
 .owl-theme .owl-dots .owl-dot.active span, .owl-theme .owl-dots .owl-dot:hover span {
-    background: #869791; 
+    background: #869791;
 }
 
-/* 
+/*
  *  Owl Carousel - Animate Plugin
  */
 .owl-carousel .animated {
@@ -90,7 +90,7 @@
   }
 }
 
-/* 
+/*
  * 	Owl Carousel - Auto Height Plugin
  */
 .owl-height {
@@ -101,7 +101,7 @@
   transition: height 500ms ease-in-out;
 }
 
-/* 
+/*
  *  Core Owl Carousel CSS File
  */
 .owl-carousel {
@@ -196,7 +196,7 @@
   display: block;
 }
 
-/* 
+/*
  * 	Owl Carousel - Lazy Load Plugin
  */
 .owl-carousel .owl-item .owl-lazy {
@@ -211,7 +211,7 @@
   transform-style: preserve-3d;
 }
 
-/* 
+/*
  * 	Owl Carousel - Video Plugin
  */
 .owl-carousel .owl-video-wrapper {

@@ -98,7 +98,7 @@ class BrandController extends Controller
             'title'=>'string|required',
         ]);
         $data=$request->all();
-       
+
         $status=$brand->fill($data)->save();
         if($status){
             request()->session()->flash('success','Brand successfully updated');
