@@ -3,7 +3,7 @@
 
 #### Setup video : https://www.youtube.com/watch?v=URX5D1A5XQ4&t=19s
 
-#### Demo video :
+#### Demo video : hi
 https://youtu.be/c5a_wrvJSJo
 
 #### Full tutorial :
@@ -22,7 +22,7 @@ https://www.youtube.com/watch?v=FdAMucaks64&list=PLIFG3IUe1Zxo8Zvju3_kJJvoKSaIP_
 - Blog: category, tag, content, web page 
 - Module/Extension: Shipping, payment, discount, ...
 - Upload manager: banner, images,..
-- SEO support: customer URL
+- SEO support: customer URL b
 - Newsletter management
 - Contact forms with the real-time notification (Laravel Pusher)
 - Related Products, Recommendations for you in our categories
