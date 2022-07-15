@@ -3,7 +3,7 @@
 
 #### Setup video : https://www.youtube.com/watch?v=URX5D1A5XQ4&t=19s
 
-#### Demo video :
+#### Demo video : hi
 https://youtu.be/c5a_wrvJSJo
 
 #### Full tutorial :
@@ -13,7 +13,7 @@ https://www.youtube.com/watch?v=FdAMucaks64&list=PLIFG3IUe1Zxo8Zvju3_kJJvoKSaIP_
 
 ### Features :
 - ##### PWA (progressive web app)
-====== FRONT-END =======
+# ====== FRONT-END =======
 
 - Responsive Layout
 - Shopping Cart, Wishlist, Product Reviews
@@ -22,7 +22,7 @@ https://www.youtube.com/watch?v=FdAMucaks64&list=PLIFG3IUe1Zxo8Zvju3_kJJvoKSaIP_
 - Blog: category, tag, content, web page 
 - Module/Extension: Shipping, payment, discount, ...
 - Upload manager: banner, images,..
-- SEO support: customer URL
+- SEO support: customer URL b
 - Newsletter management
 - Contact forms with the real-time notification (Laravel Pusher)
 - Related Products, Recommendations for you in our categories
@@ -34,7 +34,7 @@ https://www.youtube.com/watch?v=FdAMucaks64&list=PLIFG3IUe1Zxo8Zvju3_kJJvoKSaIP_
 - Multi-level comment system
 many more......
 
-======= ADMIN =======
+## ======= ADMIN =======
 
 - Admin roles, permission
 - Product manager
@@ -56,7 +56,7 @@ many more......
 Many more....
 
 
-======= USER DASHBOARD =======
+## ======= USER DASHBOARD =======
 
 
 - Order management
@@ -67,19 +67,19 @@ Many more....
 ### Set up :
 
 1. Clone the repo and cd into it
-2. composer install
-3. Rename or copy .env.example file to .env
+2. In your terminal ```composer install```
+3. Rename or copy ```.env.example``` file to ``.env``
 4. php artisan key:generate
-5. Set your database credentials in your .env file
-6. Set your Braintree credentials in your .env file if you want to use PayPal
-7. Import db file(database/e-shop.sql) into your database (mysql,sql)
-8. npm install
-9. npm run watch
-10. run command[laravel file manager]:-  php artisan storage:link
-11. Edit .env file :- remove APP_URL
-10. php artisan serve or use virtual host
-11. Visit localhost:8000 in your browser
-12. Visit /admin if you want to access the admin panel. Admin Email/Password: admin@gmail.com/1111. User Email/Password: user@gmail.com/1111
+5. Set your database credentials in your ```.env``` file
+6. Set your Braintree credentials in your ```.env``` file if you want to use PayPal
+7. Import db file(```database/e-shop.sql```) into your database (```mysql,sql```)
+8. ```npm install```
+9. ```npm run watch```
+10. run command[laravel file manager]:-  ```php artisan storage:link```
+11. Edit ```.env``` file :- remove APP_URL
+10. ```php artisan serve``` or use virtual host
+11. Visit ```localhost:8000``` in your browser
+12. Visit /admin if you want to access the admin panel. Admin Email/Password: ```admin@gmail.com```/```1111```. User Email/Password: ```user@gmail.com```/```1111```
 
 <p style="text-align:center">Thank You so much for your time !!!</p>
 
