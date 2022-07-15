@@ -3,7 +3,7 @@
 
 #### Setup video : https://www.youtube.com/watch?v=URX5D1A5XQ4&t=19s
 
-#### Demo video : hi
+#### Demo video :
 https://youtu.be/c5a_wrvJSJo
 
 #### Full tutorial :
