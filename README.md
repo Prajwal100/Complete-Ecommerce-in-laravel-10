@@ -17,4 +17,5 @@
 [![Quality gate](ttps://sonarcloud.io/api/project_badges/quality_gate?project=Crushoverride007_Laravel-DevOps)](https://sonarcloud.io/summary/new_code?id=Crushoverride007_Laravel-DevOps)
 
 
-Have fun while learning
+Having fun while learning
+
