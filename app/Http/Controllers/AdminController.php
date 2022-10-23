@@ -53,7 +53,7 @@ class AdminController extends Controller
 
     public function settingsUpdate(Request $request){
         // return $request->all();
-        $this->validate($request,[
+        $validate = $request->validate([
             'short_des'=>'required|string',
             'description'=>'required|string',
             'photo'=>'required',
