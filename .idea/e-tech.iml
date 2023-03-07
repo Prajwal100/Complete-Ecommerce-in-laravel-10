@@ -7,6 +7,9 @@
       <sourceFolder url="file://$MODULE_DIR$/app" isTestSource="false" packagePrefix="App\" />
       <sourceFolder url="file://$MODULE_DIR$/tests/Unit" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/tests/Feature" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/database/factories" isTestSource="false" packagePrefix="Database\Factories\" />
+      <sourceFolder url="file://$MODULE_DIR$/database/seeders" isTestSource="false" packagePrefix="Database\Seeders\" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/laravel-filterable/src" isTestSource="false" packagePrefix="Touhidurabir\Filterable\" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/asm89/stack-cors" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/barryvdh/laravel-dompdf" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/brick/math" />
@@ -122,6 +125,37 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/vlucas/phpdotenv" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/voku/portable-ascii" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/webmozart/assert" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/psr/http-factory" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/psr/http-client" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/nette/schema" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/nette/utils" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/league/config" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/league/mime-type-detection" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/spatie/backtrace" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/spatie/ignition" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/spatie/flare-client-php" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/spatie/laravel-ignition" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/dflydev/dot-access-data" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/laravel/pint" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/laravel/sanctum" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/laravel/sail" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/laravel/serializable-closure" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpunit/php-invoker" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/mailer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-uuid" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/uid" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/yaml" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/fakerphp/faker" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/fruitcake/php-cors" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/cli-parser" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/code-unit" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/complexity" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/lines-of-code" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/guzzlehttp/uri-template" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/nunomaduro/termwind" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/graham-campbell/result-type" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/masterminds/html5" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/spatie/laravel-package-tools" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
