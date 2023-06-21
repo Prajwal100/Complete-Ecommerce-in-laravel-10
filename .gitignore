@@ -1,5 +1,6 @@
 /node_modules
 /public/hot
+/public/storage
 /vendor
 /storage/*
 !/storage/app/public
