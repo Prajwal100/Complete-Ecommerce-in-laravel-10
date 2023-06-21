@@ -9,6 +9,8 @@ use App\Rules\MatchOldPassword;
 use Hash;
 use Carbon\Carbon;
 use Spatie\Activitylog\Models\Activity;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\File;
 class AdminController extends Controller
 {
     public function index(){
@@ -86,9 +88,9 @@ class AdminController extends Controller
             'new_password' => ['required'],
             'new_confirm_password' => ['same:new_password'],
         ]);
-   
+
         User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
-   
+
         return redirect()->route('admin')->with('success','Password successfully changed');
     }
 
@@ -114,4 +116,34 @@ class AdminController extends Controller
     //     $activity= Activity::all();
     //     return view('backend.layouts.activity')->with('activities',$activity);
     // }
+
+    public function storageLink(){
+        // check if the storage folder already linked;
+        if(File::exists(public_path('storage'))){
+            // removed the existing symbolic link
+            File::delete(public_path('storage'));
+
+            //Regenerate the storage link folder
+            try{
+                Artisan::call('storage:link');
+                request()->session()->flash('success', 'Successfully storage linked.');
+                return redirect()->back();
+            }
+            catch(\Exception $exception){
+                request()->session()->flash('error', $exception->getMessage());
+                return redirect()->back();
+            }
+        }
+        else{
+            try{
+                Artisan::call('storage:link');
+                request()->session()->flash('success', 'Successfully storage linked.');
+                return redirect()->back();
+            }
+            catch(\Exception $exception){
+                request()->session()->flash('error', $exception->getMessage());
+                return redirect()->back();
+            }
+        }
+    }
 }
