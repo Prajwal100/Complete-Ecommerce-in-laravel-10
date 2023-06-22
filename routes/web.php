@@ -13,18 +13,6 @@
     |
     */
 
-    // CACHE CLEAR ROUTE
-    Route::get('cache-clear', function () {
-        \Illuminate\Support\Facades\Artisan::call('optimize:clear');
-        request()->session()->flash('success', 'Successfully cache cleared.');
-        return redirect()->back();
-    })->name('cache.clear');
-
-
-    // STORAGE LINKED ROUTE
-    Route::get('storage-link',[\App\Http\Controllers\AdminController::class,'storageLink'])->name('storage.link');
-
-
     Auth::routes(['register' => false]);
 
     Route::get('user/login', 'FrontendController@login')->name('login.form');
@@ -152,6 +140,16 @@
         // Password Change
         Route::get('change-password', 'AdminController@changePassword')->name('change.password.form');
         Route::post('change-password', 'AdminController@changPasswordStore')->name('change.password');
+
+        // CACHE CLEAR ROUTE
+        Route::get('cache-clear', function () {
+            \Illuminate\Support\Facades\Artisan::call('optimize:clear');
+            request()->session()->flash('success', 'Successfully cache cleared.');
+            return redirect()->back();
+        })->name('cache.clear');
+
+        // STORAGE LINKED ROUTE
+        Route::get('storage-link',[\App\Http\Controllers\AdminController::class,'storageLink'])->name('storage.link');
     });
 
 
