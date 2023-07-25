@@ -347,7 +347,7 @@
                                             @php 
                                                 $after_discount=($data->price-(($data->discount*$data->price)/100));
                                             @endphp
-                                            <span class="old">${{number_format($data->price,2)}}</span>
+                                            <span class="old">Rp.{{number_format($data->price,2)}}</span>
                                             <span>${{number_format($after_discount,2)}}</span>
                                         </div>
                                       

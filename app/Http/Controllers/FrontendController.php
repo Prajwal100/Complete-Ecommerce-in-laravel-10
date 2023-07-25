@@ -372,6 +372,7 @@ class FrontendController extends Controller
     public function register(){
         return view('frontend.pages.register');
     }
+
     public function registerSubmit(Request $request){
         // return $request->all();
         $this->validate($request,[
@@ -385,7 +386,7 @@ class FrontendController extends Controller
         Session::put('user',$data['email']);
         if($check){
             request()->session()->flash('success','Successfully registered');
-            return redirect()->route('home');
+            return redirect()->route('login.form');
         }
         else{
             request()->session()->flash('error','Please try again!');

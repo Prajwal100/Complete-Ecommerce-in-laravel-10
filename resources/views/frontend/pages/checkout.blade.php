@@ -175,7 +175,7 @@
                                                 <option value="HU">Hungary</option>
                                                 <option value="IS">Iceland</option>
                                                 <option value="IN">India</option>
-                                                <option value="ID">Indonesia</option>
+                                                <option value="ID" selected="selected">Indonesia</option>
                                                 <option value="IR">Iran</option>
                                                 <option value="IQ">Iraq</option>
                                                 <option value="IE">Ireland</option>
@@ -225,7 +225,7 @@
                                                 <option value="MM">Myanmar [Burma]</option>
                                                 <option value="NA">Namibia</option>
                                                 <option value="NR">Nauru</option>
-                                                <option value="NP" selected="selected">Nepal</option>
+                                                <option value="NP">Nepal</option>
                                                 <option value="NL">Netherlands</option>
                                                 <option value="AN">Netherlands Antilles</option>
                                                 <option value="NC">New Caledonia</option>
@@ -420,8 +420,10 @@
                                 <div class="single-widget get-button">
                                     <div class="content">
                                         <div class="button">
-                                            <button type="submit" class="btn">proceed to checkout</button>
+                                            <button type="submit" class="btn" id="checkout-button">proceed to checkout</button>
+
                                         </div>
+                                        <div id="paypal-button-container"></div> 
                                     </div>
                                 </div>
                                 <!--/ End Button Widget -->
@@ -468,7 +470,7 @@
                     <!-- Start Single Service -->
                     <div class="single-service">
                         <i class="ti-tag"></i>
-                        <h4>Best Peice</h4>
+                        <h4>Best Price</h4>
                         <p>Guaranteed price</p>
                     </div>
                     <!-- End Single Service -->
@@ -545,8 +547,37 @@
 	</style>
 @endpush
 @push('scripts')
+<script src="https://www.paypal.com/sdk/js?client-id=ASehU6Hb1yVKTuFDnMK5YLeD7lJOmADOi1wKUAcUpuIx4hUebyz87T15-XvL_e9LhMObSaLWVBRVHivb"></script>
 	<script src="{{asset('frontend/js/nice-select/js/jquery.nice-select.min.js')}}"></script>
 	<script src="{{ asset('frontend/js/select2/js/select2.min.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var checkoutButton = document.getElementById('checkout-button');
+            checkoutButton.addEventListener('click', function (event) {
+                event.preventDefault(); // Mencegah formulir submit secara langsung
+
+                // Pastikan Anda telah mengganti YOUR_CLIENT_ID dengan ID klien PayPal yang valid
+
+                paypal.Buttons({
+                    createOrder: function () {
+                        // Logika untuk membuat pesanan dan mengembalikan ID pesanan yang dihasilkan
+                    },
+                    onApprove: function (data, actions) {
+                        // Logika yang akan dijalankan saat pembayaran disetujui
+
+                        // Contoh penanganan login PayPal
+                        actions.redirect('https://www.paypal.com/signin'); // Mengarahkan pengguna ke halaman login PayPal
+                    },
+                    onCancel: function (data) {
+                        // Logika yang akan dijalankan saat pembayaran dibatalkan
+                    },
+                    onError: function (err) {
+                        // Logika yang akan dijalankan saat terjadi kesalahan
+                    }
+                }).render('#paypal-button-container');
+            });
+        });
+    </script>
 	<script>
 		$(document).ready(function() { $("select.select2").select2(); });
   		$('select.nice-select').niceSelect();
@@ -572,7 +603,7 @@
 				let subtotal = parseFloat( $('.order_subtotal').data('price') ); 
 				let coupon = parseFloat( $('.coupon_price').data('price') ) || 0; 
 				// alert(coupon);
-				$('#order_total_price span').text('$'+(subtotal + cost-coupon).toFixed(2));
+				$('#order_total_price span').text('Rp'+(subtotal + cost-coupon).toFixed(2));
 			});
 
 		});
