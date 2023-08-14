@@ -292,16 +292,6 @@ var myLineChart = new Chart(ctx, {
   }
 });
 
-
-
-
-
-
-
-
-
-
-
             })
             .catch(function (error) {
             //   vm.answer = 'Error! Could not reach the API. ' + error

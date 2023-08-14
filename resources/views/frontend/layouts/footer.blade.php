@@ -1,12 +1,11 @@
-
-	<!-- Start Footer Area -->
+	<!-- Comienza el Área del Pie de Página -->
 	<footer class="footer">
-		<!-- Footer Top -->
+		<!-- Parte Superior del Pie de Página -->
 		<div class="footer-top section">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-5 col-md-6 col-12">
-						<!-- Single Widget -->
+						<!-- Widget Individual -->
 						<div class="single-footer about">
 							<div class="logo">
 								<a href="index.html"><img src="{{asset('backend/img/logo2.png')}}" alt="#"></a>
@@ -15,43 +14,43 @@
 								$settings=DB::table('settings')->get();
 							@endphp
 							<p class="text">@foreach($settings as $data) {{$data->short_des}} @endforeach</p>
-							<p class="call">Got Question? Call us 24/7<span><a href="tel:123456789">@foreach($settings as $data) {{$data->phone}} @endforeach</a></span></p>
+							<p class="call">¿Tienes alguna pregunta? Llámanos 24/7<span><a href="tel:123456789">@foreach($settings as $data) {{$data->phone}} @endforeach</a></span></p>
 						</div>
-						<!-- End Single Widget -->
+						<!-- Fin del Widget Individual -->
 					</div>
 					<div class="col-lg-2 col-md-6 col-12">
-						<!-- Single Widget -->
+						<!-- Widget Individual -->
 						<div class="single-footer links">
-							<h4>Information</h4>
+							<h4>Información</h4>
 							<ul>
-								<li><a href="{{route('about-us')}}">About Us</a></li>
-								<li><a href="#">Faq</a></li>
-								<li><a href="#">Terms & Conditions</a></li>
-								<li><a href="{{route('contact')}}">Contact Us</a></li>
-								<li><a href="#">Help</a></li>
+								<li><a href="{{route('about-us')}}">Sobre Nosotros</a></li>
+								<li><a href="#">Preguntas Frecuentes</a></li>
+								<li><a href="#">Términos y Condiciones</a></li>
+								<li><a href="{{route('contact')}}">Contáctanos</a></li>
+								<li><a href="#">Ayuda</a></li>
 							</ul>
 						</div>
-						<!-- End Single Widget -->
+						<!-- Fin del Widget Individual -->
 					</div>
 					<div class="col-lg-2 col-md-6 col-12">
-						<!-- Single Widget -->
+						<!-- Widget Individual -->
 						<div class="single-footer links">
-							<h4>Customer Service</h4>
+							<h4>Servicio al Cliente</h4>
 							<ul>
-								<li><a href="#">Payment Methods</a></li>
-								<li><a href="#">Money-back</a></li>
-								<li><a href="#">Returns</a></li>
-								<li><a href="#">Shipping</a></li>
-								<li><a href="#">Privacy Policy</a></li>
+								<li><a href="#">Métodos de Pago</a></li>
+								<li><a href="#">Devolución de Dinero</a></li>
+								<li><a href="#">Devoluciones</a></li>
+								<li><a href="#">Envío</a></li>
+								<li><a href="#">Política de Privacidad</a></li>
 							</ul>
 						</div>
-						<!-- End Single Widget -->
+						<!-- Fin del Widget Individual -->
 					</div>
 					<div class="col-lg-3 col-md-6 col-12">
-						<!-- Single Widget -->
+						<!-- Widget Individual -->
 						<div class="single-footer social">
-							<h4>Get In Tuch</h4>
-							<!-- Single Widget -->
+							<h4>Contáctanos</h4>
+							<!-- Widget Individual -->
 							<div class="contact">
 								<ul>
 									<li>@foreach($settings as $data) {{$data->address}} @endforeach</li>
@@ -59,22 +58,22 @@
 									<li>@foreach($settings as $data) {{$data->phone}} @endforeach</li>
 								</ul>
 							</div>
-							<!-- End Single Widget -->
+							<!-- Fin del Widget Individual -->
 							<div class="sharethis-inline-follow-buttons"></div>
 						</div>
-						<!-- End Single Widget -->
+						<!-- Fin del Widget Individual -->
 					</div>
 				</div>
 			</div>
 		</div>
-		<!-- End Footer Top -->
+		<!-- Fin de la Parte Superior del Pie de Página -->
 		<div class="copyright">
 			<div class="container">
 				<div class="inner">
 					<div class="row">
 						<div class="col-lg-6 col-12">
 							<div class="left">
-								<p>Copyright © {{date('Y')}} <a href="https://github.com/Prajwal100" target="_blank">Prajwal Rai</a>  -  All Rights Reserved.</p>
+								<p>Derechos de Autor © {{date('Y')}} <a href="https://github.com/Prajwal100" target="_blank">Prajwal Rai</a> - Todos los Derechos Reservados.</p>
 							</div>
 						</div>
 						<div class="col-lg-6 col-12">
@@ -87,8 +86,8 @@
 			</div>
 		</div>
 	</footer>
-	<!-- /End Footer Area -->
- 
+	<!-- /Fin del Área del Pie de Página -->
+
 	<!-- Jquery -->
     <script src="{{asset('frontend/js/jquery.min.js')}}"></script>
     <script src="{{asset('frontend/js/jquery-migrate-3.0.0.js')}}"></script>
@@ -133,7 +132,7 @@
 		},5000);
 		$(function() {
 		// ------------------------------------------------------- //
-		// Multi Level dropdowns
+		// Menús desplegables de varios niveles
 		// ------------------------------------------------------ //
 			$("ul.dropdown-menu [data-toggle='dropdown']").on("click", function(event) {
 				event.preventDefault();

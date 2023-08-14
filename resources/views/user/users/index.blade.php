@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('main-content')
- <!-- DataTales Example -->
+ <!-- Ejemplo de DataTales -->
  <div class="card shadow mb-4">
      <div class="row">
          <div class="col-md-12">
@@ -9,34 +9,34 @@
          </div>
      </div>
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary float-left">Users List</h6>
-      <a href="{{route('users.create')}}" class="btn btn-primary btn-sm float-right" data-toggle="tooltip" data-placement="bottom" title="Add User"><i class="fas fa-plus"></i> Add User</a>
+      <h6 class="m-0 font-weight-bold text-primary float-left">Lista de Usuarios</h6>
+      <a href="{{route('users.create')}}" class="btn btn-primary btn-sm float-right" data-toggle="tooltip" data-placement="bottom" title="Agregar Usuario"><i class="fas fa-plus"></i> Agregar Usuario</a>
     </div>
     <div class="card-body">
       <div class="table-responsive">
         <table class="table table-bordered" id="user-dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
-              <th>S.N.</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Photo</th>
-              <th>Join Date</th>
-              <th>Role</th>
-              <th>Status</th>
-              <th>Action</th>
+              <th>Nº</th>
+              <th>Nombre</th>
+              <th>Correo Electrónico</th>
+              <th>Foto</th>
+              <th>Fecha de Registro</th>
+              <th>Rol</th>
+              <th>Estado</th>
+              <th>Acción</th>
             </tr>
           </thead>
           <tfoot>
             <tr>
-                <th>S.N.</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Photo</th>
-                <th>Join Date</th>
-                <th>Role</th>
-                <th>Status</th>
-                <th>Action</th>
+                <th>Nº</th>
+                <th>Nombre</th>
+                <th>Correo Electrónico</th>
+                <th>Foto</th>
+                <th>Fecha de Registro</th>
+                <th>Rol</th>
+                <th>Estado</th>
+                <th>Acción</th>
               </tr>
           </tfoot>
           <tbody>
@@ -62,20 +62,20 @@
                         @endif
                     </td>
                     <td>
-                        <a href="{{route('users.edit',$user->id)}}" class="btn btn-primary btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
+                        <a href="{{route('users.edit',$user->id)}}" class="btn btn-primary btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="editar" data-placement="bottom"><i class="fas fa-edit"></i></a>
                     <form method="POST" action="{{route('users.destroy',[$user->id])}}">
                       @csrf 
                       @method('delete')
-                          <button class="btn btn-danger btn-sm dltBtn" data-id={{$user->id}} style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-trash-alt"></i></button>
+                          <button class="btn btn-danger btn-sm dltBtn" data-id={{$user->id}} style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="fas fa-trash-alt"></i></button>
                         </form>
                     </td>
-                    {{-- Delete Modal --}}
+                    {{-- Modal de Eliminación --}}
                     {{-- <div class="modal fade" id="delModal{{$user->id}}" tabindex="-1" role="dialog" aria-labelledby="#delModal{{$user->id}}Label" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                           <div class="modal-content">
                             <div class="modal-header">
-                              <h5 class="modal-title" id="#delModal{{$user->id}}Label">Delete user</h5>
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <h5 class="modal-title" id="#delModal{{$user->id}}Label">Eliminar usuario</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
                                 <span aria-hidden="true">&times;</span>
                               </button>
                             </div>
@@ -83,7 +83,7 @@
                               <form method="post" action="{{ route('users.destroy',$user->id) }}">
                                 @csrf 
                                 @method('delete')
-                                <button type="submit" class="btn btn-danger" style="margin:auto; text-align:center">Parmanent delete user</button>
+                                <button type="submit" class="btn btn-danger" style="margin:auto; text-align:center">Eliminar usuario de forma permanente</button>
                               </form>
                             </div>
                           </div>
@@ -111,12 +111,12 @@
 
 @push('scripts')
 
-  <!-- Page level plugins -->
+  <!-- Complementos a nivel de página -->
   <script src="{{asset('backend/vendor/datatables/jquery.dataTables.min.js')}}"></script>
   <script src="{{asset('backend/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 
-  <!-- Page level custom scripts -->
+  <!-- Scripts personalizados a nivel de página -->
   <script src="{{asset('backend/js/demo/datatables-demo.js')}}"></script>
   <script>
       
@@ -129,7 +129,7 @@
             ]
         } );
 
-        // Sweet alert
+        // Alerta dulce
 
         function deleteData(id){
             
@@ -148,8 +148,8 @@
               // alert(dataID);
               e.preventDefault();
               swal({
-                    title: "Are you sure?",
-                    text: "Once deleted, you will not be able to recover this data!",
+                    title: "¿Estás seguro?",
+                    text: "Una vez eliminado, no podrás recuperar estos datos.",
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,
@@ -158,7 +158,7 @@
                     if (willDelete) {
                        form.submit();
                     } else {
-                        swal("Your data is safe!");
+                        swal("¡Tus datos están seguros!");
                     }
                 });
           })

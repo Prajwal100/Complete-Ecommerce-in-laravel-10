@@ -1,31 +1,31 @@
 @extends('user.layouts.master')
 
-@section('title','Review Edit')
+@section('title','Editar Reseña')
 
 @section('main-content')
 <div class="card">
-  <h5 class="card-header">Review Edit</h5>
+  <h5 class="card-header">Editar Reseña</h5>
   <div class="card-body">
     <form action="{{route('user.productreview.update',$review->id)}}" method="POST">
       @csrf
       @method('PATCH')
       <div class="form-group">
-        <label for="name">Review By:</label>
+        <label for="name">Reseña de:</label>
         <input type="text" disabled class="form-control" value="{{$review->user_info->name}}">
       </div>
       <div class="form-group">
-        <label for="review">Review</label>
-      <textarea name="review" id="" cols="20" rows="10" class="form-control">{{$review->review}}</textarea>
+        <label for="review">Reseña</label>
+        <textarea name="review" id="" cols="20" rows="10" class="form-control">{{$review->review}}</textarea>
       </div>
       <div class="form-group">
-        <label for="status">Status :</label>
+        <label for="status">Estado :</label>
         <select name="status" id="" class="form-control">
-          <option value="">--Select Status--</option>
-          <option value="active" {{(($review->status=='active')? 'selected' : '')}}>Active</option>
-          <option value="inactive" {{(($review->status=='inactive')? 'selected' : '')}}>Inactive</option>
+          <option value="">--Seleccionar Estado--</option>
+          <option value="active" {{(($review->status=='active')? 'selected' : '')}}>Activo</option>
+          <option value="inactive" {{(($review->status=='inactive')? 'selected' : '')}}>Inactivo</option>
         </select>
       </div>
-      <button type="submit" class="btn btn-primary">Update</button>
+      <button type="submit" class="btn btn-primary">Actualizar</button>
     </form>
   </div>
 </div>

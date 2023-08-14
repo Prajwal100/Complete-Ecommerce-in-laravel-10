@@ -1,40 +1,40 @@
 @extends('frontend.layouts.master')
 
-@section('title','E-SHOP || About Us')
+@section('title', 'E-SHOP || Acerca de Nosotros')
 
 @section('main-content')
 
-	<!-- Breadcrumbs -->
+	<!-- Migas de Pan (Breadcrumbs) -->
 	<div class="breadcrumbs">
 		<div class="container">
 			<div class="row">
 				<div class="col-12">
 					<div class="bread-inner">
 						<ul class="bread-list">
-							<li><a href="index1.html">Home<i class="ti-arrow-right"></i></a></li>
-							<li class="active"><a href="blog-single.html">About Us</a></li>
+							<li><a href="index1.html">Inicio<i class="ti-arrow-right"></i></a></li>
+							<li class="active"><a href="blog-single.html">Acerca de Nosotros</a></li>
 						</ul>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- End Breadcrumbs -->
+	<!-- Fin de Migas de Pan (Breadcrumbs) -->
 
-	<!-- About Us -->
+	<!-- Acerca de Nosotros -->
 	<section class="about-us section">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-6 col-12">
 						<div class="about-content">
 							@php
-								$settings=DB::table('settings')->get();
+								$settings = DB::table('settings')->get();
 							@endphp
-							<h3>Welcome To <span>Eshop</span></h3>
+							<h3>Bienvenido a <span>Eshop</span></h3>
 							<p>@foreach($settings as $data) {{$data->description}} @endforeach</p>
 							<div class="button">
-								<a href="{{route('blog')}}" class="btn">Our Blog</a>
-								<a href="{{route('contact')}}" class="btn primary">Contact Us</a>
+								<a href="{{route('blog')}}" class="btn">Nuestro Blog</a>
+								<a href="{{route('contact')}}" class="btn primary">Contáctanos</a>
 							</div>
 						</div>
 					</div>
@@ -49,53 +49,52 @@
 				</div>
 			</div>
 	</section>
-	<!-- End About Us -->
+	<!-- Fin de Acerca de Nosotros -->
 
-
-	<!-- Start Shop Services Area -->
+	<!-- Inicio de Área de Servicios de la Tienda -->
 	<section class="shop-services section">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-3 col-md-6 col-12">
-					<!-- Start Single Service -->
+					<!-- Inicio de Servicio Individual -->
 					<div class="single-service">
 						<i class="ti-rocket"></i>
-						<h4>Free shiping</h4>
-						<p>Orders over $100</p>
+						<h4>Envío Gratuito</h4>
+						<p>Para pedidos superiores a $100</p>
 					</div>
-					<!-- End Single Service -->
+					<!-- Fin de Servicio Individual -->
 				</div>
 				<div class="col-lg-3 col-md-6 col-12">
-					<!-- Start Single Service -->
+					<!-- Inicio de Servicio Individual -->
 					<div class="single-service">
 						<i class="ti-reload"></i>
-						<h4>Free Return</h4>
-						<p>Within 30 days returns</p>
+						<h4>Devolución Gratuita</h4>
+						<p>Devoluciones en un plazo de 30 días</p>
 					</div>
-					<!-- End Single Service -->
+					<!-- Fin de Servicio Individual -->
 				</div>
 				<div class="col-lg-3 col-md-6 col-12">
-					<!-- Start Single Service -->
+					<!-- Inicio de Servicio Individual -->
 					<div class="single-service">
 						<i class="ti-lock"></i>
-						<h4>Sucure Payment</h4>
-						<p>100% secure payment</p>
+						<h4>Pago Seguro</h4>
+						<p>Pago 100% seguro</p>
 					</div>
-					<!-- End Single Service -->
+					<!-- Fin de Servicio Individual -->
 				</div>
 				<div class="col-lg-3 col-md-6 col-12">
-					<!-- Start Single Service -->
+					<!-- Inicio de Servicio Individual -->
 					<div class="single-service">
 						<i class="ti-tag"></i>
-						<h4>Best Peice</h4>
-						<p>Guaranteed price</p>
+						<h4>Mejor Precio</h4>
+						<p>Precio garantizado</p>
 					</div>
-					<!-- End Single Service -->
+					<!-- Fin de Servicio Individual -->
 				</div>
 			</div>
 		</div>
 	</section>
-	<!-- End Shop Services Area -->
+	<!-- Fin de Área de Servicios de la Tienda -->
 
 	@include('frontend.layouts.newsletter')
 @endsection
