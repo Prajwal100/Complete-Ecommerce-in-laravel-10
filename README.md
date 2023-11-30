@@ -2,6 +2,7 @@
 
 If you're looking for a production-ready ecommerce & HRMS app, check out [KetraMart](https://ketramart.com/) & [Ketra HRMS](https://hrms.ketramart.com/).
 
+### HIRE ME:- https://www.upwork.com/freelancers/~01210bb2575a8c05a9
 
 ## Complete E-commerce website in  Laravel 10
 
