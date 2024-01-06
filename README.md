@@ -1,3 +1,8 @@
+  [![github-follow](https://img.shields.io/github/followers/Prajwal100?label=Follow&logoColor=purple&style=social)](https://github.com/Prajwal100)
+  [![GitHub stars](https://img.shields.io/github/stars/Prajwal100/Complete-Ecommerce-in-laravel-10.svg?style=social)](https://github.com/Prajwal100/Complete-Ecommerce-in-laravel-10/stargazers)
+  [![GitHub forks](https://img.shields.io/github/forks/Prajwal100/Complete-Ecommerce-in-laravel-10.svg)](https://github.comPrajwal100/Complete-Ecommerce-in-laravel-10/network)
+  [![license](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://choosealicense.com/licenses/mit/)
+  
 ## Are you looking for a production-ready ecommerce & HRMS app?
 
 If you're looking for a production-ready ecommerce & HRMS app, check out [KetraMart](https://ketramart.com/) & [Ketra HRMS](https://hrms.ketramart.com/).
