@@ -3,10 +3,6 @@
   [![GitHub forks](https://img.shields.io/github/forks/Prajwal100/Complete-Ecommerce-in-laravel-10.svg)](https://github.comPrajwal100/Complete-Ecommerce-in-laravel-10/network)
   [![license](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://choosealicense.com/licenses/mit/)
   
-## Are you looking for a production-ready ecommerce & HRMS app?
-
-If you're looking for a production-ready ecommerce & HRMS app, check out [KetraMart](https://ketramart.com/) & [Ketra HRMS](https://hrms.ketramart.com/).
-
 ### HIRE ME:- https://www.upwork.com/freelancers/~01210bb2575a8c05a9
 
 ## Complete E-commerce website in  Laravel 10
