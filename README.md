@@ -23,12 +23,11 @@ A full-fledged **eCommerce solution** built on **Laravel 10**, featuring a moder
 - 🛒 **Shopping cart, wishlist, and order tracking**
 - 🔎 **SEO-friendly URLs & metadata**
 - 💳 **Integrated PayPal payment gateway**
-- 🌍 **Multi-language & currency support**
-- 📢 **Social login (Google, Facebook, Twitter)**
+- 📢 **Social login (Google, Facebook, Github)**
 - 💬 **Multi-level comments & reviews**
 
 ### 🔹 **Admin Dashboard**
-- 🎛️ **Role & permission management**
+- 🎛️ **Role management**
 - 📊 **Advanced analytics & reporting**
 - 🛍️ **Product & order management**
 - 🔔 **Real-time notifications & messaging**
