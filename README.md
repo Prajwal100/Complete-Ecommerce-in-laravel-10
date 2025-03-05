@@ -119,6 +119,9 @@ php artisan serve
 
 🔗 **[Hire Me on Upwork](https://www.upwork.com/freelancers/~01210bb2575a8c05a9)**
 
+### ☕ Support My Work
+If you find this project helpful, consider [buying me a coffee](https://buymeacoffee.com/prajwalrai/support-my-work-complete-laravel-e-commerce-project). Your support helps maintain and improve this project! 🚀
+
 ---
 
 ## 📜 License
