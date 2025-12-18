@@ -87,7 +87,7 @@ php artisan serve
 
 ---
 
-## 🎙️ Transform Text into Speech with NepVox! 🔊
+## 🎙️ Transform Text into Speech with NepVox!. 🔊
 🚀 **[NepVox](https://nepvox.com/)** is an advanced **AI-powered text-to-speech** platform that helps you convert any text into natural human-like voice effortlessly.
 
 ✅ **Supports multiple languages & voices**
